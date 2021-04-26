@@ -1,65 +1,135 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet"> 
+
+<head>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 
 
-    <link rel="stylesheet" href="static/style.css" />
-  </head>
+  <link rel="stylesheet" href="static/style.css" />
+</head>
 
-  <body>
-    <!-- Header -->
-    <header>
-      <div>
-        <img src="static/Reservia.svg" class="logo" />
-      </div>
-      <!-- Section 1 Navbar -->
-      <nav id="navbar">Hébergements Activités S'inscire</nav>
-    </header>
+<body>
+  <!-- Header -->
+  <header>
+    <div>
+      <img src="static/Reservia.svg" class="logo" />
+    </div>
+    <!-- Section 1 Navbar -->
+    <nav id="navbar">Hébergements Activités S'inscire</nav>
+  </header>
 
-    <!-- Section 2 Description -->
-    <section id="description">
-      <div>
+
+  <!-- Main -->
+  <main>
+
+    <!-- Section Recherche -->
+    <section id="search">
+      <div id="description">
         <h1>Trouvez votre hébergement pour des vacances de rêve</h1>
         <p>En plein centre ville ou en pleine nature</p>
       </div>
+
+      <div id="search form">
+        <input value="Marseille, France" />
+        <button>Rechercher</button>
+      </div>
+
+      <div id="filters">
+        <h2>Filtres</h2> Economique Familial Romantique Animaux autorisés
+      </div>
+      <div id="nb_results">
+        <data value="500">Plus de 500 logements sont disponibles dans cette ville
+        </data>
+      </div>
     </section>
 
-    <!-- Section 3 Recherche -->
-    <section id="search">
-      <input value="Marseille, France" />
-      <button>Rechercher</button>
-    </section>
+    <!-- Section Hébergements -->
+    <section id="accommodations" class="box round-border">
 
-    <!-- Section 4 Filtres -->
-    <section id="filters">
-      Filtres Economique Familial Romantique Animaux autorisés
-    </section>
+      <!-- Hébergements  -->
+      <div id="accommodations_results">
+        <h1>Hébergements à Marseille</h1>
+        <div id="accommodation_cards" class="box">
+          <div id="acc_card_1" class="acc_card round-border">
+            <img>
+            <h3>Auberge la Cannebière</h3>
+            <p>Nuit à partir de <b>25€</b></p>
+            <p>xxxx_</p>
+          </div>
+          <div id="acc_card_2" class="acc_card round-border">
+            <img>
+            <h3>Hôtel du port</h3>
+            <p>Nuit à partir de <b>52€</b></p>
+            <p>xxxxx</p>
+          </div>
+          <div id="acc_card_3" class="acc_card round-border">
+            <img>
+            <h3>Hôtel Les mouettes</h3>
+            <p>Nuit à partir de <b>76€</b></p>
+            <p>xxxx_</p>
+          </div>
+          <div id="acc_card_4" class="acc_card round-border">
+            <img>
+            <h3>Hôtel de la mer</h3>
+            <p>Nuit à partir de <b>46€</b></p>
+            <p>xxx__</p>
+          </div>
+          <div id="acc_card_5" class="acc_card round-border">
+            <img>
+            <h3>Auberge Le Panier</h3>
+            <p>Nuit à partir de <b>23€</b></p>
+            <p>xxxx_</p>
+          </div>
+          <div id="acc_card_6" class="acc_card round-border">
+            <img>
+            <h3>Hôtel chez Amina</h3>
+            <p>Nuit à partir de <b>96€</b></p>
+            <p>xxxxx</p>
+          </div>
+        </div>
+      </div>
 
-    <!-- Section 5 Compteur résultats -->
-    <section id="accommodations_counter">
-      Plus de 500 logements sont disponibles dans cette ville
-    </section>
-
-    <!-- Section 6 Hébergements -->
-    <section id="accommodations" class="box">
       <!-- Hébergements Populaires -->
       <div id="popular_accommodations">
         <h1>Les plus populaires</h1>
       </div>
 
-      <!-- Hébergements  -->
-      <div id="accommodations">
-        <h1>Hébergements à Marseilles</h1>
-      </div>
     </section>
 
-    <!-- Section 8 Activités  -->
-    <section id="activities"></section>
+    <!-- Section Activités  -->
+    <section id="activities">
+      <h1>Activités à Marseille</h1>
+    </section>
 
-    <!-- Footer -->
-    <footer></footer>
-  </body>
+  </main>
+
+  <!-- Footer -->
+  <footer class="box">
+    <div id="a_propos">
+      <h3>A propos</h3>
+      <ul>
+        <li>Fonctionnement du site</li>
+        <li>Conditions générales de vente</li>
+        <li>Données et confidentialité</li>
+      </ul>
+    </div>
+    <div id="nos_hebergements">
+      <h3>Nos hébergements</h3>
+      <ul>
+        <li>Charte qualité</li>
+        <li>Soumettre votre hôtel</li>
+      </ul>
+    </div>
+    <div id="assistance">
+      <h3>Assistance</h3>
+      <ul>
+        <li>Centre d'aide</li>
+        <li>Nous contacter</li>
+      </ul>
+    </div>
+  </footer>
+</body>
+
 </html>
