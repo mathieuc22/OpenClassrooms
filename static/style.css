@@ -10,8 +10,58 @@ gris pour le fond #F2F2F2 */
   --main-color-clear: #DEEBFF;
 }
 
-body {
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
   font-family: "Raleway", sans-serif;
+}
+
+.navbar {
+  padding-left: 30px;
+  padding-right: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 120px;
+  margin: 0;
+}
+
+.nav-links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  background-color: violet;
+}
+
+.nav-item a {
+  display: inline-block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: black;
+}
+
+.active, .nav-item:hover {
+  border-top: 2px solid var(--main-color);
+}
+
+.active a, .nav-item:hover a {
+  color: var(--main-color);
+}
+
+.logo img {
+  vertical-align: middle;
+}
+
+main {
+  padding: 20px;
+  min-height: 100%;
+  margin: 0 auto -200px;
+}
+
+footer {
+  height: 100px;
 }
 
 .box {
