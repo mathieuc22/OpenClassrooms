@@ -6,7 +6,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 
-
+  <script src="https://kit.fontawesome.com/a76bab607b.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="static/style.css" />
 </head>
 
@@ -39,9 +39,10 @@
         <p>En plein centre ville ou en pleine nature</p>
       </div>
 
-      <div id="search form">
-        <input value="Marseille, France" />
-        <button>Rechercher</button>
+      <div id="search form" class="form-group">
+        <span class="form-elt input-span"><i class="fas fa-map-marker-alt"></i></span>
+        <input  class="form-elt input" value="Marseille, France" />
+        <button class="form-elt btn-search">Rechercher</button>
       </div>
 
       <div id="filters">
@@ -54,10 +55,10 @@
     </section>
 
     <!-- Section Hébergements -->
-    <section id="accommodations" class="box round-border">
+    <section id="accommodations" class="acc-box">
 
       <!-- Hébergements  -->
-      <div id="accommodations_results">
+      <div id="accommodations_results" class="acc-box-result acc-box-result-all round-border">
         <h1>Hébergements à Marseille</h1>
         <div id="accommodation_cards" class="box">
           <div id="acc_card_1" class="acc_card round-border">
@@ -100,7 +101,7 @@
       </div>
 
       <!-- Hébergements Populaires -->
-      <div id="popular_accommodations">
+      <div id="popular_accommodations" class="acc-box-result acc-box-result-popular round-border">
         <h1>Les plus populaires</h1>
       </div>
 
@@ -117,7 +118,7 @@
   <footer class="box">
     <div id="a_propos">
       <h3>A propos</h3>
-      <ul>
+      <ul class="footer-list">
         <li>Fonctionnement du site</li>
         <li>Conditions générales de vente</li>
         <li>Données et confidentialité</li>
@@ -125,14 +126,14 @@
     </div>
     <div id="nos_hebergements">
       <h3>Nos hébergements</h3>
-      <ul>
+      <ul class="footer-list">
         <li>Charte qualité</li>
         <li>Soumettre votre hôtel</li>
       </ul>
     </div>
     <div id="assistance">
       <h3>Assistance</h3>
-      <ul>
+      <ul class="footer-list">
         <li>Centre d'aide</li>
         <li>Nous contacter</li>
       </ul>

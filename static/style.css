@@ -32,7 +32,6 @@ html, body {
   padding: 0;
   list-style: none;
   display: flex;
-  background-color: violet;
 }
 
 .nav-item a {
@@ -56,12 +55,33 @@ html, body {
 
 main {
   padding: 20px;
-  min-height: 100%;
-  margin: 0 auto -200px;
 }
 
-footer {
-  height: 100px;
+.form-elt {
+  display: inline-block;
+  padding: 10px 15px;
+  display: inline-block;
+  font-size: 16px;
+  text-decoration: none;
+  margin: -2px;
+}
+.input-span {
+  background-color: var(--main-bg-color);
+  border: 1px solid var(--main-bg-color);
+  border-radius: 20px 0 0 20px;
+  text-align: center;
+}
+
+.input {
+  border: 1px solid var(--main-bg-color);
+}
+
+.btn-search {
+  background-color: var(--main-color);
+  border: 1px solid var(--main-color);
+  border-radius: 0 20px 20px 0;
+  color: white;
+  text-align: center;
 }
 
 .box {
@@ -71,14 +91,44 @@ footer {
   /* flex-direction: column; */
 }
 
+.acc-box {
+  display: flex;
+  flex-wrap: wrap;
+  /* flex-direction: column; */
+}
+
 .round-border {
   border-radius: 20px;
 }
 
+.acc-box-result {
+  margin: 10px;
+  padding: 10px;
+  background-color: var(--main-bg-color);
+}
+
+
+.acc-box-result-all {
+  width: 60%;
+}
+
+.acc-box-result-popular {
+  width: 30%;
+}
+
 .acc_card {
+  margin: 10px;
+  padding: 10px;
+  width: 180px;
   background-color: white;
 }
 
-footer, #accommodations {
+footer {
   background-color: var(--main-bg-color);
+}
+
+.footer-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
