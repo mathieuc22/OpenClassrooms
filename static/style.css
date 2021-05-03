@@ -8,6 +8,7 @@ gris pour le fond #F2F2F2 */
   --main-bg-color: #F2F2F2;
   --main-color: #0065FC;
   --main-color-clear: #DEEBFF;
+  --main-border-color: #d9d9d9;
 }
 
 html, body {
@@ -17,14 +18,38 @@ html, body {
   font-family: "Raleway", sans-serif;
 }
 
+.bold {
+  font-weight: 700;
+}
+
+.star-active {
+  color: var(--main-color);
+}
+
+.star-inactive {
+  color: var(--main-bg-color);
+}
+
+/* Nav */
 .navbar {
-  padding-left: 30px;
+  padding-left: 50px;
   padding-right: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 120px;
   margin: 0;
+}
+
+@media (max-width: 600px) {
+  .nav-links {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap-reverse;
+  }
 }
 
 .nav-links {
@@ -53,35 +78,103 @@ html, body {
   vertical-align: middle;
 }
 
+/* Main */
 main {
-  padding: 20px;
+  padding: 50px;
 }
 
+/*Search section*/
+
+.search {
+  margin: 40px 5px;
+}
+
+.info-span {
+  border-radius: 50%;
+  width: 22px;
+  line-height: 22px;
+  border: 1px solid var(--main-border-color);
+  color: var(--main-color);
+  text-align: center;
+  font-size: 12px;
+  display: inline-block;
+}
+
+.form-group {
+  display: flex;
+}
 .form-elt {
-  display: inline-block;
-  padding: 10px 15px;
-  display: inline-block;
-  font-size: 16px;
+  padding: 12.5px 17px;
   text-decoration: none;
-  margin: -2px;
+  font-weight: bold;
+  font-size: large;
 }
 .input-span {
   background-color: var(--main-bg-color);
   border: 1px solid var(--main-bg-color);
-  border-radius: 20px 0 0 20px;
+  border-radius: 14px 0 0 14px;
   text-align: center;
 }
 
 .input {
+  width: 200px;
   border: 1px solid var(--main-bg-color);
 }
 
 .btn-search {
   background-color: var(--main-color);
   border: 1px solid var(--main-color);
-  border-radius: 0 20px 20px 0;
+  border-radius: 0 14px 14px 0;
   color: white;
   text-align: center;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.filters-elts {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+.filters-elt {
+  font-size: large;
+  font-weight: bold;
+  border: 2px solid var(--main-border-color);
+  margin: 10px;
+  border-radius: 28px;
+  display: flex;
+}
+
+.filters-text {
+  padding: 12px;
+}
+
+.filters-text::first-letter {
+  text-transform:uppercase;
+}
+
+.filters-span {
+  background-color: var(--main-color-clear);
+  border: 2px solid var(--main-color-clear);
+  border-radius: 28px;
+  padding: 14px;
+  margin: -2PX;
+  color: var(--main-color);
+}
+
+.round-border {
+  border-radius: 20px;
+}
+
+.round-border img{
+  border-radius: 20px 20px 0 0;
 }
 
 .box {
@@ -97,33 +190,76 @@ main {
   /* flex-direction: column; */
 }
 
-.round-border {
-  border-radius: 20px;
-}
-
 .acc-box-result {
-  margin: 10px;
-  padding: 10px;
+  padding: 40px;
   background-color: var(--main-bg-color);
 }
 
 
-.acc-box-result-all {
-  width: 60%;
+@media (max-width: 600px) {
+  .acc-box-result-all {
+    width: 100%;
+  }
 }
 
-.acc-box-result-popular {
-  width: 30%;
+.card-shadow {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
 }
 
-.acc_card {
-  margin: 10px;
-  padding: 10px;
-  width: 180px;
+.card-shadow:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 246px 246px 246px;
+  grid-gap: 31px;
+}
+
+.card {
   background-color: white;
+  padding: 5px;
+  height: 199px;
 }
 
+.card-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px;
+  font-size: 0.86em;
+}
+
+.card-text p, .card-text h3{
+  margin: 5px;
+}
+
+.card img {
+  width: 100%;
+  height: 114px;
+  object-fit: cover;
+}
+
+.cards-large {
+}
+
+.card-large {
+  display: grid;
+  grid-template-rows: 114px max-content 1fr;
+  background-color: white;
+  padding: 5px;
+}
+
+.card-large img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* Footer */
 footer {
+  padding: 50px;
   background-color: var(--main-bg-color);
 }
 
@@ -131,4 +267,13 @@ footer {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.box-start {
+  display: flex;
+
+}
+
+.card-footer {
+  width: 33%;
 }

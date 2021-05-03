@@ -4,10 +4,12 @@
 
 <head>
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
 
   <script src="https://kit.fontawesome.com/a76bab607b.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="static/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 
 <body>
@@ -33,24 +35,38 @@
   <main>
 
     <!-- Section Recherche -->
-    <section id="search">
+    <section class="search">
       <div id="description">
         <h1>Trouvez votre hébergement pour des vacances de rêve</h1>
         <p>En plein centre ville ou en pleine nature</p>
       </div>
 
-      <div id="search form" class="form-group">
+      <div class="form-group">
         <span class="form-elt input-span"><i class="fas fa-map-marker-alt"></i></span>
-        <input  class="form-elt input" value="Marseille, France" />
+        <input class="form-elt input" value="Marseille, France" />
         <button class="form-elt btn-search">Rechercher</button>
       </div>
 
-      <div id="filters">
-        <h2>Filtres</h2> Economique Familial Romantique Animaux autorisés
+      <div class="filters">
+        <h3>Filtres</h3>
+        <ul class="filters-elts">
+          <li class="filters-elt">
+            <span class="filters-span"><i class="fas fa-money-bill-wave"></i></span>
+            <div class="filters-text">économique</div>
+          </li>
+          <li class="filters-elt">
+            <span class="filters-span"><i class="fas fa-child"></i></span>
+            <div class="filters-text">familial</div>
+          </li>
+          <li class="filters-elt"><i class="fas fa-heart"></i>Romantique</li>
+          <li class="filters-elt"><i class="fas fa-dog"></i>Animaux autorisés</li>
+        </ul>
       </div>
       <div id="nb_results">
-        <data value="500">Plus de 500 logements sont disponibles dans cette ville
-        </data>
+        <span class="info-span">
+          <i class="fas fa-info"></i>
+        </span>
+        <data value="500">Plus de 500 logements sont disponibles dans cette ville</data>
       </div>
     </section>
 
@@ -58,40 +74,49 @@
     <section id="accommodations" class="acc-box">
 
       <!-- Hébergements  -->
-      <div id="accommodations_results" class="acc-box-result acc-box-result-all round-border">
+      <div class="acc-box-result acc-box-result-all round-border">
         <h1>Hébergements à Marseille</h1>
-        <div id="accommodation_cards" class="box">
-          <div id="acc_card_1" class="acc_card round-border">
-            <img>
-            <h3>Auberge la Cannebière</h3>
-            <p>Nuit à partir de <b>25€</b></p>
-            <p>xxxx_</p>
+        <div class="cards">
+          <div class="card  card-shadow round-border">
+            <img src="/static/images/hebergements/4_small/marcus-loke-WQJvWU_HZFo-unsplash.jpg">
+            <div class="card-text">
+              <h3>Auberge la Cannebière</h3>
+              <p>Nuit à partir de <span class="bold">25€</span></p>
+              <p>
+                <i class="fas fa-star star-active"></i>
+                <i class="fas fa-star star-active"></i>
+                <i class="fas fa-star star-active"></i>
+                <i class="fas fa-star star-active"></i>
+                <i class="fas fa-star star-inactive"></i>
+              </p>
+            </div>
           </div>
-          <div id="acc_card_2" class="acc_card round-border">
-            <img>
+          <div class="card card-shadow round-border">
+            <img src="/static/images/hebergements/4_small/fred-kleber-gTbaxaVLvsg-unsplash.jpg"
+              alt="accommodation image">
             <h3>Hôtel du port</h3>
             <p>Nuit à partir de <b>52€</b></p>
             <p>xxxxx</p>
           </div>
-          <div id="acc_card_3" class="acc_card round-border">
+          <div class="card card-shadow round-border">
             <img>
             <h3>Hôtel Les mouettes</h3>
             <p>Nuit à partir de <b>76€</b></p>
             <p>xxxx_</p>
           </div>
-          <div id="acc_card_4" class="acc_card round-border">
+          <div class="card card-shadow round-border">
             <img>
             <h3>Hôtel de la mer</h3>
             <p>Nuit à partir de <b>46€</b></p>
             <p>xxx__</p>
           </div>
-          <div id="acc_card_5" class="acc_card round-border">
+          <div class="card card-shadow round-border">
             <img>
             <h3>Auberge Le Panier</h3>
             <p>Nuit à partir de <b>23€</b></p>
             <p>xxxx_</p>
           </div>
-          <div id="acc_card_6" class="acc_card round-border">
+          <div class="card card-shadow round-border">
             <img>
             <h3>Hôtel chez Amina</h3>
             <p>Nuit à partir de <b>96€</b></p>
@@ -102,7 +127,15 @@
 
       <!-- Hébergements Populaires -->
       <div id="popular_accommodations" class="acc-box-result acc-box-result-popular round-border">
-        <h1>Les plus populaires</h1>
+        <h1>Les plus populaires</h1><i class="fas fa-chart-line"></i>
+        <div class="cards-large">
+          <div class="card-large card-shadow round-border">
+            <img>
+            <h3>Hôtel chez Amina</h3>
+            <p>Nuit à partir de <b>96€</b></p>
+            <p>xxxxx</p>
+          </div>
+        </div>
       </div>
 
     </section>
@@ -115,8 +148,8 @@
   </main>
 
   <!-- Footer -->
-  <footer class="box">
-    <div id="a_propos">
+  <footer class="box-start">
+    <div class="card-footer">
       <h3>A propos</h3>
       <ul class="footer-list">
         <li>Fonctionnement du site</li>
@@ -124,14 +157,14 @@
         <li>Données et confidentialité</li>
       </ul>
     </div>
-    <div id="nos_hebergements">
+    <div class="card-footer">
       <h3>Nos hébergements</h3>
       <ul class="footer-list">
         <li>Charte qualité</li>
         <li>Soumettre votre hôtel</li>
       </ul>
     </div>
-    <div id="assistance">
+    <div class="card-footer">
       <h3>Assistance</h3>
       <ul class="footer-list">
         <li>Centre d'aide</li>
