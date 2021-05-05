@@ -18,8 +18,12 @@ html, body {
   font-family: "Raleway", sans-serif;
 }
 
-header, main {
+body > * {
   padding: 0 50px;
+}
+
+main {
+  max-width: 1340px;
 }
 
 header {
@@ -97,6 +101,7 @@ header {
 
 .logo img {
   vertical-align: middle;
+  padding: 40px 0;
 }
 
 /* Main */
@@ -104,7 +109,7 @@ header {
 /*Search section*/
 
 .search {
-  margin: 40px 5px;
+  margin: 40px 0;
 }
 
 .info-span {
@@ -152,6 +157,7 @@ header {
   align-items: center;
   justify-content: flex-start;
   flex-wrap: wrap;
+  padding: 20px 0;
 }
 
 .filters-elts {
@@ -203,14 +209,14 @@ header {
 }
 
 .acc-box > * {
-  margin: 20px 0 0 20px;
+  margin: 0 0 0 40px;
 }
 
 .acc-box {
   display: flex;
   flex-wrap: wrap;
-  margin: -20px 0 0 -20px;
-  width: calc(100% + 20px);
+  margin: 0 0 0 -40px;
+  width: calc(100% + 40px);
   /* flex-direction: column; */
 }
 
@@ -219,9 +225,22 @@ header {
   background-color: var(--main-bg-color);
 }
 
+.acc-box-result-all {
+  max-width: 800px;
+}
+
+.acc-box-result-popular {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+  max-width: 340px;
+}
 
 @media (max-width: 600px) {
   .acc-box-result-all {
+    width: 100%;
+  }
+  .acc-box-result-popular {
     width: 100%;
   }
 }
@@ -248,11 +267,10 @@ header {
 }
 
 .card {
-  flex: 1 1 246px;
+  flex: 1 1 240px;
   background-color: white;
   padding: 5px;
-  height: 199px;
-  width: 246px;
+  height: 200px;
 }
 
 .card-text {
@@ -272,13 +290,6 @@ header {
   height: 114px;
   object-fit: cover;
   border-radius: 20px 20px 0 0;
-}
-
-.acc-box-result-popular {
-  max-width: 820px;
-  flex: auto;
-  display: flex;
-  flex-direction: column;
 }
 
 .span-title {
@@ -317,25 +328,32 @@ header {
   justify-content: space-between;
 }
 
-.activities {
-  padding: 40px;
+.box-activities {
+  padding: 40px 0;
 }
 
 .cards-activities {
   display: flex;
   justify-content: space-between;
-  height: 445px;
+  flex-wrap: wrap;
+}
+
+
+.cards-activities-column > * {
+  margin: 20px 0 0 0;
 }
 
 .cards-activities-column {
-  width: 302px;
+  height: calc(445px + 20px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin: -20px 0 0 0;
+  width: 302px;
 }
 
 .card-activities {
-  height:50%;
+  height:calc(50% - 20px);
   flex: auto;
 }
 
@@ -354,8 +372,8 @@ header {
 
 /* Footer */
 footer {
-  padding: 50px;
-  background-color: var(--main-bg-color);
+  background: var(--main-bg-color);
+  clear: both;
 }
 
 .footer-list {
