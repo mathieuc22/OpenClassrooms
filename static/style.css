@@ -19,7 +19,7 @@ html, body {
 }
 
 body > * {
-  padding: 0 5%;
+  padding: 0 40px;
 }
 
 @media (max-width: 600px) {
@@ -55,9 +55,13 @@ header {
 
 /* Nav */
 .navbar {
-  padding: 0 50px;
   display: flex;
   justify-content: space-between;
+  width: 100%;
+}
+
+.logo {
+  flex: auto;
 }
 
 .nav-links {
@@ -68,7 +72,8 @@ header {
 }
 
 .nav-item {
-  padding: 40px 15px;
+  padding-right: 30px;
+  padding-left: 30px;
   display: inline-block;
   text-decoration: none;
   color: black;
@@ -80,29 +85,25 @@ header {
   color: black;
 }
 
-.active, .nav-item:hover {
-  border-top: 2px solid var(--main-color);
-  padding: 38px 15px;
-}
-
-.active a, .nav-item:hover a {
-  color: var(--main-color);
-}
-
-.nav-subscribe {
-  padding: 40px 15px;
-}
 .nav-subscribe a {
   text-decoration: none;
   color: var(--main-color);
   font-weight: bold;
 }
 
-.logo img {
-  vertical-align: middle;
-  padding: 40px 0;
+.nav-item, .nav-subscribe, .logo img {
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
+.active, .nav-item:hover {
+  border-top: 2px solid var(--main-color);
+  padding: 38px 30px;
+}
+
+.active a, .nav-item:hover a {
+  color: var(--main-color);
+}
 @media (max-width: 600px) {
   .nav-links {
     margin: 0;
@@ -125,17 +126,22 @@ header {
   .nav-item {
     flex: 1;
     border-bottom: 2px solid var(--main-bg-color);
-    align-items: center;
-    align-content: center;
+    display: flex;
+    justify-content: center;
   }
   .active, .nav-item:hover {
     border-top: 0px;
     border-bottom: 2px solid var(--main-color);
-    padding: 38px 15px;
+    padding: 5%;
   }
   .active a, .nav-item:hover a {
     color: var(--main-color);
   }
+
+  .nav-item, .nav-subscribe, .logo img {
+    padding: 5%;
+  }
+
 }
 
 /* Main */
@@ -184,23 +190,6 @@ header {
   border-radius: 0 14px 14px 0;
   color: white;
   text-align: center;
-}
-
-@media (max-width: 600px) {
-  .input {
-    margin-right: -14px;
-  }
-
-  .btn-search {
-    font-size: 0;
-    border-radius: 14px;
-  }
-
-  .btn-search::before {
-    font-size: large;
-    font-family: "Font Awesome 5 Free";
-    content: "\f002";
-  }
 }
 
 .filters {
@@ -255,6 +244,34 @@ header {
   margin: -2PX;
 }
 
+@media (max-width: 600px) {
+  .input {
+    margin-right: -14px;
+  }
+
+  .btn-search {
+    font-size: 0;
+    border-radius: 14px;
+  }
+
+  .btn-search::before {
+    font-size: large;
+    font-family: "Font Awesome 5 Free";
+    content: "\f002";
+  }
+
+  .filters-elt {
+    margin: 5px 10px 5px 0;
+    font-size: 1rem;
+    align-items: baseline;
+  }
+
+  .search {
+    padding: 0 5%;
+  }
+
+}
+
 .round-border {
   border-radius: 20px;
 }
@@ -294,28 +311,8 @@ header {
   max-width: 340px;
 }
 
-@media (max-width: 600px) {
-  .acc-box {
-    flex-direction:column-reverse;
-  }
-  .acc-box-result {
-    padding: 5%;
-    border-radius: 0;
-  }
-  .acc-box-result-all {
-    width: 100%;
-    background-color: white;
-  }
-  .acc-box-result-popular {
-    width: 100%;
-  }
-  .card-activities-column {
-    width: 100%;
-  }
-}
-
 .card-shadow {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 var(--main-bg-color);
   transition: 0.3s;
   text-decoration: none;
   color: black;
@@ -430,14 +427,8 @@ header {
   margin-top: 40px;
 }
 
-
 .card-activities:first-child {
   margin-top: 0;
-}
-
-.bigger {
-  height:60%;
-  flex:initial;
 }
 
 .bigger {
@@ -455,6 +446,69 @@ header {
 .card-activities h3 {
   padding: 20px;
   margin: 0;
+}
+
+@media (max-width: 600px) {
+
+  .acc-box > * {
+    margin: 0;
+  }
+
+  .acc-box {
+    flex-direction:column-reverse;
+    margin: 0;
+    width: 100%;
+  }
+  .acc-box-result {
+    padding: 5%;
+    border-radius: 0;
+  }
+  .acc-box-result-all {
+    background-color: white;
+  }
+  .acc-box-result-popular {
+    max-width: unset;
+  }
+  .card-activities-column {
+    width: 100%;
+  }
+
+  .cards > * {
+    margin: 0 0 3% 0;
+  }
+  
+  .cards {
+    margin: unset;
+    width: 100%;
+  }
+
+  .cards-large > * {
+    margin: 0 0 3% 0;
+  }
+  
+  .cards-large {
+    margin: unset;
+    width: 100%;
+  }
+
+  .box-activities {
+    padding: 0 5% 5% 5%;
+  }  
+
+  .cards-activities-column {
+    height: unset;
+    width: unset;
+  }
+  
+  .card-activities {
+    height: 200px;
+    margin-bottom: 7%;
+  }
+
+  .card-activities:last-child, .card-activities:first-child {
+    margin-top: unset;
+  }
+
 }
 
 /* Footer */
