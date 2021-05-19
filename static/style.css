@@ -1,0 +1,22 @@
+/* Debug Ghost CSS Elements */
+/*
+* {
+  background: #000 !important;
+  color: #0f0 !important;
+  outline: solid #f00 1px !important;
+}
+*/
+
+:root {
+    --primaire-color: #9356DC;
+    --secondaire-color: #FF79DA;
+    --tertiaire-clear: #99E2D0;
+  }
+
+html, body {
+    height: 100%;
+    margin: auto;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+    max-width: 425px;
+  }
