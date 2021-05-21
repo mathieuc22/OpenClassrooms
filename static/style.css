@@ -10,7 +10,10 @@
 :root {
     --primaire-color: #9356DC;
     --secondaire-color: #FF79DA;
-    --tertiaire-clear: #99E2D0;
+    --tertiaire-color: #99E2D0;
+    --backgroung-color: rgb(80, 79, 79);
+    --backgroung-light-color: rgb(160, 160, 160);
+    --backgroung-clear-color: rgb(212, 212, 212);
   }
 
 html, body {
@@ -19,4 +22,44 @@ html, body {
     padding: 0;
     font-family: "Roboto", sans-serif;
     max-width: 425px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
+
+body > * {
+  padding: 15px;
+}
+
+/* header */
+header {
+  display: flex;
+  box-shadow: 0 3px 4px 0 rgba(0,0,0,0.2);
+}
+header img {
+  width: 50%;
+  margin: auto;
+}
+
+/* main */
+main {
+  background-color: var(--backgroung-light-color);
+}
+
+/* footer */
+footer {
+  background-color: var(--backgroung-color);
+  color: white;
+}
+
+footer div {
+  font-family: Shrikhand;
+}
+footer ul {
+  padding: 0;
+}
+
+footer li {
+  list-style: none;
+  padding: 3px;
+}
