@@ -27,15 +27,16 @@ html, body {
 
 /* header */
 header {
-  display: flex;
-  padding-top: 22px;
-  padding-bottom: 12px;
-  box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
+    z-index:1;
+    display: flex;
+    padding-top: 22px;
+    padding-bottom: 12px;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
 
-  img {
-    width: 50%;
-    margin: auto;
-  }
+    img {
+        width: 50%;
+        margin: auto;
+    }
 }
 
 h1 {
@@ -43,7 +44,6 @@ h1 {
 }
 /* main */
 main {
-    z-index:-1;
     .localisation {
         display: flex;
         flex-wrap: nowrap;
