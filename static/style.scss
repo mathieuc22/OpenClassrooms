@@ -1,0 +1,178 @@
+/* Debug Ghost CSS Elements */
+/*
+* {
+  background: #000 !important;
+  color: #0f0 !important;
+  outline: solid #f00 1px !important;
+}
+*/
+
+$primaire-color: #9356DC;
+$secondaire-color: #FF79DA;
+$tertiaire-color: #99E2D0;
+$background-color: #353535;
+$background-light-color: #eaeaea;
+$background-clear-color: #f6f6f6;
+$span-color: #7e7e7e;
+
+
+html, body {
+    height: 100%;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+  }
+
+/* header */
+header {
+  display: flex;
+  padding-top: 22px;
+  padding-bottom: 12px;
+  box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
+
+  img {
+    width: 50%;
+    margin: auto;
+  }
+}
+
+h1 {
+    margin: 0;
+}
+/* main */
+main {
+    z-index:-1;
+    .localisation {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        background-color: $background-clear-color;
+        text-align: center;
+
+        .city {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $background-light-color;
+            color: $background-color;
+            height: 50px;
+            
+            span {
+                width: 40px;
+                display:inline-block;
+            }
+        }
+
+        .explore {
+            padding: 40px;
+
+            p {
+                font-weight:100;
+                font-size: 1.1em;
+            }
+
+            a {
+                /*
+                -webkit-appearance: button;
+                -moz-appearance: button;
+                appearance: button;
+                */
+                text-decoration: none;
+                height: 50px;
+                width: 215px;
+                border-radius: 25px;
+                font-size: 1em;
+                line-height: 50px;
+                display: inline-block;
+                color: white;
+                background: $primaire-color;
+                background: linear-gradient(355deg, $primaire-color, $secondaire-color);
+                box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
+            }
+        }
+    }
+
+    .fonctionnement {
+        span {
+            width: 30px;
+            display:inline-block;
+            color: $span-color;
+            font-size: 1.2em;
+        }
+        ol {
+            list-style: none;
+            counter-reset: item;
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            margin-left: 12.5px;
+            counter-increment: item;
+            margin-bottom: 25px;
+            height: 70px;
+            line-height: 70px;
+            background: $background-clear-color;
+            border-radius: 20px;
+            box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
+            &:first-of-type {
+                margin-top: 30px;
+            }
+        }
+        .active {
+            background:#f5edff;
+            span {
+                color: $primaire-color;
+            }
+        }
+        li:before {
+            margin-left: -12.5px;
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            font-size: 0.8em;
+            margin-right: 20px;
+            content: counter(item);
+            background: $primaire-color;
+            border-radius: 100%;
+            color: white;
+            text-align: center;
+            display: inline-block;
+        }
+    }
+
+    .restaurants {
+        background: $background-clear-color;
+    }
+
+    .container {
+        padding: 50px 20px;
+    }
+}
+
+/* footer */
+footer {
+    background-color: $background-color;
+    color: white;
+    padding: 25px;
+
+    div {
+        font-family: Shrikhand;
+    }
+
+    ul {
+        padding: 0;
+    }
+
+    li {
+        list-style: none;
+        padding: 3px;
+    }
+
+    span {
+        width: 20px;
+        display:inline-block;
+        font-size: 0.8em;
+    }
+}
