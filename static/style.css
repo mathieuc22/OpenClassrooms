@@ -300,7 +300,7 @@ button.form-elt {
 .cards-activities-column {
   flex-direction: column;
   height: 445px;
-  width: 302px;
+  width: 23%;
   margin-bottom: 20px;
 }
 
@@ -358,16 +358,26 @@ footer {
 
 @media (max-width: 1200px) {
   
+  .acc-box {
+    flex-wrap: wrap;
+  }
+
   .acc-box-result-all, .acc-box-result-popular {
-    width: 100%;
     order: 2;
     margin-right: 0;
-  }
+    width: auto;
+    flex: auto;
+  }  
 
   .acc-box-result-popular {
     order: 1;
     margin-bottom: 30px;
   }
+
+  .cards-activities-column {
+    width: 48%;
+  }
+
 }
 
 @media (max-width: 600px) {
