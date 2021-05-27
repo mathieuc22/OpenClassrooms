@@ -5,7 +5,7 @@
 <head>
   <title>ohmyfood</title>
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&family=Shrikhand&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700&family=Shrikhand&display=swap"
     rel="stylesheet">
   <script src="https://kit.fontawesome.com/a76bab607b.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
@@ -31,7 +31,7 @@
       <div class="explore">
         <h1>Réservez le menu qui vous convient</h1>
         <p>Découvrez des restaurants d'exception, sélectionnées par nos soins.</p>
-        <a href="#">Explorer nos restaurants</a>
+        <a href="#restaurants" class="btn">Explorer nos restaurants</a>
       </div>
     </section>
     <!-- Fonctionnement -->
@@ -47,42 +47,61 @@
     </section>
     <!-- Restaurants -->
     <section class="container restaurants">
+      <a id="restaurants"></a>
       <h1>Restaurants</h1>
       <div class="cards">
 
         <figure class="card card-shadow round-border">
-          <a href="">
+          <a href="r_lapalettedugout.html">
             <img src="static/images/restaurants/jay-wennington-N_Y88TWmGwA-unsplash.jpg" alt="restaurant figure">
             <figcaption>
               <div>
                 <h3>La palette du goût</h3>
                 <p>Ménilmontant</p>
               </div>
+              <i class="far fa-heart"></i>
+            </figcaption>
+          </a>
+        </figure>
+
+        <figure class="card card-shadow round-border">
+          <a href="">
+            <img src="static/images/restaurants/stil-u2Lp8tXIcjw-unsplash.jpg">
+            <figcaption>
+              <div>
+                <h3>La note enchantée</h3>
+                <p>Charonne</p>
+              </div>
               <i class="fas fa-heart"></i>
             </figcaption>
           </a>
         </figure>
 
-        <div class="card card-shadow round-border">
-          <img src="static/images/restaurants/stil-u2Lp8tXIcjw-unsplash.jpg">
-          La note enchantée
-          Charonne
-          <i class="fas fa-heart"></i>
-        </div>
+        <figure class="card card-shadow round-border">
+          <a href="">
+            <img src="static/images/restaurants/toa-heftiba-DQKerTsQwi0-unsplash.jpg">
+            <figcaption>
+              <div>
+                <h3>À la française</h3>
+                <p>Cité Rouge</p>
+              </div>
+              <i class="fas fa-heart"></i>
+            </figcaption>
+          </a>
+        </figure>
 
-        <div class="card card-shadow round-border">
-          <img src="static/images/restaurants/toa-heftiba-DQKerTsQwi0-unsplash.jpg">
-          À la française
-          Cité Rouge
-          <i class="fas fa-heart"></i>
-        </div>
-
-        <div class="card card-shadow round-border">
-          <img src="static/images/restaurants/louis-hansel-shotsoflouis-qNBGVyOCY8Q-unsplash.jpg">
-          Le délice des sens
-          Folie-Méricourt
-          <i class="fas fa-heart"></i>
-        </div>
+        <figure class="card card-shadow round-border">
+          <a href="r_ledelicedessens.html">
+            <img src="static/images/restaurants/louis-hansel-shotsoflouis-qNBGVyOCY8Q-unsplash.jpg">
+            <figcaption>
+              <div>
+                <h3>Le délice des sens</h3>
+                <p>Folie-Méricourt</p>
+              </div>
+              <i class="fas fa-heart"></i>
+            </figcaption>
+          </a>
+        </figure>
 
       </div>
     </section>

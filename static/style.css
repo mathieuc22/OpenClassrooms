@@ -30,6 +30,15 @@ header {
   padding-bottom: 12px;
   -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
           box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header i {
+  font-size: 1.2em;
+  margin-left: 30px;
+  color: #353535;
 }
 
 header img {
@@ -39,6 +48,20 @@ header img {
 
 h1 {
   margin: 0;
+}
+
+.btn {
+  text-decoration: none;
+  height: 50px;
+  border-radius: 25px;
+  font-size: 1em;
+  line-height: 50px;
+  display: inline-block;
+  color: white;
+  background: #9356DC;
+  background: linear-gradient(355deg, #9356DC, #FF79DA);
+  -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
 }
 
 /* main */
@@ -86,23 +109,7 @@ main .localisation .explore p {
 }
 
 main .localisation .explore a {
-  /*
-                -webkit-appearance: button;
-                -moz-appearance: button;
-                appearance: button;
-                */
-  text-decoration: none;
-  height: 50px;
   width: 215px;
-  border-radius: 25px;
-  font-size: 1em;
-  line-height: 50px;
-  display: inline-block;
-  color: white;
-  background: #9356DC;
-  background: linear-gradient(355deg, #9356DC, #FF79DA);
-  -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
-          box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
 }
 
 main .fonctionnement span {
@@ -113,26 +120,33 @@ main .fonctionnement span {
 }
 
 main .fonctionnement ol {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(13rem, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  grid-auto-rows: 5rem;
+  gap: 0.9em;
   list-style: none;
   counter-reset: item;
   margin: 0;
   padding: 0;
+  margin-top: 30px;
 }
 
 main .fonctionnement li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin-left: 12.5px;
   counter-increment: item;
-  margin-bottom: 25px;
   height: 70px;
-  line-height: 70px;
   background: #f6f6f6;
   border-radius: 20px;
   -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
           box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
-}
-
-main .fonctionnement li:first-of-type {
-  margin-top: 30px;
 }
 
 main .fonctionnement .active {
@@ -177,7 +191,8 @@ main .restaurants .cards {
   -ms-grid-columns: (minmax(13rem, 1fr))[auto-fit];
       grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
   grid-auto-rows: 16rem;
-  gap: 0.9em;
+  gap: 1.1em;
+  margin-top: 30px;
 }
 
 main .restaurants .card-shadow {
@@ -222,6 +237,130 @@ main .restaurants figcaption {
 
 main .restaurants figcaption div > * {
   margin: 0;
+  padding: 2px;
+}
+
+main .restaurants figcaption p {
+  font-weight: 300;
+}
+
+main .restaurants figcaption i {
+  font-size: 1.4em;
+}
+
+main .carte {
+  background-color: #f6f6f6;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-bottom: 35px;
+}
+
+main .carte img {
+  z-index: 1;
+  width: 100%;
+}
+
+main .carte .menu {
+  z-index: 2;
+  width: 100%;
+  background-color: #f6f6f6;
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
+  margin-top: -30px;
+  padding-top: 30px;
+  border-radius: 30px;
+}
+
+main .carte .btn {
+  width: 186px;
+  text-align: center;
+  margin: 23px 0;
+}
+
+main .carte h1 {
+  font-family: Shrikhand;
+  font-size: 1.7em;
+  margin: 0 0 20px 18px;
+}
+
+main .carte .column {
+  padding: 11px 13px;
+}
+
+main .carte .column h3 {
+  font-weight: 300;
+  font-size: 1em;
+  text-transform: uppercase;
+  position: relative;
+  margin: 0 0 22px 6px;
+}
+
+main .carte .column h3::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  height: 3px;
+  width: 40px;
+  border-bottom: 3px solid #99E2D0;
+}
+
+main .carte .column ul {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(13rem, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 0.9em;
+  list-style: none;
+  counter-reset: item;
+  margin: 12px 0;
+  padding: 0;
+}
+
+main .carte .column li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  counter-increment: item;
+  background: white;
+  border-radius: 15px;
+  -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 12px 10px;
+}
+
+main .carte .column li h4 {
+  margin: 0 0 3px 0;
+  width: 100%;
+  font-weight: 500;
+  font-size: 1.1em;
+}
+
+main .carte .column li p {
+  margin: 0;
+  font-size: 0.9em;
+  font-weight: 300;
+}
+
+main .carte .column li .price {
+  font-weight: 500;
 }
 
 main .container {
