@@ -43,11 +43,8 @@ header i {
 
 header img {
   width: 50%;
+  max-width: 170px;
   margin: auto;
-}
-
-h1 {
-  margin: 0;
 }
 
 .btn {
@@ -112,14 +109,14 @@ main .localisation .explore a {
   width: 215px;
 }
 
-main .fonctionnement span {
+main .container--fonctionnement span {
   width: 30px;
   display: inline-block;
   color: #7e7e7e;
   font-size: 1.2em;
 }
 
-main .fonctionnement ol {
+main .container--fonctionnement .fonct-list {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (minmax(13rem, 1fr))[auto-fit];
@@ -133,7 +130,7 @@ main .fonctionnement ol {
   margin-top: 30px;
 }
 
-main .fonctionnement li {
+main .container--fonctionnement .fonct-list__item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -149,15 +146,7 @@ main .fonctionnement li {
           box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
 }
 
-main .fonctionnement .active {
-  background: #f5edff;
-}
-
-main .fonctionnement .active span {
-  color: #9356DC;
-}
-
-main .fonctionnement li:before {
+main .container--fonctionnement .fonct-list__item:before {
   margin-left: -12.5px;
   width: 25px;
   height: 25px;
@@ -172,20 +161,19 @@ main .fonctionnement li:before {
   display: inline-block;
 }
 
-main .restaurants {
+main .container--fonctionnement .fonct-list__item--active {
+  background-color: #f2eafb;
+}
+
+main .container--fonctionnement .fonct-list__item--active span {
+  color: #9356DC;
+}
+
+main .container--restaurants {
   background: #f6f6f6;
 }
 
-main .restaurants a {
-  text-decoration: none;
-  color: black;
-}
-
-main .restaurants .round-border {
-  border-radius: 20px;
-}
-
-main .restaurants .cards {
+main .container--restaurants .grid {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (minmax(13rem, 1fr))[auto-fit];
@@ -195,7 +183,10 @@ main .restaurants .cards {
   margin-top: 30px;
 }
 
-main .restaurants .card-shadow {
+main .container--restaurants .card {
+  background-color: white;
+  margin: 0;
+  border-radius: 20px;
   -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
   -webkit-transition: 0.3s;
@@ -204,17 +195,12 @@ main .restaurants .card-shadow {
   color: black;
 }
 
-main .restaurants .card-shadow:hover {
-  -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-          box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+main .container--restaurants .card__link {
+  text-decoration: none;
+  color: black;
 }
 
-main .restaurants figure {
-  background-color: white;
-  margin: 0;
-}
-
-main .restaurants figure img {
+main .container--restaurants .card__img {
   width: 100%;
   height: 10.9em;
   -o-object-fit: cover;
@@ -222,7 +208,7 @@ main .restaurants figure img {
   border-radius: 20px 20px 0 0;
 }
 
-main .restaurants figcaption {
+main .container--restaurants .card__caption {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -235,17 +221,26 @@ main .restaurants figcaption {
   padding: 15px;
 }
 
-main .restaurants figcaption div > * {
+main .container--restaurants .card__caption div > * {
   margin: 0;
   padding: 2px;
 }
 
-main .restaurants figcaption p {
+main .container--restaurants .card__location {
   font-weight: 300;
 }
 
-main .restaurants figcaption i {
+main .container--restaurants .card__like-btn {
   font-size: 1.4em;
+}
+
+main .container--restaurants .card__like-btn--liked {
+  color: black;
+}
+
+main .container--restaurants .card:hover {
+  -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
 main .carte {
@@ -267,6 +262,8 @@ main .carte img {
   z-index: 1;
   width: 100%;
   max-height: 260px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 main .carte .menu {
@@ -374,6 +371,10 @@ main .carte .column li .price {
 
 main .container {
   padding: 50px 20px;
+}
+
+main .container__title {
+  margin: 0;
 }
 
 /* footer */
