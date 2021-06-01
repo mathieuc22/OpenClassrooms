@@ -6,8 +6,11 @@
     font-size: 1em;
     line-height: 50px;
     display: inline-block;
+    text-align: center;
     color: white;
     background: $primaire-color;
     background: linear-gradient(355deg, $primaire-color, $secondaire-color);
     box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
+    padding: 0 22px;
+    min-width: 142px;
 }
