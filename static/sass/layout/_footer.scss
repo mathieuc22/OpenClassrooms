@@ -2,7 +2,7 @@ footer {
     background-color: $background-color;
     color: white;
     padding: 25px;
-
+    animation: fadeInFromNone 5s ease-out;
     div {
         font-family: Shrikhand;
     }

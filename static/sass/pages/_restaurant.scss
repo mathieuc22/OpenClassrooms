@@ -4,17 +4,12 @@
     flex-direction: column;
     align-items: center;
     padding-bottom: 35px;
-
-    h1 {
-    }
-
     img {
         z-index: 1;
         width: 100%;
         max-height: 260px;
         object-fit: cover;
     }
-
     .menu {
         z-index: 2;
         width: 100%;
@@ -23,16 +18,13 @@
         margin-top: -30px;
         padding-top: 30px;
         border-radius: 30px;
-    
         &__title {
             font-family: Shrikhand;
             font-size: 1.7em;
             margin: 0 0 20px 18px;
-        }   
-        
+        }
         &__column {
             padding: 11px 13px;
-            
             h2 {
                 font-weight: 300;
                 font-size: 1em;
@@ -49,7 +41,6 @@
                     border-bottom: 3px solid $tertiaire-color;
                 }
             }
-    
             .dishes-list {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
@@ -58,7 +49,6 @@
                 counter-reset: item;
                 margin: 12px 0;
                 padding: 0;
-
                 &__item {
                     display: flex;
                     //flex-direction: column;
