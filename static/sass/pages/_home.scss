@@ -1,10 +1,12 @@
+.load{
+    animation: fadeInFromNone 5s ease-out;
+}
 
 .container--localisation {
     //display: flex;
     //flex-wrap: nowrap;
     //flex-direction: column;
     text-align: center;
-
     .city {
         display: flex;
         align-items: center;
@@ -35,7 +37,7 @@
 
 .container--fonctionnement {
     background-color:white;
-        
+
     span {
         width: 30px;
         display:inline-block;
@@ -102,6 +104,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            &::after {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                content: ' ';
+            }
         }
         &__img {
             width: 100%;

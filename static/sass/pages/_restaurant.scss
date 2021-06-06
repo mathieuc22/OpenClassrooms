@@ -49,7 +49,16 @@
                 counter-reset: item;
                 margin: 12px 0;
                 padding: 0;
+                $total-items: 4;
+                // Set delay per List Item
+                @for $i from 1 through $total-items {
+                    &__item:nth-child(#{$i}) {
+                    animation-delay: .2s * $i;
+                    }
+                }
                 &__item {
+                    animation: fadeIn 0.5s ease-out;
+                    animation-fill-mode: both;
                     display: flex;
                     //flex-direction: column;
                     //align-items: center;
