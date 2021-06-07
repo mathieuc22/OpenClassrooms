@@ -44,6 +44,34 @@
     }
 }
 
+@keyframes rotate {
+    0% {
+        transform: rotate(90deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes movein {
+    0% {
+        transform: translateX(59px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes moveout {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(59px);
+    }
+}
+
+
 @keyframes fadeIn {
     0% {
       opacity: 0;
