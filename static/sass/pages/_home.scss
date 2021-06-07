@@ -1,7 +1,3 @@
-.load{
-    animation: fadeInFromNone 5s ease-out;
-}
-
 .container--localisation {
     //display: flex;
     //flex-wrap: nowrap;
@@ -60,9 +56,14 @@
             margin-left: 12.5px;
             counter-increment: item;
             height: 70px;
-            background: $background-clear-color;
+            background-color: $background-clear-color;
             border-radius: 20px;
             box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+            &:hover {
+                background: lighten($background-clear-color, 5%);
+            }
             &:before {
                 margin-left: -12.5px;
                 width: 25px;
@@ -71,7 +72,7 @@
                 font-size: 0.8em;
                 margin-right: 20px;
                 content: counter(item);
-                background: $primaire-color;
+                background-color: $primaire-color;
                 border-radius: 100%;
                 color: white;
                 text-align: center;
@@ -82,6 +83,9 @@
                 background-color: lighten($primaire-color, 35%);;
                 span {
                     color: $primaire-color;
+                }
+                &:hover {
+                    background: lighten($primaire-color, 40%);
                 }
             }
         }
@@ -98,12 +102,28 @@
         text-decoration: none;
         color: black;
         position: relative;
-        &__link {
-            text-decoration: none;
-            color: black;
+        transition: box-shadow 0.3s ease-in-out;
+        &:hover {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+        &__img {
+            width: 100%;
+            height: 10.9em;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 20px 20px 0 0;
+        }
+        &__caption {
+            padding: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            div > * {
+                padding: 2px;
+            }
+        }
+        &__link {
+            color: black;
             &::after {
                 position: absolute;
                 top: 0;
@@ -112,13 +132,6 @@
                 bottom: 0;
                 content: ' ';
             }
-        }
-        &__img {
-            width: 100%;
-            height: 10.9em;
-            object-fit: cover;
-            object-position: center;
-            border-radius: 20px 20px 0 0;
         }
         &__badge {
             background-color: $clear_green;
@@ -138,31 +151,19 @@
         &__title {
             font-weight: 700;
         }
-        &__caption {
-            padding: 15px;
-            div > * {
-                margin: 0;
-                padding: 2px;
-            }
-        }
         &__location {
             font-weight: 300;
         }
         &__like-btn {
-            background: none;
-            color: inherit;
-            border: none;
-            padding: 0;
-            font: inherit;
-            cursor: pointer;
-            outline: inherit;
             font-size: 1.4em;
-            &--liked {
-                color: black;
+            color: black;
+            z-index: 1;
+            &:hover {
+                background: linear-gradient(355deg, #9356DC, #FF79DA);
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font-weight: 900;
             }
-        }
-        &:hover {
-            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
         }
     }
 

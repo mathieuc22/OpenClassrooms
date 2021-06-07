@@ -18,12 +18,22 @@
         margin-top: -30px;
         padding-top: 30px;
         border-radius: 30px;
+        $total-columns: 4;
+        // Set delay per List Item
+        @for $i from 1 through $total-columns {
+            &__column:nth-child(#{$i}) {
+            animation-delay: 2s + .3s * $i;
+            }
+        }
         &__title {
             font-family: Shrikhand;
             font-size: 1.7em;
             margin: 0 0 20px 18px;
         }
         &__column {
+            animation: fadeIn 0.5s ease-out;
+            animation-fill-mode: both;
+            position: relative;
             padding: 11px 13px;
             h2 {
                 font-weight: 300;
@@ -48,12 +58,11 @@
                 list-style: none;
                 counter-reset: item;
                 margin: 12px 0;
-                padding: 0;
                 $total-items: 4;
                 // Set delay per List Item
                 @for $i from 1 through $total-items {
                     &__item:nth-child(#{$i}) {
-                    animation-delay: .2s * $i;
+                    animation-delay: 3s + .3s * $i;
                     }
                 }
                 &__item {
@@ -83,6 +92,11 @@
                         flex: unset;
                         width: calc(100% - 59px);
                     }
+                    &:hover .dishes-list__title{
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                    }
                 }
                 &__content {
                     display: flex;
@@ -95,12 +109,6 @@
                     max-width: 80%;
                     display: flex;
                     flex-direction: column;
-                    h3 {
-                        margin: 0 0 3px 0;
-                        width: 100%;
-                        font-weight: 500;
-                        font-size: 1.1em;
-                    }
                     p {
                         margin: 0;
                         font-size: 0.9em;
@@ -109,6 +117,12 @@
                         overflow: hidden;
                         text-overflow: ellipsis;
                     }
+                }
+                &__title {
+                    margin: 0 0 3px 0;
+                    width: 100%;
+                    font-weight: 500;
+                    font-size: 1.1em;
                 }
                 &__price {
                     font-weight: 500;

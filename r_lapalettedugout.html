@@ -12,18 +12,19 @@
         integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
     <link rel="stylesheet" href="static/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 </head>
 
 <body>
+    <div class="loader">
+    </div> 
     <!-- Header -->
-    <header>
+    <header class="load">
         <a href="index.html"><span><i class="fas fa-arrow-left"></i></span></a>
         <img src="static/images/logo/ohmyfood.png" alt="logo ohmyfood" />
     </header>
 
     <!-- Main -->
-    <main>
+    <main class="load">
         <!-- Menu -->
         <section class="container--carte">
             <img src="static/images/restaurants/jay-wennington-N_Y88TWmGwA-unsplash.jpg" alt="photo du restaurant">
@@ -36,16 +37,19 @@
                         <li class="dishes-list__item">
                             <div class="dishes-list__content">
                                 <div class="dishes-list__text">
-                                    <h3>Fricassée d'escargot</h3>
+                                    <h3 class="dishes-list__title">Fricassée d'escargot</h3>
                                     <p>Au piment d'Espelette</p>
                                 </div>
                                 <p class="dishes-list__price">25€</p>
+                            </div>
+                            <div class="dishes-list__button">
+                                <i class="fas fa-check-circle"></i>
                             </div>
                         </li>
                         <li class="dishes-list__item">
                             <div class="dishes-list__content">
                                 <div class="dishes-list__text">
-                                    <h3>Foie gras de canard mi-cuit</h3>
+                                    <h3 class="dishes-list__title">Foie gras de canard mi-cuit</h3>
                                     <p>Et ses copeaux de truffe noire</p>
                                 </div>
                                 <p class="dishes-list__price">35€</p>
@@ -57,7 +61,7 @@
                         <li class="dishes-list__item">
                             <div class="dishes-list__content">
                                 <div class="dishes-list__text">
-                                    <h3>Oeuf au plat</h3>
+                                    <h3 class="dishes-list__title">Oeuf au plat</h3>
                                     <p>Assaisonné à la truffe sur lit de caviar</p>
                                 </div>
                                 <p class="dishes-list__price">20€</p>
@@ -74,7 +78,7 @@
                         <li class="dishes-list__item">
                             <div class="dishes-list__content">
                                 <div class="dishes-list__text">
-                                    <h3>Filet de boeuf aux herbes</h3>
+                                    <h3 class="dishes-list__title">Filet de boeuf aux herbes</h3>
                                     <p>Accompagné de sa ribambelle de légumes</p>
                                 </div>
                                 <p class="dishes-list__price">40€</p>
@@ -86,16 +90,19 @@
                         <li class="dishes-list__item">
                             <div class="dishes-list__content">
                                 <div class="dishes-list__text">
-                                    <h3>Parmentier de queue de boeuf</h3>
+                                    <h3 class="dishes-list__title">Parmentier de queue de boeuf</h3>
                                     <p>À la truffe noire sur sa purée de panais</p>
                                 </div>
                                 <p class="dishes-list__price">35€</p>
+                            </div>
+                            <div class="dishes-list__button">
+                                <i class="fas fa-check-circle"></i>
                             </div>
                         </li>
                         <li class="dishes-list__item">
                             <div class="dishes-list__content">
                                 <div class="dishes-list__text">
-                                    <h3>Filet de turbot</h3>
+                                    <h3 class="dishes-list__title">Filet de turbot</h3>
                                     <p>Aux agrumes</p>
                                 </div>
                                 <p class="dishes-list__price">44€</p>
@@ -112,7 +119,7 @@
                         <li class="dishes-list__item">
                             <div class="dishes-list__content">
                                 <div class="dishes-list__text">
-                                    <h3>Paris-Brest</h3>
+                                    <h3 class="dishes-list__title">Paris-Brest</h3>
                                     <p>Revisité</p>
                                 </div>
                                 <p class="dishes-list__price">18€</p>
@@ -124,7 +131,7 @@
                         <li class="dishes-list__item">
                             <div class="dishes-list__content">
                                 <div class="dishes-list__text">
-                                    <h3>Macaron au chocolat d'exception</h3>
+                                    <h3 class="dishes-list__title">Macaron au chocolat d'exception</h3>
                                     <p>Et glace à la vanille de Madagascar</p>
                                 </div>
                                 <p class="dishes-list__price">22€</p>
@@ -136,7 +143,7 @@
                         <li class="dishes-list__item">
                             <div class="dishes-list__content">
                                 <div class="dishes-list__text">
-                                    <h3>Mousse au chocolat </h3>
+                                    <h3 class="dishes-list__title">Mousse au chocolat</h3>
                                     <p>Au piment d'Espelette et à la truffe noire</p>
                                 </div>
                                 <p class="dishes-list__price">23€</p>
@@ -155,7 +162,7 @@
     </main>
 
     <!-- Footer -->
-    <footer>
+    <footer class="load">
         <div>ohmyfood</div>
         <ul>
             <li><span><i class="fas fa-utensils"></i></span> Proposer un restaurant</li>
