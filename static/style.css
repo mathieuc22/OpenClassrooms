@@ -96,13 +96,15 @@ body {
 }
 
 @-webkit-keyframes hide-scroll {
-  from, to {
+  from,
+  to {
     overflow: hidden;
   }
 }
 
 @keyframes hide-scroll {
-  from, to {
+  from,
+  to {
     overflow: hidden;
   }
 }
@@ -299,6 +301,44 @@ body {
   100% {
     opacity: 1;
     top: 0px;
+  }
+}
+
+@-webkit-keyframes gradient {
+  40% {
+    -webkit-transform: scale(0.4);
+            transform: scale(0.4);
+  }
+  60% {
+    -webkit-transform: scale(1.5);
+            transform: scale(1.5);
+  }
+  100% {
+    background: linear-gradient(355deg, #9356DC, #FF79DA);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes gradient {
+  40% {
+    -webkit-transform: scale(0.4);
+            transform: scale(0.4);
+  }
+  60% {
+    -webkit-transform: scale(1.5);
+            transform: scale(1.5);
+  }
+  100% {
+    background: linear-gradient(355deg, #9356DC, #FF79DA);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+    -webkit-transform: scale(1);
+            transform: scale(1);
   }
 }
 
@@ -563,7 +603,7 @@ footer span {
   left: 0;
   right: 0;
   bottom: 0;
-  content: ' ';
+  content: " ";
 }
 
 .container--restaurants .card__badge {
@@ -591,17 +631,15 @@ footer span {
   font-weight: 300;
 }
 
-.container--restaurants .card__like-btn {
-  font-size: 1.4em;
+.container--restaurants .card__like {
   color: black;
+  font-size: 1.4em;
   z-index: 1;
 }
 
-.container--restaurants .card__like-btn:hover {
-  background: linear-gradient(355deg, #9356DC, #FF79DA);
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 900;
+.container--restaurants .card__like:hover > .card__like-btn {
+  -webkit-animation: gradient 0.5s forwards;
+          animation: gradient 0.5s forwards;
 }
 
 .container--carte {
