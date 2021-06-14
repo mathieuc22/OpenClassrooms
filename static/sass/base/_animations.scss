@@ -103,17 +103,20 @@ body {
 }
 
 @keyframes gradient {
-  40% {
-    transform: scale(0.4);
-  }
-  60% {
-    transform: scale(1.5);
-  }
-  100% {
+  0% {
+    clip-path: circle(0%);;
     background: linear-gradient(355deg, $primaire-color, $secondaire-color);
     background-clip: text;
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 900;
-    transform: scale(1);
+  }
+  100% {
+    clip-path: circle(125%);
+    background: linear-gradient(355deg, $primaire-color, $secondaire-color);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
   }
 }

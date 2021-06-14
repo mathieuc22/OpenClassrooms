@@ -305,40 +305,44 @@ body {
 }
 
 @-webkit-keyframes gradient {
-  40% {
-    -webkit-transform: scale(0.4);
-            transform: scale(0.4);
-  }
-  60% {
-    -webkit-transform: scale(1.5);
-            transform: scale(1.5);
-  }
-  100% {
+  0% {
+    -webkit-clip-path: circle(0%);
+            clip-path: circle(0%);
     background: linear-gradient(355deg, #9356DC, #FF79DA);
     background-clip: text;
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 900;
-    -webkit-transform: scale(1);
-            transform: scale(1);
+  }
+  100% {
+    -webkit-clip-path: circle(125%);
+            clip-path: circle(125%);
+    background: linear-gradient(355deg, #9356DC, #FF79DA);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
   }
 }
 
 @keyframes gradient {
-  40% {
-    -webkit-transform: scale(0.4);
-            transform: scale(0.4);
-  }
-  60% {
-    -webkit-transform: scale(1.5);
-            transform: scale(1.5);
-  }
-  100% {
+  0% {
+    -webkit-clip-path: circle(0%);
+            clip-path: circle(0%);
     background: linear-gradient(355deg, #9356DC, #FF79DA);
     background-clip: text;
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 900;
-    -webkit-transform: scale(1);
-            transform: scale(1);
+  }
+  100% {
+    -webkit-clip-path: circle(125%);
+            clip-path: circle(125%);
+    background: linear-gradient(355deg, #9356DC, #FF79DA);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
   }
 }
 
@@ -489,8 +493,6 @@ footer span {
   gap: 0.9em;
   list-style: none;
   counter-reset: item;
-  margin: 0;
-  padding: 0;
   margin-top: 30px;
 }
 
@@ -638,8 +640,8 @@ footer span {
 }
 
 .container--restaurants .card__like:hover > .card__like-btn {
-  -webkit-animation: gradient 0.5s forwards;
-          animation: gradient 0.5s forwards;
+  -webkit-animation: gradient 1.5s forwards;
+          animation: gradient 1.5s forwards;
 }
 
 .container--carte {

@@ -47,8 +47,6 @@
     gap: 0.9em;
     list-style: none;
     counter-reset: item;
-    margin: 0;
-    padding: 0;
     margin-top: 30px;
     &__item {
       display: flex;
@@ -159,7 +157,7 @@
       font-size: 1.4em;
       z-index: 1;
       &:hover > .card__like-btn {
-        animation: gradient 0.5s forwards;
+        animation: gradient 1.5s forwards;
       }
     }
   }
