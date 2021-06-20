@@ -1,7 +1,4 @@
 .container--localisation {
-  //display: flex;
-  //flex-wrap: nowrap;
-  //flex-direction: column;
   text-align: center;
   .city {
     display: flex;
@@ -56,12 +53,9 @@
       height: 70px;
       background-color: $background-clear-color;
       border-radius: 20px;
-      box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+      @include card-shadow(0.2);
+      @include hover-effect;
       cursor: pointer;
-      transition: background-color 0.3s ease-in-out;
-      &:hover {
-        background: lighten($background-clear-color, 5%);
-      }
       &:before {
         margin-left: -12.5px;
         width: 25px;
@@ -82,9 +76,6 @@
         span {
           color: $primaire-color;
         }
-        &:hover {
-          background: lighten($primaire-color, 40%);
-        }
       }
     }
   }
@@ -93,16 +84,15 @@
 .container--restaurants {
   .card {
     background-color: white;
-    margin: 0;
     border-radius: 20px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
     transition: 0.3s;
     text-decoration: none;
     color: black;
     position: relative;
     transition: box-shadow 0.3s ease-in-out;
+    @include card-shadow;
     &:hover {
-      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+      @include card-shadow(0.2);
     }
     &__img {
       width: 100%;
@@ -124,10 +114,7 @@
       color: black;
       &::after {
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        inset: 0;
         content: " ";
       }
     }
@@ -135,16 +122,16 @@
       background-color: $clear_green;
       color: $dark_green;
       position: absolute;
-      right: 11px;
       top: 13px;
+      right: 11px;
       height: 29px;
+      line-height: 29px;
       width: 80px;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
       border-radius: 2px;
       font-size: 0.85em;
       font-weight: 500;
       text-align: center;
-      line-height: 29px;
+      @include card-shadow(0.2);
     }
     &__title {
       font-weight: 700;
@@ -153,9 +140,9 @@
       font-weight: 300;
     }
     &__like {
+      z-index: 1;
       color: black;
       font-size: 1.4em;
-      z-index: 1;
       &:hover > .card__like-btn {
         animation: gradient 1.5s forwards;
       }

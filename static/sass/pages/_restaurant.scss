@@ -1,137 +1,133 @@
 .container--carte {
-    background-color: $background-clear-color;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: 35px;
-    img {
-        z-index: 1;
-        width: 100%;
-        max-height: 260px;
-        object-fit: cover;
+  background-color: $background-clear-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 35px;
+  img {
+    z-index: 1;
+    width: 100%;
+    max-height: 260px;
+    object-fit: cover;
+  }
+}
+
+.menu {
+  z-index: 2;
+  width: 100%;
+  background-color: $background-clear-color;
+  flex: auto;
+  margin-top: -30px;
+  padding-top: 30px;
+  border-radius: 30px;
+  $total-columns: 4;
+  // Set delay per List Item
+  @for $i from 1 through $total-columns {
+    &__column:nth-child(#{$i}) {
+      animation-delay: 2s + 0.3s * $i;
     }
-    .menu {
-        z-index: 2;
-        width: 100%;
-        background-color: $background-clear-color;
-        flex: auto;
-        margin-top: -30px;
-        padding-top: 30px;
-        border-radius: 30px;
-        $total-columns: 4;
-        // Set delay per List Item
-        @for $i from 1 through $total-columns {
-            &__column:nth-child(#{$i}) {
-            animation-delay: 2s + .3s * $i;
-            }
-        }
-        &__title {
-            font-family: Shrikhand;
-            font-size: 1.7em;
-            margin: 0 0 20px 18px;
-        }
-        &__column {
-            animation: fadeIn 0.5s ease-out;
-            animation-fill-mode: both;
-            position: relative;
-            padding: 11px 13px;
-            h2 {
-                font-weight: 300;
-                font-size: 1em;
-                text-transform: uppercase;
-                position: relative;
-                margin: 0 0 22px 6px;
-                &::after {
-                    content: "";
-                    position: absolute;
-                    left: 0;
-                    bottom: -8px;
-                    height: 3px;
-                    width: 40px;
-                    border-bottom: 3px solid $tertiaire-color;
-                }
-            }
-            .dishes-list {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
-                gap: 0.9em;
-                list-style: none;
-                counter-reset: item;
-                margin: 12px 0;
-                $total-items: 4;
-                // Set delay per List Item
-                @for $i from 1 through $total-items {
-                    &__item:nth-child(#{$i}) {
-                    animation-delay: 3s + .3s * $i;
-                    }
-                }
-                &__item {
-                    animation: fadeIn 0.5s ease-out;
-                    animation-fill-mode: both;
-                    display: flex;
-                    counter-increment: item;
-                    background: white;
-                    border-radius: 15px;
-                    box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
-                    overflow: hidden;
-                    position: relative;
-                    &:hover > .dishes-list__button{
-                        width: 59px;
-                        background-color: $tertiaire-color;
-                        color: white;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        font-size: 1.3em;
-                        animation: movein 0.5s ease-out;
-                        i {
-                            animation: rotate 0.5s ease-out;
-                        }
-                    }
-                    &:hover > .dishes-list__content{
-                        flex: unset;
-                        width: calc(100% - 59px);
-                    }
-                    &:hover .dishes-list__title{
-                        text-overflow: ellipsis;
-                        overflow: hidden;
-                        white-space: nowrap;
-                    }
-                }
-                &__content {
-                    display: flex;
-                    justify-content: space-between;
-                    padding: 12px 10px;
-                    width: 100%;
-                    transition: all 0.5s ease-out;
-                }
-                &__text {
-                    max-width: 80%;
-                    display: flex;
-                    flex-direction: column;
-                    p {
-                        margin: 0;
-                        font-size: 0.9em;
-                        font-weight: 300;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                    }
-                }
-                &__title {
-                    margin: 0 0 3px 0;
-                    width: 100%;
-                    font-weight: 500;
-                    font-size: 1.1em;
-                }
-                &__price {
-                    font-weight: 500;
-                    align-self: flex-end;
-                }
-                &__button {
-                    font-size: 0;
-                }
-            }
-        }
+  }
+  &__title {
+    font-family: Shrikhand;
+    font-size: 1.7em;
+    margin: 0 0 20px 18px;
+  }
+  &__column {
+    animation: fadeIn 0.5s ease-out;
+    animation-fill-mode: both;
+    position: relative;
+    padding: 11px 13px;
+    h2 {
+      font-weight: 300;
+      font-size: 1em;
+      text-transform: uppercase;
+      position: relative;
+      margin: 0 0 22px 6px;
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        height: 3px;
+        width: 40px;
+        border-bottom: 3px solid $tertiaire-color;
+      }
     }
+    .dishes-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+      gap: 0.9em;
+      list-style: none;
+      counter-reset: item;
+      margin: 12px 0;
+      $total-items: 4;
+      // Set delay per List Item
+      @for $i from 1 through $total-items {
+        &__item:nth-child(#{$i}) {
+          animation-delay: 3s + 0.3s * $i;
+        }
+      }
+      &__item {
+        animation: fadeIn 0.5s ease-out;
+        animation-fill-mode: both;
+        display: flex;
+        counter-increment: item;
+        background: white;
+        border-radius: 15px;
+        @include card-shadow(0.2);
+        overflow: hidden;
+        position: relative;
+        &:hover > .dishes-list__button {
+          width: 59px;
+          background-color: $tertiaire-color;
+          color: white;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 1.3em;
+          animation: movein 0.5s ease-out;
+          i {
+            animation: rotate 0.5s ease-out;
+          }
+        }
+        &:hover > .dishes-list__content {
+          flex: unset;
+          width: calc(100% - 59px);
+        }
+        &:hover .dishes-list__title {
+          @include wrap-text;
+        }
+      }
+      &__content {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 10px;
+        width: 100%;
+        transition: all 0.5s ease-out;
+      }
+      &__text {
+        display: flex;
+        flex-direction: column;
+        max-width: 80%;
+        p {
+          font-size: 0.9em;
+          font-weight: 300;
+          @include wrap-text;
+        }
+      }
+      &__title {
+        margin: 0 0 3px 0;
+        width: 100%;
+        font-weight: 500;
+        font-size: 1.1em;
+      }
+      &__price {
+        font-weight: 500;
+        align-self: flex-end;
+      }
+      &__button {
+        font-size: 0;
+      }
+    }
+  }
 }

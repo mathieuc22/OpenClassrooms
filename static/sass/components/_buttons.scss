@@ -9,11 +9,8 @@
   color: white;
   background: $primaire-color;
   background: linear-gradient(355deg, $primaire-color, $secondaire-color);
-  box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
   padding: 0 22px;
   min-width: 142px;
-  transition: box-shadow 0.3s ease-in-out;
-  &:hover {
-    box-shadow: 0 5px 10px 0 rgba(0,0,0,0.4);
-  }
+  @include card-shadow(0.2);
+  @include hover-effect;
 }
