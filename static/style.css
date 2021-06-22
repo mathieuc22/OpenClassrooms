@@ -604,7 +604,10 @@ footer a {
 
 .container--restaurants .card__link::after {
   position: absolute;
-  inset: 0;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
   content: " ";
 }
 
