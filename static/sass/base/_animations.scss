@@ -104,7 +104,7 @@ body {
 
 @keyframes gradient {
   0% {
-    clip-path: circle(0%);;
+    clip-path: circle(0%);
     background: linear-gradient(355deg, $primaire-color, $secondaire-color);
     background-clip: text;
     -webkit-background-clip: text;
