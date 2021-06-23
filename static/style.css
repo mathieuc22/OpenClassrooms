@@ -329,7 +329,6 @@ body {
     -webkit-clip-path: circle(0%);
             clip-path: circle(0%);
     background: linear-gradient(355deg, #9356DC, #FF79DA);
-    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 900;
@@ -338,7 +337,6 @@ body {
     -webkit-clip-path: circle(125%);
             clip-path: circle(125%);
     background: linear-gradient(355deg, #9356DC, #FF79DA);
-    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 900;
