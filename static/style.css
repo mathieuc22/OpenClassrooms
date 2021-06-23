@@ -754,8 +754,7 @@ footer a {
 .menu__column .dishes-list {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (minmax(13rem, 1fr))[auto-fit];
-      grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
   gap: 0.9em;
   list-style: none;
   counter-reset: item;
