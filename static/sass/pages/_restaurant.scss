@@ -27,10 +27,22 @@
       animation-delay: 2s + 0.3s * $i;
     }
   }
+  &__restaurant {
+    display: flex;
+    justify-content: space-between;
+  }
   &__title {
     font-family: Shrikhand;
     font-size: 1.7em;
     margin: 0 0 20px 18px;
+  }
+  &__like {
+    font-size: 1.7em;
+    margin: 0 24px 20px 0;
+    color: black;
+    &:hover > .card__like-btn {
+      animation: gradient 1.5s forwards;
+    }
   }
   &__column {
     animation: fadeIn 0.5s ease-out;
