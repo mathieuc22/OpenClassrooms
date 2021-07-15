@@ -1,0 +1,24 @@
+
+/*
+Couleur primaire orange #e68a08
+Couleur primaire violet #8f5bfe
+Couleur background rose pale #f3e9f1
+*/
+
+header {
+    background-color: #f3e9f1;;
+}
+
+img {
+    width: 500px;
+    object-fit: cover;
+}
+
+.logo {
+    width: 150px;
+    object-fit: cover;
+}
+
+li img {
+    width: 50px;
+}
