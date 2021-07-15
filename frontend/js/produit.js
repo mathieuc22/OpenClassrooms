@@ -3,10 +3,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const idProduit = urlSearchParams.get('produit')
     // Charger le produit
-    GetProduit(idProduit);
+    getProduit(idProduit);
 });
 
-function GetProduit(idProduit) {
+import { formatPrice } from './functions.js';
+
+function getProduit(idProduit) {
 
     fetch('http://localhost:3000/api/furniture/' + idProduit)
     .then(function(response) {
@@ -32,7 +34,7 @@ function GetProduit(idProduit) {
 
         // Ajout du prix
         const productPrice = document.createElement("div");
-        productPrice.innerHTML = '<strong>' + new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(product.price) + '</strong>';
+        productPrice.innerHTML = `<strong> ${formatPrice(product.price)} </strong>`;
         document.querySelector('#carteProduit').appendChild(productPrice);
 
         // Ajout de la description

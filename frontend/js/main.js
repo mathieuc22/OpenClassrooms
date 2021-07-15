@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Par défaut, chager la liste des produits
-    GetProduits();
+    getProduits();
 });
 
-function GetProduits() {
+import { formatPrice } from './functions.js';
+
+function getProduits() {
 
     fetch('http://localhost:3000/api/furniture/')
     .then(function(response) {
@@ -28,16 +30,16 @@ function GetProduits() {
             const productImage = document.createElement("div");
             // Add html content to all the product components
             productId.setAttribute("id", `product-${product._id}`);
-            productName.innerHTML = `<a href="components/produit.html?produit=${product._id}">${product.name}</a>`;
-            productPrice.innerHTML = '<strong>' + new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(product.price) + '</strong>';
+            productName.innerHTML = `<a href="/frontend/components/produit.html?produit=${product._id}">${product.name}</a>`;
+            productPrice.innerHTML = `<strong> ${formatPrice(product.price)} </strong>`;
             productDescription.innerHTML = `${product.description}`;
             productImage.innerHTML = `<img src="${product.imageUrl}" alt="Image du produit" />`;
             // Add the items to the list
             document.querySelector('#listeProduits').appendChild(productId);
-            document.querySelector('#' + `product-${product._id}`).appendChild(productName);
-            document.querySelector('#' + `product-${product._id}`).appendChild(productPrice);
-            document.querySelector('#' + `product-${product._id}`).appendChild(productDescription);
-            document.querySelector('#' + `product-${product._id}`).appendChild(productImage);
+            document.querySelector(`#product-${product._id}`).appendChild(productName);
+            document.querySelector(`#product-${product._id}`).appendChild(productPrice);
+            document.querySelector(`#product-${product._id}`).appendChild(productDescription);
+            document.querySelector(`#product-${product._id}`).appendChild(productImage);
         }
     })
     .catch(function(err) {
