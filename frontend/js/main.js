@@ -41,6 +41,11 @@ function GetProduits() {
         }
     })
     .catch(function(err) {
+        // Print products
+        console.log(`Erreur : ${err}`);
         // Une erreur est survenue
+        const noProduct = document.createElement("div");
+        noProduct.innerHTML = "Aucune référence n'a été trouvée"
+        document.querySelector('main').appendChild(noProduct);
     });
 }
