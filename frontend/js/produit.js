@@ -6,11 +6,11 @@ document.addEventListener('DOMContentLoaded', function() {
     getProduit(idProduit);
 });
 
-import { formatPrice } from './functions.js';
+import { formatPrice, APIURL } from './functions.js';
 
 function getProduit(idProduit) {
 
-    fetch('http://localhost:3000/api/furniture/' + idProduit)
+    fetch(APIURL + idProduit)
     .then(function(response) {
         if (response.ok) {
         return response.json();

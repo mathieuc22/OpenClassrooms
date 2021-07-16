@@ -3,11 +3,11 @@ document.addEventListener('DOMContentLoaded', function() {
     getProduits();
 });
 
-import { formatPrice } from './functions.js';
+import { formatPrice, APIURL } from './functions.js';
 
 function getProduits() {
 
-    fetch('http://localhost:3000/api/furniture/')
+    fetch(APIURL)
     .then(function(response) {
         if (response.ok) {
         return response.json();
