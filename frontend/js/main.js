@@ -1,9 +1,10 @@
+import { formatPrice, APIURL, feedCart, getCart } from './functions.js';
+
 document.addEventListener('DOMContentLoaded', function() {
     // Par défaut, chager la liste des produits
     getProduits();
+    feedCart();
 });
-
-import { formatPrice, APIURL } from './functions.js';
 
 function getProduits() {
 
