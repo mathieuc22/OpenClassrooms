@@ -46,6 +46,22 @@ function getProduit(idProduit) {
         const productImage = document.createElement("div");
         productImage.innerHTML = `<img src="${product.imageUrl}" alt="Image du produit" />`;
         document.querySelector('#carteProduit').appendChild(productImage);
+        
+        // Récupération des options de couleur et ajout dans une liste
+        const productColors = document.createElement("div");
+        productColors.setAttribute("id", "choixCouleurs");
+        productColors.innerHTML = "Couleurs :";
+        document.querySelector('#carteProduit').appendChild(productColors);
+        const colorsList = document.createElement("ul");
+        colorsList.setAttribute("id", "listeCouleurs");
+        document.querySelector('#choixCouleurs').appendChild(colorsList);
+        for (const color of product.colors) {
+            const productColor = document.createElement("li");
+            productColor.innerHTML = color;
+            document.querySelector('#listeCouleurs').appendChild(productColor);
+
+        }
+
 
     })
     .catch(function(err) {
