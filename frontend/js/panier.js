@@ -1,13 +1,15 @@
-import { formatPrice, APIURL, feedCart, getCart, deleteItem ,updateQuantity, getProduct } from './functions.js';
+import { formatPrice, APIURL, feedCart, getCart, feedPrice, deleteItem ,updateQuantity, getProduct } from './functions.js';
 
 // Prévoir un switch case pour le main.js
 document.addEventListener('DOMContentLoaded', function() {
     // Par défaut, chager le panier
-    getPanier();
+    displayCart();
     feedCart();
+    feedPrice();
+
 });
 
-async function getPanier() {
+async function displayCart() {
 
     // Récupère le panier du localstorage
     let items = getCart();
