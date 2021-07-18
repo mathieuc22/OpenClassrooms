@@ -6,20 +6,27 @@ export function formatPrice(price) {
     return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(price/100);
 }
 
+// Récupération du panier depuis le localstorage
 export function getCart() {
     // Initie le tableau des produits du panier
     let products = [];
-
     // Parse le local storage
     if(localStorage.getItem('products')){
         products = JSON.parse(localStorage.getItem('products'));
     }
-
     return products;
+}
+
+// Récupération du produit depuis l'API
+export async function getProduct(productId) {
+    const response = await fetch(APIURL + productId)
+    const product = await response.json();
+    return product;
 }
 
 export function feedCart() {
 
+    //Récupération du panier depuis localstorage
     const products = getCart();
 
     let nbElements = 0;
@@ -30,7 +37,8 @@ export function feedCart() {
     document.getElementById('nbItems').innerHTML = nbElements;
 }
 
-export async function feedPrice() {
+// Récupération du prix total du panier
+export async function totalPrice() {
 
     //Récupération du panier depuis localstorage
     const items = getCart();
@@ -43,10 +51,10 @@ export async function feedPrice() {
         totalPrice += product.price * item.quantity;
     }
 
-    document.getElementById('prixTotal').innerHTML = `Total : ${formatPrice(totalPrice)}`;
+    return formatPrice(totalPrice);
 }
 
-export function deleteItem(event, itemId, itemColor) {
+export async function deleteItem(event, itemId, itemColor) {
     // Permet d'empêcher la soumission du formulaire
     event.preventDefault();
 
@@ -58,12 +66,19 @@ export function deleteItem(event, itemId, itemColor) {
 
     // On réalimente le localstorage avec le nouveau panier
     localStorage.setItem('products', JSON.stringify(products));
+
+    // Alimente la panier de l'en-tête
     feedCart();
 
+    // Suppression de la ligne
     document.querySelector(`#item-${itemId}-${itemColor.replace(/\s/g, '')}`).remove();
+
+    // Mise à jour du prix total
+    document.getElementById('prixTotal').innerHTML = `Total : ${await totalPrice()}`;
+
 }
 
-export function updateQuantity(itemId, itemColor, itemPrice) {
+export async function updateQuantity(itemId, itemColor, itemPrice) {
 
     // Récupère le panier du localstorage
     let products = getCart();
@@ -79,17 +94,11 @@ export function updateQuantity(itemId, itemColor, itemPrice) {
     // On réalimente le localstorage avec le nouveau panier
     products.push(product);
     localStorage.setItem('products', JSON.stringify(products));
+    // Alimente la panier de l'en-tête
     feedCart();
-    feedPrice();
-    
-    // Mise à jour du prix
-    document.querySelector(`#price-${itemId}-${itemColor.replace(/\s/g, '')}`).innerHTML = formatPrice(itemPrice * product.quantity);
-    
-}
 
-export async function getProduct(productId) {
-    // Récupération du produit depuis l'API
-    const response = await fetch(APIURL + productId)
-    const product = await response.json();
-    return product;
+    // Mise à jour du prix de la ligne et du prix total
+    document.querySelector(`#price-${itemId}-${itemColor.replace(/\s/g, '')}`).innerHTML = formatPrice(itemPrice * product.quantity);
+    document.getElementById('prixTotal').innerHTML = `Total : ${await totalPrice()}`;
+    
 }

@@ -1,12 +1,10 @@
-import { formatPrice, APIURL, feedCart, getCart, feedPrice, deleteItem ,updateQuantity, getProduct } from './functions.js';
+import { formatPrice, APIURL, feedCart, getCart, deleteItem ,updateQuantity, getProduct, totalPrice } from './functions.js';
 
 // Prévoir un switch case pour le main.js
 document.addEventListener('DOMContentLoaded', function() {
     // Par défaut, chager le panier
     displayCart();
     feedCart();
-    feedPrice();
-
 });
 
 async function displayCart() {
@@ -33,6 +31,7 @@ async function displayCart() {
         itemPrice.innerHTML = formatPrice(product.price * item.quantity);
         itemQuantity.setAttribute("id", `quantity-${item.productId}-${item.color.replace(/\s/g, '')}`);
         itemQuantity.setAttribute("type", "number");
+        itemQuantity.setAttribute("min", 1);
         itemQuantity.setAttribute("value",item.quantity);
         itemColor.innerHTML = item.color;
         itemDelete.innerHTML = 'Supprimer';
@@ -46,5 +45,6 @@ async function displayCart() {
         document.querySelector(`#item-${item.productId}-${item.color.replace(/\s/g, '')}`).appendChild(itemDelete);
         document.querySelector(`#delete-${item.productId}-${item.color.replace(/\s/g, '')}`).addEventListener('click', (event) => deleteItem(event, item.productId, item.color));
         document.querySelector(`#quantity-${item.productId}-${item.color.replace(/\s/g, '')}`).addEventListener('change', () => updateQuantity(item.productId, item.color, product.price));
+        document.getElementById('prixTotal').innerHTML = `Total : ${await totalPrice()}`;
     }
 }
