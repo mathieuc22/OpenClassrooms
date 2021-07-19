@@ -1,10 +1,11 @@
-import { formatPrice, APIURL, feedCart, getCart, deleteItem ,updateQuantity, getProduct, totalPrice } from './functions.js';
+import { formatPrice, APIURL, feedCart, getCart, deleteItem ,updateQuantity, getProduct, totalPrice, sendOrder } from './functions.js';
 
 // Prévoir un switch case pour le main.js
 document.addEventListener('DOMContentLoaded', function() {
     // Par défaut, chager le panier
     displayCart();
     feedCart();
+    document.querySelector('#contact').addEventListener('submit', (event) => sendOrder(event));
 });
 
 async function displayCart() {
@@ -12,6 +13,7 @@ async function displayCart() {
     // Récupère le panier du localstorage
     let items = getCart();
 
+    // Pour chaque élément du panier on restitue une ligne avec le nom du produit, sa couleur, la quantité et le prix
     for (const item of items) {
 
         // Récupère le produit de l'API
