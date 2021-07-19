@@ -1,24 +1,84 @@
+/* Debug Ghost CSS Elements */
+/*
+* {
+  background: #000 !important;
+  color: #0f0 !important;
+  outline: solid #f00 1px !important;
+}
+*/
+/*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
+html, body, p, ol, ul, li, dl, dt, dd, blockquote, figure, fieldset, legend, textarea, pre, iframe, hr, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+ul {
+  list-style: none;
+}
+
+button, input, select {
+  margin: 0;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
+img, video {
+  height: auto;
+  max-width: 100%;
+}
+
+iframe {
+  border: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td, th {
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
 
 /*
 Couleur primaire orange #e68a08
 Couleur primaire violet #8f5bfe
 Couleur background rose pale #f3e9f1
 */
-
 header {
-    background-color: #f3e9f1;;
+  background-color: #f3e9f1;
 }
 
 img {
-    width: 500px;
-    object-fit: cover;
+  width: 500px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .logo {
-    width: 150px;
-    object-fit: cover;
+  width: 150px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 li img {
-    width: 150px;
+  width: 150px;
 }
+/*# sourceMappingURL=style.css.map */
