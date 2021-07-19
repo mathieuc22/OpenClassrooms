@@ -171,3 +171,34 @@ export async function sendOrder(event) {
       );
     });
 }
+
+export function sendCart(event, idProduit) {
+  // Permet d'empêcher la soumission du formulaire
+  event.preventDefault();
+
+  // Récupère le panier du localstorage
+  let products = getCart();
+
+  // Récupère la couleur à partir des boutons radio
+  const color = document.querySelector('input[name="couleur"]:checked').value;
+
+  // Vérifie si la combinaison produit x couleur existe, si oui on augmente la quantité, sinon on crée une nouvelle entrée
+  let product = products.filter(
+    (product) => product.productId === idProduit && product.color === color
+  );
+  if (product.length === 1) {
+    product = product[0];
+    product.quantity++;
+    products = products.filter(
+      (product) => product.productId !== idProduit || product.color !== color
+    );
+  } else {
+    product = { productId: idProduit, quantity: 1, color: color };
+  }
+
+  // On réalimente le localstorage avec le nouveau panier
+  products.push(product);
+  localStorage.setItem("products", JSON.stringify(products));
+  feedCart();
+  alert("Le produit a été ajouté au panier");
+}
