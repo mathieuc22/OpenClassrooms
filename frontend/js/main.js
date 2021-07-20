@@ -83,66 +83,66 @@ async function getProduits() {
   }
 }
 
-function getProduit(idProduit) {
-  fetch(APIURL + idProduit)
-    .then(function (response) {
-      if (response.ok) {
-        return response.json();
-      }
-    })
-    .then((product) => {
-      // Print products
-      console.log(product);
-      // Changement du titre de la page
-      document.title = product.name + " | Orinoco";
+async function getProduit(idProduit) {
+  // Récupère le produit de l'API
+  const product = await getProduct(idProduit);
 
-      // Ajout d'un container pour le produit
-      const productCard = document.createElement("section");
-      productCard.setAttribute("id", "carteProduit");
-      document.querySelector("main").appendChild(productCard);
+  // Print products
+  console.log(product);
+  // Changement du titre de la page
+  document.title = product.name + " | Orinoco";
 
-      // Ajout d'un titre
-      const productTitle = document.createElement("h1");
-      productTitle.innerHTML = product.name;
-      document.querySelector("#carteProduit").appendChild(productTitle);
+  // Ajout de l'image
+  //const productImage = document.createElement("div");
+  //productImage.innerHTML = `<img src="${product.imageUrl}" alt="Image du produit ${product.name}" />`;
+  //productImage.setAttribute("class", "product__image");
+  //document.querySelector("#carteProduit").appendChild(productImage);
+  document.querySelector(".product__image").setAttribute("src",product.imageUrl);
 
-      // Ajout du prix
-      const productPrice = document.createElement("div");
-      productPrice.innerHTML = `<strong> ${formatPrice(
-        product.price
-      )} </strong>`;
-      document.querySelector("#carteProduit").appendChild(productPrice);
+  // Ajout d'un titre
+  //const productTitle = document.createElement("h1");
+  //productTitle.innerHTML = product.name;
+  // productTitle.setAttribute("class", "product__title");
+  // document.querySelector("#carteProduit").appendChild(productTitle);
+  document.querySelector(".product__title").innerHTML = product.name;
 
-      // Ajout de la description
-      const productDescription = document.createElement("div");
-      productDescription.innerHTML = product.description;
-      document.querySelector("#carteProduit").appendChild(productDescription);
+  // Ajout du prix
+  // const productPrice = document.createElement("div");
+  // productPrice.innerHTML = `<strong> ${formatPrice(
+  //   product.price
+  // )} </strong>`;
+  // productPrice.setAttribute("class", "product__price");
+  // document.querySelector("#carteProduit").appendChild(productPrice);
+  document.querySelector(".product__price").innerHTML = `<strong> ${formatPrice(
+    product.price
+  )} </strong>`;
 
-      // Ajout de l'image
-      const productImage = document.createElement("div");
-      productImage.innerHTML = `<img src="${product.imageUrl}" alt="Image du produit" />`;
-      document.querySelector("#carteProduit").appendChild(productImage);
+  // Ajout de la description
+  // const productDescription = document.createElement("div");
+  // productDescription.innerHTML = product.description;
+  // productDescription.setAttribute("class", "product__description");
+  // document.querySelector("#carteProduit").appendChild(productDescription);
+  document.querySelector(".product__description").innerHTML = product.description;
 
-      // Récupération des options de couleur et ajout dans une liste radio
-      product.colors.forEach((color, index) => {
-        const productColor = document.createElement("input");
-        productColor.setAttribute("type", "radio");
-        productColor.setAttribute("id", color);
-        productColor.setAttribute("name", "couleur");
-        productColor.setAttribute("value", color);
-        if (index === 0) {
-          productColor.setAttribute("checked", true);
-        }
-        const colorLabel = document.createElement("label");
-        colorLabel.setAttribute("for", color);
-        colorLabel.innerHTML = color;
-        document.querySelector("#choixCouleur").appendChild(productColor);
-        document.querySelector("#choixCouleur").appendChild(colorLabel);
-      });
-    })
-    .catch(function (err) {
-      // Une erreur est survenue
-    });
+  // Récupération des options de couleur et ajout dans une liste radio
+  product.colors.forEach((color, index) => {
+    const productColor = document.createElement("input");
+    productColor.setAttribute("type", "radio");
+    productColor.setAttribute("id", color.replace(/\s/g, ""));
+    productColor.setAttribute("name", "couleur");
+    productColor.setAttribute("value", color);
+    if (index === 0) {
+      productColor.setAttribute("checked", true);
+    }
+    const colorLabel = document.createElement("label");
+    const colorSpan = document.createElement("span");
+    colorLabel.setAttribute("id", `label-${color.replace(/\s/g, "")}`);
+    colorLabel.setAttribute("for", color.replace(/\s/g, ""));
+    colorSpan.innerHTML = color;
+    document.querySelector("#choixCouleur").appendChild(colorLabel);
+    document.querySelector(`#label-${color.replace(/\s/g, "")}`).appendChild(productColor);
+    document.querySelector(`#label-${color.replace(/\s/g, "")}`).appendChild(colorSpan);
+  });
 }
 
 async function displayCart() {

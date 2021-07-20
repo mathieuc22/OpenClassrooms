@@ -38,9 +38,18 @@ export async function getProducts() {
 
 // Récupération du produit depuis l'API
 export async function getProduct(productId) {
-  const response = await fetch(APIURL + productId);
-  const product = await response.json();
-  return product;
+  try {
+    const response = await fetch(APIURL + productId);
+    const product = await response.json();
+    return product;
+  } catch (err) {
+    // Print products
+    console.log(`Erreur : ${err}`);
+    // Une erreur est survenue
+    document.querySelector("#carteProduit").style.display = 'none';
+    const noProduct = document.createElement("div");
+    noProduct.innerHTML = "Aucune référence n'a été trouvée";
+  }
 }
 
 export function feedCart() {

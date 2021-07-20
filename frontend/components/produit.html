@@ -33,14 +33,22 @@
     </header>
 
     <main>
-      <form>
-        <p>Veuillez choisir la couleur :</p>
-        <div id="choixCouleur">
+      <section id="carteProduit" class="product">
+        <img class="product__image">
+        <div class="product__info">
+          <h1 class="product__title"></h1>
+          <p class="product__price"></p>
+          <p class="product__description"></p>
+          <form>
+            <p>Couleur :</p>
+            <div id="choixCouleur" class="product__colors">
+            </div>
+            <div>
+              <button class="button" type="submit" id="cart">Ajouter au panier</button>
+            </div>
+          </form>
         </div>
-        <div>
-          <button type="submit" id="cart">Ajouter au panier</button>
-        </div>
-      </form>
+      </section>
     </main>
 
     <footer>

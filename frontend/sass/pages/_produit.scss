@@ -1,0 +1,55 @@
+.product {
+    display: flex;
+    width: 80%;
+    margin: auto;
+    flex-wrap: wrap;
+    &__image {
+        width: 50%;
+        min-width: 400px;
+        flex: auto;
+    }
+    &__info {
+        width: 50%;
+        flex: auto;
+    }
+    &__description {
+        margin-bottom: 5px;
+    }
+    &__colors {
+        display: flex;
+        justify-content: space-between;
+        border-radius: 5px;
+        background-color: $backgroundColorPalePink;
+        border: 1px solid darken($color: $backgroundColorPalePink, $amount: 30%);
+        margin-bottom: 10px;
+        label {
+            flex: 1;
+            display: flex;
+            text-align: center;
+            align-items: stretch;
+            cursor: pointer;
+            height: 30px;
+            border-radius:inherit;
+        }
+        span {
+            flex: 1;
+            line-height: 30px;
+            border-radius:inherit;
+            transition: background-color 0.1s ease-in-out;
+            &:hover {
+                background-color: darken($color: $backgroundColorPalePink, $amount: 10%);
+            }
+        }
+        input {
+            border-radius:inherit;
+            position:absolute;
+            opacity: 0;
+            height: 0;
+            width: 0;
+            &:checked ~ span {
+                color: white;
+                background-color: darken($color: $backgroundColorPalePink, $amount: 30%)
+            }
+        }
+    }
+}
