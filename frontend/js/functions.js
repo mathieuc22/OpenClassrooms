@@ -30,6 +30,7 @@ export async function getProducts() {
     // Print products
     console.log(`Erreur : ${err}`);
     // Une erreur est survenue
+    document.querySelectorAll("section").forEach(section => { section.style.display = "none" });
     const noProduct = document.createElement("div");
     noProduct.innerHTML = "Aucune référence n'a été trouvée";
     document.querySelector("main").appendChild(noProduct);
@@ -46,8 +47,9 @@ export async function getProduct(productId) {
     // Print products
     console.log(`Erreur : ${err}`);
     // Une erreur est survenue
-    document.querySelector("#carteProduit").style.display = 'none';
+    document.querySelectorAll("section").forEach(section => { section.style.display = "none" });
     const noProduct = document.createElement("div");
+    document.querySelector("main").appendChild(noProduct);
     noProduct.innerHTML = "Aucune référence n'a été trouvée";
   }
 }
