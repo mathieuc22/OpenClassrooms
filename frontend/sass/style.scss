@@ -13,15 +13,16 @@
 
 @import 'base/reset';
 @import 'base/base';
-// @import 'base/typography';
+@import 'base/typography';
 // @import 'base/animations';
 
-// @import 'layout/header';
-// @import 'layout/footer';
-// @import 'layout/grid';
+@import 'layout/header';
+@import 'layout/footer';
+@import 'layout/grid';
+@import 'layout/cards';
 
 // @import 'components/buttons';
 
-// @import 'pages/home';
-// @import 'pages/restaurant';
+@import 'pages/home';
+@import 'pages/panier';
 

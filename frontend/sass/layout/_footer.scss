@@ -1,0 +1,27 @@
+footer {
+    background-color: $primaryColorViolet;
+    color: white;
+    margin-top: 30px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding: 0 20px 0 20px;
+    position: relative;
+    .social {
+        display: flex;
+        font-size: 1.7em;
+        align-self: center;
+        &__item {
+            display: flex;
+            align-items: center;
+            margin: 0 8px 0 8px;
+        }
+    }
+    .trademark {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        font-size: 0.8em;
+    }
+}

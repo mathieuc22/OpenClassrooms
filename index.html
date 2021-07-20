@@ -17,15 +17,63 @@
 
   <body>
     <header>
-      <nav>
-        <a href="/index.html"><img class="logo" src="/frontend/img/logo_orinoco.png" alt="logo Orinoco" /></a>
-        <div><a href="/frontend/components/panier.html"><i class="fas fa-shopping-basket"></i><span id="nbItems"></span></a></div>
-
+      <a href="/index.html"><img class="logo" src="/frontend/img/logo_orinoco.png" alt="logo Orinoco" /></a>
+      <nav class="navbar">
+        <ul class="navbar__list">
+          <li class="navbar__list-item">
+            <div class="navbar__cart">
+              <a href="/frontend/components/panier.html">
+                <i class="fas fa-shopping-basket"></i>
+                <span id="nbItems" class="navbar__nb-items"></span>
+              </a>
+            </div>
+          </li>
+        </ul>
       </nav>
     </header>
 
     <main>
-      <h1>Liste des produits</h1>
+      <section class="cover">
+        <div id="topProduct" class="top-product">
+
+        </div>
+        <div class="presentation">
+          <div class="presentation__title">
+            <img
+              src="frontend/img/undraw_shopping.svg"
+              alt="une illustration de shopping"/>
+            <h1>Notre credo ?</h1>
+          </div>
+          <p>Vous proposez des applications thématiques ne vendant qu’un seul groupe de produits.<br>
+            Bienvenue sur Teddiesnoco</p>
+        </div>
+      </section>
+      <section>
+        <ul id="listeProduits" class="teddies">
+
+        </ul>
+      </section>
     </main>
+
+    <footer>
+      <ul class="social">
+        <li class="social__item">
+          <i class="fab fa-instagram-square"></i>
+        </li>
+        <li class="social__item">
+          <i class="fa fa-twitter-square"></i>
+        </li>
+        <li class="social__item">
+          <i class="fa fa-facebook-square"></i>
+        </li>
+        <li class="social__item">
+          <i class="fa fa-pinterest-square"></i>
+        </li>
+      </ul>
+      <div class="trademark">
+        © 2021 Orinoco, Inc. 
+      </div>
+    </footer>
+    
   </body>
 </html>

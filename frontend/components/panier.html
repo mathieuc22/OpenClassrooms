@@ -17,39 +17,89 @@
 
   <body>
     <header>
-      <nav>
-        <a href="/index.html"><img class="logo" src="/frontend/img/logo_orinoco.png" alt="logo Orinoco" /></a>
-        <div><a href="/frontend/components/panier.html"><i class="fas fa-shopping-basket"></i><span id="nbItems"></span></a></div>
+      <a href="/index.html"><img class="logo" src="/frontend/img/logo_orinoco.png" alt="logo Orinoco" /></a>
+      <nav class="navbar">
+        <ul class="navbar__list">
+          <li class="navbar__list-item">
+            <div class="navbar__cart">
+              <a href="/frontend/components/panier.html">
+                <i class="fas fa-shopping-basket"></i>
+                <span id="nbItems" class="navbar__nb-items"></span>
+              </a>
+            </div>
+          </li>
+        </ul>
       </nav>
     </header>
 
     <main>
-      <h1>Panier :</h1>
-      <form>
-        <ul id="listePanier">
+      
+      <section class="panier">
+        <h1>Panier d'achat</h1>
+        <ul id="listePanier" class="panier__list">
 
         </ul>
-      </form>
-      <div id="prixTotal"></div>
-      <p>Formulaire de commande :</p>
-      <form id="contact">
-        <label for="firstName">Prénom :</label><br>
-        <input type="text" id="firstName" name="firstName" required><br>
+        <div id="prixTotal"></div>
+      </section>
 
-        <label for="lastName">Nom de famille :</label><br>
-        <input type="text" id="lastName" name="lastName" required><br>
+      <section class="formulaire">
+        <form id="contact" class="contact">
+          <h1>Formulaire de commande</h1>
+          <div class="contact__fieldline">
+            <p>
+              <label for="firstName">Prénom</label>
+              <input class="contact__input contact__input--margin-right" type="text" id="firstName" name="firstName" required>
+            </p>
+            <p>
+              <label for="lastName">Nom de famille</label>
+              <input class="contact__input" type="text" id="lastName" name="lastName" required>
+            </p>
+          </div>
+          <div class="contact__fieldline">
+            <p>
+              <label for="email">Email</label>
+              <input class="contact__input" type="email" id="email" name="email" required>
+            </p>
+          </div>
+          <div class="contact__fieldline">
+            <p>
+              <label for="address">Addresse</label>
+              <input class="contact__input contact__input--long" type="text" id="address" name="address" required>
+            </p>
+          </div>
+          <div class="contact__fieldline">
+            <p>
+              <label for="city">Ville</label>
+              <input class="contact__input" type="text" id="city" name="city" required> 
+            </p>
+          </div>
+          <div class="contact__fieldline">
+            <button class="contact__button" type="submit">Commander</button>
+          </div>
+        </form>
 
-        <label for="address">Entrez votre addresse :</label><br>
-        <input type="text" id="address" name="address" required><br>
-
-        <label for="city">Entrez votre ville :</label><br>
-        <input type="text" id="city" name="city" required><br>
-
-        <label for="email">Entrez votre email :</label><br>
-        <input type="email" id="email" name="email" required><br>
-
-        <input type="submit" value="Commander">
-      </form>
+      </section>
     </main>
+
+    <footer>
+      <ul class="social">
+        <li class="social__item">
+          <i class="fab fa-instagram-square"></i>
+        </li>
+        <li class="social__item">
+          <i class="fa fa-twitter-square"></i>
+        </li>
+        <li class="social__item">
+          <i class="fa fa-facebook-square"></i>
+        </li>
+        <li class="social__item">
+          <i class="fa fa-pinterest-square"></i>
+        </li>
+      </ul>
+      <div class="trademark">
+        © 2021 Orinoco, Inc. 
+      </div>
+    </footer>
+    
   </body>
 </html>

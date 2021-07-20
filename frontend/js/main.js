@@ -53,33 +53,33 @@ async function getProduits() {
   // Récupère le produit de l'API
   const products = await getProducts();
 
-  // Add a list for the products
-  const productList = document.createElement("ul");
-  productList.setAttribute("id", "listeProduits");
-  document.querySelector("main").appendChild(productList);
-
   // Loop through the products
   for (const product of products) {
     // Create all products components for each product item
     const productId = document.createElement("li");
+    const productImage = document.createElement("img");
+    const productLink = document.createElement("a");
     const productName = document.createElement("div");
     const productPrice = document.createElement("div");
-    const productDescription = document.createElement("div");
-    const productImage = document.createElement("div");
     // Add html content to all the product components
     productId.setAttribute("id", `product-${product._id}`);
-    productName.innerHTML = `<a href="/frontend/components/produit.html?produit=${product._id}">${product.name}</a>`;
+    productId.setAttribute("class", "teddy");
+    productLink.setAttribute("id", `link-${product._id}`);
+    productLink.setAttribute("class", "teddy__link");
+    productLink.setAttribute("href", `/frontend/components/produit.html?produit=${product._id}`);
+    productName.setAttribute("class", "teddy__title");
+    productPrice.setAttribute("class", "teddy__price");
+    productImage.setAttribute("class", "teddy__image");
+    productImage.setAttribute("src", product.imageUrl);
+    productImage.setAttribute("alt", `Image du produit ${product.name}`);
+    productName.innerHTML = product.name;
     productPrice.innerHTML = `<strong> ${formatPrice(product.price)} </strong>`;
-    productDescription.innerHTML = `${product.description}`;
-    productImage.innerHTML = `<img src="${product.imageUrl}" alt="Image du produit" />`;
     // Add the items to the list
     document.querySelector("#listeProduits").appendChild(productId);
-    document.querySelector(`#product-${product._id}`).appendChild(productName);
-    document.querySelector(`#product-${product._id}`).appendChild(productPrice);
-    document
-      .querySelector(`#product-${product._id}`)
-      .appendChild(productDescription);
     document.querySelector(`#product-${product._id}`).appendChild(productImage);
+    document.querySelector(`#product-${product._id}`).appendChild(productLink);
+    document.querySelector(`#link-${product._id}`).appendChild(productName);
+    document.querySelector(`#link-${product._id}`).appendChild(productPrice);
   }
 }
 
@@ -166,6 +166,7 @@ async function displayCart() {
       "id",
       `item-${item.productId}-${item.color.replace(/\s/g, "")}`
     );
+    cartItem.setAttribute("class", "panier__item")
     itemName.innerHTML = product.name;
     itemPrice.setAttribute(
       "id",
@@ -192,10 +193,10 @@ async function displayCart() {
       .appendChild(itemName);
     document
       .querySelector(`#item-${item.productId}-${item.color.replace(/\s/g, "")}`)
-      .appendChild(itemQuantity);
+      .appendChild(itemColor);
     document
       .querySelector(`#item-${item.productId}-${item.color.replace(/\s/g, "")}`)
-      .appendChild(itemColor);
+      .appendChild(itemQuantity);
     document
       .querySelector(`#item-${item.productId}-${item.color.replace(/\s/g, "")}`)
       .appendChild(itemPrice);

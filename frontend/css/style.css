@@ -6,7 +6,13 @@
   outline: solid #f00 1px !important;
 }
 */
+/*
+Couleur primaire orange #e68a08
+Couleur primaire violet #8f5bfe
+Couleur background rose pale #f3e9f1
+*/
 /*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Roboto:ital,wght@0,100;0,400;0,500;0,700;1,100;1,400&display=swap");
 html, body, p, ol, ul, li, dl, dt, dd, blockquote, figure, fieldset, legend, textarea, pre, iframe, hr, h1, h2, h3, h4, h5, h6 {
   margin: 0;
   padding: 0;
@@ -57,28 +63,312 @@ a {
   text-decoration: none;
 }
 
-/*
-Couleur primaire orange #e68a08
-Couleur primaire violet #8f5bfe
-Couleur background rose pale #f3e9f1
-*/
+body {
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  font-family: 'Roboto', sans-serif;
+}
+
+main {
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
+}
+
+h1 {
+  font-family: 'Permanent Marker', cursive;
+}
+
+/* header */
 header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 80px;
+  padding: 0 20px 0 20px;
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #f3e9f1;
+  margin-bottom: 20px;
+}
+
+header .logo {
+  width: 150px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.navbar__list-item a {
+  color: black;
+}
+
+.navbar__list-item i {
+  font-size: 1.2em;
+}
+
+.navbar__cart {
+  position: relative;
+}
+
+.navbar__nb-items {
+  color: #8f5bfe;
+  position: absolute;
+  top: -7px;
+}
+
+footer {
+  background-color: #8f5bfe;
+  color: white;
+  margin-top: 30px;
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  padding: 0 20px 0 20px;
+  position: relative;
+}
+
+footer .social {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 1.7em;
+  -ms-flex-item-align: center;
+      align-self: center;
+}
+
+footer .social__item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 8px 0 8px;
+}
+
+footer .trademark {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: 0.8em;
+}
+
+.teddies {
+  display: -ms-grid;
+  display: grid;
+  width: 70%;
+  margin: auto;
+  -ms-grid-columns: (minmax(12rem, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  grid-auto-rows: 13rem;
+  gap: 1.1em;
+  margin-top: 30px;
+}
+
+.teddy {
+  position: relative;
+  border-radius: 15px;
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.teddy__title {
+  font-weight: 700;
+}
+
+.teddy__price {
+  font-weight: 500;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+.teddy__image {
+  width: 100%;
+  height: 10em;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  border-radius: 15px 15px 0 0;
+}
+
+.teddy__link {
+  padding: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: black;
+}
+
+.teddy__link div > * {
+  padding: 2px;
+}
+
+.teddy__link::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: " ";
+}
+
+.cover {
+  width: 80%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: auto;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.cover .top-product {
   background-color: #f3e9f1;
 }
 
-img {
-  width: 500px;
-  -o-object-fit: cover;
-     object-fit: cover;
+.cover .presentation {
+  width: 40%;
+  background-color: #8f5bfe;
+  color: white;
+  padding: 20px;
+  border-radius: 15px;
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.logo {
-  width: 150px;
-  -o-object-fit: cover;
-     object-fit: cover;
+.cover .presentation__title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
-li img {
+.cover .presentation img {
+  height: 80px;
+}
+
+.cover .presentation h1 {
+  font-size: 1.8em;
+}
+
+.cover .presentation p {
+  margin: 5px;
+  text-align: center;
+  font-style: italic;
+}
+
+.panier {
+  margin: auto;
+  width: 80%;
+}
+
+.panier__item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.formulaire {
+  margin: auto;
+  width: 400px;
+  padding: 10px;
+  border-radius: 15px;
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: #f3e9f1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 20px;
+}
+
+.contact {
+  margin: auto;
+}
+
+.contact__fieldline {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 10px 0 10px 0;
+}
+
+.contact__fieldline p {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.contact__input {
   width: 150px;
+  height: 30px;
+  border: 1px solid #e1c8dc;
+  border-radius: 2px;
+}
+
+.contact__input--long {
+  width: 320px;
+}
+
+.contact__input--margin-right {
+  margin-right: 25px;
+}
+
+.contact__button {
+  background-color: #8f5bfe;
+  color: white;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  width: 320px;
+  height: 40px;
+  margin-top: 5px;
 }
 /*# sourceMappingURL=style.css.map */
