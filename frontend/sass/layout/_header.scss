@@ -25,10 +25,20 @@ header {
     }
     &__cart {
         position: relative;
+        z-index: 2;
     }
     &__nb-items {
-        color: $primaryColorViolet;
+        font-size: 0.8em;
+        color: white;
         position: absolute;
         top: -7px;
+        left: 15px;
+        background-color: $primaryColorViolet;
+        border-radius: 50%;
+        height: 18px;
+        width: 18px;
+        text-align: center;
+        line-height: 18px;
+        z-index: 1;
     }
 }

@@ -11,7 +11,6 @@
     font-weight: 700;
   }
   &__price {
-    font-weight: 500;
     align-self: flex-end;
   }
   &__image {
@@ -22,11 +21,12 @@
     border-radius: 15px 15px 0 0;
   }
   &__link {
-    padding: 15px;
+    padding: 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: black;
+    font-size: 0.9em;
     div > * {
       padding: 2px;
     }

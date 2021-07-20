@@ -156,9 +156,9 @@ async function displayCart() {
 
     // Construit les éléments html
     const cartItem = document.createElement("li");
+    const itemImage = document.createElement("img");
     const itemName = document.createElement("div");
     const itemQuantity = document.createElement("input");
-    const itemColor = document.createElement("div");
     const itemPrice = document.createElement("div");
     const itemDelete = document.createElement("button");
 
@@ -166,13 +166,19 @@ async function displayCart() {
       "id",
       `item-${item.productId}-${item.color.replace(/\s/g, "")}`
     );
-    cartItem.setAttribute("class", "panier__item")
-    itemName.innerHTML = product.name;
+    cartItem.setAttribute("class", "panier__item");
+    itemImage.setAttribute("class", "panier__image");
+    itemImage.setAttribute("src", product.imageUrl);
+    itemImage.setAttribute("alt", `Image du produit ${product.name}`);
+    itemName.setAttribute("class", "panier__name");
+    itemName.innerHTML = `${product.name} - ${item.color}`;
+    itemPrice.setAttribute("class", "panier__price");
     itemPrice.setAttribute(
       "id",
       `price-${item.productId}-${item.color.replace(/\s/g, "")}`
     );
     itemPrice.innerHTML = formatPrice(product.price * item.quantity);
+    itemQuantity.setAttribute("class", "panier__quantity");
     itemQuantity.setAttribute(
       "id",
       `quantity-${item.productId}-${item.color.replace(/\s/g, "")}`
@@ -180,8 +186,7 @@ async function displayCart() {
     itemQuantity.setAttribute("type", "number");
     itemQuantity.setAttribute("min", 1);
     itemQuantity.setAttribute("value", item.quantity);
-    itemColor.innerHTML = item.color;
-    itemDelete.innerHTML = "Supprimer";
+    itemDelete.setAttribute("class", "panier__delete far fa-trash-alt");
     itemDelete.setAttribute(
       "id",
       `delete-${item.productId}-${item.color.replace(/\s/g, "")}`
@@ -190,10 +195,10 @@ async function displayCart() {
     document.querySelector("#listePanier").appendChild(cartItem);
     document
       .querySelector(`#item-${item.productId}-${item.color.replace(/\s/g, "")}`)
-      .appendChild(itemName);
+      .appendChild(itemImage);
     document
       .querySelector(`#item-${item.productId}-${item.color.replace(/\s/g, "")}`)
-      .appendChild(itemColor);
+      .appendChild(itemName);
     document
       .querySelector(`#item-${item.productId}-${item.color.replace(/\s/g, "")}`)
       .appendChild(itemQuantity);
