@@ -1,7 +1,10 @@
 // Constante de l'URL de l'API
-export const APIURL = "http://localhost:3000/api/teddies/";
+const APIURL = "http://localhost:3000/api/teddies/";
 
-// Formatage du prix en euros avec les décimales
+/**
+ * Formatage du prix en euros avec les décimales
+ * @param {number} price - Le montant à convertir.
+ */
 export function formatPrice(price) {
   return new Intl.NumberFormat("fr-FR", {
     style: "currency",
@@ -9,7 +12,9 @@ export function formatPrice(price) {
   }).format(price / 100);
 }
 
-// Récupération du panier depuis le localstorage
+/**
+ * Récupération du panier depuis le localstorage
+ */
 export function getCart() {
   // Initie le tableau des produits du panier
   let products = [];
@@ -20,7 +25,9 @@ export function getCart() {
   return products;
 }
 
-// Récupération des produits depuis l'API
+/**
+ * Récupération des produits depuis l'API
+ */
 export async function getProducts() {
   try {
     const response = await fetch(APIURL);
@@ -37,7 +44,10 @@ export async function getProducts() {
   }
 }
 
-// Récupération du produit depuis l'API
+/**
+ * Récupération du produit depuis l'API
+ * @param {string} productId - L'id du produit.
+ */
 export async function getProduct(productId) {
   try {
     const response = await fetch(APIURL + productId);

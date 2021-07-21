@@ -1,6 +1,5 @@
 import {
   formatPrice,
-  APIURL,
   feedCart,
   getCart,
   getProducts,
@@ -85,6 +84,10 @@ async function getProduits() {
   },500);
 }
 
+/**
+ * Construction de la page produit
+ * @param {string} idProduit - L'id du produit.
+ */
 async function getProduit(idProduit) {
   // Récupère le produit de l'API
   const product = await getProduct(idProduit);
