@@ -2,22 +2,28 @@
     width: 80%;
     display: flex;
     margin: auto;
-    justify-content: space-between;
+    justify-content: center;
+    flex-wrap: wrap;
     .top-product {
         display: flex;
+        flex-wrap: wrap;
+        flex: auto;
         width: 55%;
+        max-width: 600px;
+        margin: 10px;
         background-color: $backgroundColorPalePink;
         border-radius: 15px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        height: 200px;
+        overflow: hidden;
         &__image {
-            height: 100%;
-            max-width: 60%;
-            border-radius: 15px 0 0 15px;
+
+            max-height: 200px;
             object-fit: cover;
+            flex: auto;
         }
         &__text {
             width: 40%;
+            flex: auto;
             padding: 15px;
             display: flex;
             flex-direction: column;
@@ -34,11 +40,17 @@
         }
     }
     .presentation {
+        flex: auto;
         width: 40%;
+        max-width: 600px;
+        margin: 10px;
+        padding: 20px;
         background-color: $primaryColorViolet;
         color: white;
-        padding: 20px;
         border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         &__title {
             display: flex;
