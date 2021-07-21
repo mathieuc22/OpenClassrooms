@@ -323,6 +323,10 @@ footer .trademark {
           box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.4);
 }
 
+.button--small {
+  max-width: 200px;
+}
+
 .cover {
   width: 80%;
   display: -webkit-box;
@@ -576,24 +580,43 @@ footer .trademark {
   margin: auto;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .product__image {
+  border: 1px solid #f3e9f1;
+  border-radius: 5px;
   width: 50%;
   min-width: 400px;
+  max-width: 500px;
   -webkit-box-flex: 1;
       -ms-flex: auto;
           flex: auto;
+  margin: 10px;
 }
 
 .product__info {
+  padding: 10px;
   width: 50%;
   -webkit-box-flex: 1;
       -ms-flex: auto;
           flex: auto;
+  margin: 10px;
+  max-width: 400px;
 }
 
-.product__description {
+.product__info > * {
+  margin-bottom: 10px;
+}
+
+.product__title {
+  font-size: 2em;
+}
+
+.product__color-title {
+  font-weight: 700;
   margin-bottom: 5px;
 }
 
@@ -622,16 +645,14 @@ footer .trademark {
       -ms-flex-align: stretch;
           align-items: stretch;
   cursor: pointer;
-  height: 30px;
-  border-radius: inherit;
+  height: 40px;
 }
 
 .product__colors span {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  line-height: 30px;
-  border-radius: inherit;
+  line-height: 40px;
   -webkit-transition: background-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out;
 }
