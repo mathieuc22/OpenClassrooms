@@ -53,34 +53,36 @@ async function getProduits() {
   // Récupère le produit de l'API
   const products = await getProducts();
 
-  // Loop through the products
-  for (const product of products) {
-    // Create all products components for each product item
-    const productId = document.createElement("li");
-    const productImage = document.createElement("img");
-    const productLink = document.createElement("a");
-    const productName = document.createElement("div");
-    const productPrice = document.createElement("div");
-    // Add html content to all the product components
-    productId.setAttribute("id", `product-${product._id}`);
-    productId.setAttribute("class", "teddy");
-    productLink.setAttribute("id", `link-${product._id}`);
-    productLink.setAttribute("class", "teddy__link");
-    productLink.setAttribute("href", `/frontend/components/produit.html?produit=${product._id}`);
-    productName.setAttribute("class", "teddy__title");
-    productPrice.setAttribute("class", "teddy__price");
-    productImage.setAttribute("class", "teddy__image");
-    productImage.setAttribute("src", product.imageUrl);
-    productImage.setAttribute("alt", `Image du produit ${product.name}`);
-    productName.innerHTML = product.name;
-    productPrice.innerHTML = `<strong> ${formatPrice(product.price)} </strong>`;
-    // Add the items to the list
-    document.querySelector("#listeProduits").appendChild(productId);
-    document.querySelector(`#product-${product._id}`).appendChild(productImage);
-    document.querySelector(`#product-${product._id}`).appendChild(productLink);
-    document.querySelector(`#link-${product._id}`).appendChild(productName);
-    document.querySelector(`#link-${product._id}`).appendChild(productPrice);
-  }
+  setTimeout(() => {
+    // Loop through the products
+    for (const product of products) {
+      // Create all products components for each product item
+      const productId = document.createElement("li");
+      const productImage = document.createElement("img");
+      const productLink = document.createElement("a");
+      const productName = document.createElement("div");
+      const productPrice = document.createElement("div");
+      // Add html content to all the product components
+      productId.setAttribute("id", `product-${product._id}`);
+      productId.setAttribute("class", "teddy fadein");
+      productLink.setAttribute("id", `link-${product._id}`);
+      productLink.setAttribute("class", "teddy__link");
+      productLink.setAttribute("href", `/frontend/components/produit.html?produit=${product._id}`);
+      productName.setAttribute("class", "teddy__title");
+      productPrice.setAttribute("class", "teddy__price");
+      productImage.setAttribute("class", "teddy__image");
+      productImage.setAttribute("src", product.imageUrl);
+      productImage.setAttribute("alt", `Image du produit ${product.name}`);
+      productName.innerHTML = product.name;
+      productPrice.innerHTML = `<strong> ${formatPrice(product.price)} </strong>`;
+      // Add the items to the list
+      document.querySelector("#listeProduits").appendChild(productId);
+      document.querySelector(`#product-${product._id}`).appendChild(productImage);
+      document.querySelector(`#product-${product._id}`).appendChild(productLink);
+      document.querySelector(`#link-${product._id}`).appendChild(productName);
+      document.querySelector(`#link-${product._id}`).appendChild(productPrice);
+    }
+  },500);
 }
 
 async function getProduit(idProduit) {
@@ -149,6 +151,8 @@ async function displayCart() {
   // Récupère le panier du localstorage
   let items = getCart();
 
+  document.querySelectorAll("section").forEach(section => { section.style.display = "none" });
+
   // Pour chaque élément du panier on restitue une ligne avec le nom du produit, sa couleur, la quantité et le prix
   for (const item of items) {
     // Récupère le produit de l'API
@@ -162,10 +166,7 @@ async function displayCart() {
     const itemPrice = document.createElement("div");
     const itemDelete = document.createElement("button");
 
-    cartItem.setAttribute(
-      "id",
-      `item-${item.productId}-${item.color.replace(/\s/g, "")}`
-    );
+    cartItem.setAttribute("id", `item-${item.productId}-${item.color.replace(/\s/g, "")}`);
     cartItem.setAttribute("class", "panier__item");
     itemImage.setAttribute("class", "panier__image");
     itemImage.setAttribute("src", product.imageUrl);
@@ -226,4 +227,6 @@ async function displayCart() {
       "prixTotal"
     ).innerHTML = `Total : ${await totalPrice()}`;
   }
+
+  document.querySelectorAll("section").forEach(section => { section.style.display = "block" });
 }
