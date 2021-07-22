@@ -310,6 +310,7 @@ footer .trademark {
   border-radius: 5px;
   width: 320px;
   height: 40px;
+  line-height: 40px;
   margin-top: 5px;
   -webkit-transition: -webkit-box-shadow 0.1s ease-in-out;
   transition: -webkit-box-shadow 0.1s ease-in-out;
@@ -325,6 +326,10 @@ footer .trademark {
 
 .button--small {
   max-width: 200px;
+}
+
+.button--secondary {
+  background-color: #b28efe;
 }
 
 .cover {
@@ -695,6 +700,52 @@ footer .trademark {
 .product__colors input:checked ~ span {
   color: white;
   background-color: #bd86b2;
+}
+
+.modal {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 0.7;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  opacity: 1;
+}
+
+.modal__card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 2;
+  background-color: #f3e9f1;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  width: 80%;
+  max-width: 600px;
+}
+
+.modal__text {
+  margin: 20px 0 20px 0;
+}
+
+.modal__item-name {
+  font-weight: 700;
+}
+
+.modal__button-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap-reverse;
+      flex-wrap: wrap-reverse;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
 .confirmation {

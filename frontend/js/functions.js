@@ -224,5 +224,14 @@ export function sendCart(event, idProduit) {
   products.push(product);
   localStorage.setItem("products", JSON.stringify(products));
   feedCart();
-  alert("Le produit a été ajouté au panier");
+  
+  // Affichage du modal d'ajout au panier
+  document.querySelector('.modal__item-name').innerHTML = document.querySelector('.product__title').textContent;
+  document.querySelector('.modal__item-color').innerHTML = color;
+  document.querySelector('.modal__item-price').innerHTML = document.querySelector('.product__price').textContent;
+  document.querySelector('.modal').style.display = "block";
+
+  // Gestion des actions des boutons
+  document.querySelector("#continue").addEventListener("click", (event) => document.querySelector('.modal').removeAttribute("style"));
+
 }
