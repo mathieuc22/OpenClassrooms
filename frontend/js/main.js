@@ -67,7 +67,7 @@ async function getProduits() {
     document.querySelector(".top-product__product").innerHTML= products[3].name;
     document.querySelector(".top-product__price").innerHTML= `<strong> ${formatPrice(products[3].price)} </strong>`;
     document.querySelector(".top-product__description").innerHTML= products[3].description;
-    document.querySelector(".top-product__link").setAttribute("href", `/frontend/components/produit.html?produit=${products[3]._id}`);
+    document.querySelector(".top-product__link").setAttribute("href", `frontend/components/produit.html?produit=${products[3]._id}`);
   
     document.querySelector("#topProduct").style.display = 'flex';
 
@@ -84,7 +84,7 @@ async function getProduits() {
       productId.setAttribute("class", "teddy fadein");
       productLink.setAttribute("id", `link-${product._id}`);
       productLink.setAttribute("class", "teddy__link");
-      productLink.setAttribute("href", `/frontend/components/produit.html?produit=${product._id}`);
+      productLink.setAttribute("href", `frontend/components/produit.html?produit=${product._id}`);
       productName.setAttribute("class", "teddy__title");
       productPrice.setAttribute("class", "teddy__price");
       productImage.setAttribute("class", "teddy__image");
