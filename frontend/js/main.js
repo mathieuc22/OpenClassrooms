@@ -49,7 +49,15 @@ document.addEventListener("DOMContentLoaded", function () {
     case "confirmation.html":
       // Récupération de l'id produit en parsant l'url
       const urlCommandParams = new URLSearchParams(window.location.search);
-      displayConfirm(urlCommandParams);
+      if (urlCommandParams > "") {
+        displayConfirm(urlCommandParams);
+      } else {
+        // Une erreur est survenue
+        document.querySelectorAll("section").forEach(section => { section.style.display = "none" });
+        const noProduct = document.createElement("div");
+        noProduct.innerHTML = "Aucune référence n'a été trouvée";
+        document.querySelector("main").appendChild(noProduct);
+      }
   }
 
   // Notification du panier sur le header

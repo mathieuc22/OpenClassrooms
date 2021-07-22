@@ -178,6 +178,7 @@ export async function sendOrder(event) {
   // Récupération du montant total du panier
   let price = await totalPrice();
 
+  // Envoi de la commande à l'API, si c'est ok on vide le panier et affiche la page de confirmation
   fetch(APIURL + "order", {
     method: "POST",
     headers: {
@@ -192,7 +193,8 @@ export async function sendOrder(event) {
       }
     })
     .then((order) => {
-      window.open(`${window.location.href.replace('panier','confirmation')}?name=${contact.firstName}&price=${price}&order=${order.orderId}`, '_self'); 
+      window.open(`${window.location.href.replace('panier','confirmation')}?name=${contact.firstName}&price=${price}&order=${order.orderId}`, '_self');
+      localStorage.removeItem("products");
     });
 }
 
