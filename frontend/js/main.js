@@ -17,6 +17,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const page = path.split("/").pop();
   console.log(page);
 
+  // Masque les sections avant le chargement des éléments
+  document.querySelectorAll("section").forEach(section => { section.style.display = "none" });
+
   // Sélection des fonctions à exécuter en fonction de la page courante
   switch (page) {
     case "index.html":
@@ -46,13 +49,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Notification du panier sur le header
   feedCart();
+
 });
 
+/**
+ * Construction de la page d'accueil
+ */
 async function getProduits() {
+  
   // Récupère le produit de l'API
   const products = await getProducts();
 
   setTimeout(() => {
+    
+    // Va chercher les infos tu top produit
+    document.querySelector(".top-product__image").setAttribute("src", products[3].imageUrl);
+    document.querySelector(".top-product__product").innerHTML= products[3].name;
+    document.querySelector(".top-product__price").innerHTML= `<strong> ${formatPrice(products[3].price)} </strong>`;
+    document.querySelector(".top-product__description").innerHTML= products[3].description;
+  
+    document.querySelector("#topProduct").style.display = 'flex';
+
     // Loop through the products
     for (const product of products) {
       // Create all products components for each product item
@@ -81,7 +98,10 @@ async function getProduits() {
       document.querySelector(`#link-${product._id}`).appendChild(productName);
       document.querySelector(`#link-${product._id}`).appendChild(productPrice);
     }
-  },500);
+    document.querySelectorAll("section").forEach(section => { section.removeAttribute('style') });
+  }
+  ,500);
+  
 }
 
 /**
@@ -97,64 +117,48 @@ async function getProduit(idProduit) {
   // Changement du titre de la page
   document.title = product.name + " | Orinoco";
 
-  // Ajout de l'image
-  //const productImage = document.createElement("div");
-  //productImage.innerHTML = `<img src="${product.imageUrl}" alt="Image du produit ${product.name}" />`;
-  //productImage.setAttribute("class", "product__image");
-  //document.querySelector("#carteProduit").appendChild(productImage);
-  document.querySelector(".product__image").setAttribute("src",product.imageUrl);
+  setTimeout(() => {
+    
+    // Ajout des éléments du produit
+    document.querySelector(".product__image").setAttribute("src",product.imageUrl);
+    document.querySelector(".product__title").innerHTML = product.name;
+    document.querySelector(".product__price").innerHTML = `<strong> ${formatPrice(product.price)} </strong>`;
+    document.querySelector(".product__description").innerHTML = product.description;
 
-  // Ajout d'un titre
-  //const productTitle = document.createElement("h1");
-  //productTitle.innerHTML = product.name;
-  // productTitle.setAttribute("class", "product__title");
-  // document.querySelector("#carteProduit").appendChild(productTitle);
-  document.querySelector(".product__title").innerHTML = product.name;
+    // Récupération des options de couleur et ajout dans une liste radio
+    product.colors.forEach((color, index) => {
+      const productColor = document.createElement("input");
+      productColor.setAttribute("type", "radio");
+      productColor.setAttribute("id", color.replace(/\s/g, ""));
+      productColor.setAttribute("name", "couleur");
+      productColor.setAttribute("value", color);
+      if (index === 0) {
+        productColor.setAttribute("checked", true);
+      }
+      const colorLabel = document.createElement("label");
+      const colorSpan = document.createElement("span");
+      colorLabel.setAttribute("id", `label-${color.replace(/\s/g, "")}`);
+      colorLabel.setAttribute("for", color.replace(/\s/g, ""));
+      colorSpan.innerHTML = color;
+      document.querySelector("#choixCouleur").appendChild(colorLabel);
+      document.querySelector(`#label-${color.replace(/\s/g, "")}`).appendChild(productColor);
+      document.querySelector(`#label-${color.replace(/\s/g, "")}`).appendChild(colorSpan);
+    })
 
-  // Ajout du prix
-  // const productPrice = document.createElement("div");
-  // productPrice.innerHTML = `<strong> ${formatPrice(
-  //   product.price
-  // )} </strong>`;
-  // productPrice.setAttribute("class", "product__price");
-  // document.querySelector("#carteProduit").appendChild(productPrice);
-  document.querySelector(".product__price").innerHTML = `<strong> ${formatPrice(
-    product.price
-  )} </strong>`;
+    document.querySelectorAll("section").forEach(section => { section.removeAttribute('style') });
 
-  // Ajout de la description
-  // const productDescription = document.createElement("div");
-  // productDescription.innerHTML = product.description;
-  // productDescription.setAttribute("class", "product__description");
-  // document.querySelector("#carteProduit").appendChild(productDescription);
-  document.querySelector(".product__description").innerHTML = product.description;
+  }
+  ,500);
 
-  // Récupération des options de couleur et ajout dans une liste radio
-  product.colors.forEach((color, index) => {
-    const productColor = document.createElement("input");
-    productColor.setAttribute("type", "radio");
-    productColor.setAttribute("id", color.replace(/\s/g, ""));
-    productColor.setAttribute("name", "couleur");
-    productColor.setAttribute("value", color);
-    if (index === 0) {
-      productColor.setAttribute("checked", true);
-    }
-    const colorLabel = document.createElement("label");
-    const colorSpan = document.createElement("span");
-    colorLabel.setAttribute("id", `label-${color.replace(/\s/g, "")}`);
-    colorLabel.setAttribute("for", color.replace(/\s/g, ""));
-    colorSpan.innerHTML = color;
-    document.querySelector("#choixCouleur").appendChild(colorLabel);
-    document.querySelector(`#label-${color.replace(/\s/g, "")}`).appendChild(productColor);
-    document.querySelector(`#label-${color.replace(/\s/g, "")}`).appendChild(colorSpan);
-  });
 }
 
+/**
+ * Construction de la page de panier d'achat
+ */
 async function displayCart() {
+
   // Récupère le panier du localstorage
   let items = getCart();
-
-  document.querySelectorAll("section").forEach(section => { section.style.display = "none" });
 
   // Pour chaque élément du panier on restitue une ligne avec le nom du produit, sa couleur, la quantité et le prix
   for (const item of items) {
@@ -168,8 +172,11 @@ async function displayCart() {
     const itemQuantity = document.createElement("input");
     const itemPrice = document.createElement("div");
     const itemDelete = document.createElement("button");
+    // Nouvel identifiant id + couleur
+    const itemIdColor = `${item.productId}-${item.color.replace(/\s/g, "")}`
 
-    cartItem.setAttribute("id", `item-${item.productId}-${item.color.replace(/\s/g, "")}`);
+    // Définition des attributs des éléments html
+    cartItem.setAttribute("id", `item-${itemIdColor}`);
     cartItem.setAttribute("class", "panier__item");
     itemImage.setAttribute("class", "panier__image");
     itemImage.setAttribute("src", product.imageUrl);
@@ -177,48 +184,29 @@ async function displayCart() {
     itemName.setAttribute("class", "panier__name");
     itemName.innerHTML = `${product.name} - ${item.color}`;
     itemPrice.setAttribute("class", "panier__price");
-    itemPrice.setAttribute(
-      "id",
-      `price-${item.productId}-${item.color.replace(/\s/g, "")}`
-    );
+    itemPrice.setAttribute("id",`price-${itemIdColor}`);
     itemPrice.innerHTML = formatPrice(product.price * item.quantity);
     itemQuantity.setAttribute("class", "panier__quantity");
-    itemQuantity.setAttribute(
-      "id",
-      `quantity-${item.productId}-${item.color.replace(/\s/g, "")}`
-    );
+    itemQuantity.setAttribute("id",`quantity-${itemIdColor}`);
     itemQuantity.setAttribute("type", "number");
     itemQuantity.setAttribute("min", 1);
     itemQuantity.setAttribute("value", item.quantity);
     itemDelete.setAttribute("class", "panier__delete far fa-trash-alt");
-    itemDelete.setAttribute(
-      "id",
-      `delete-${item.productId}-${item.color.replace(/\s/g, "")}`
-    );
-
+    itemDelete.setAttribute("id",`delete-${itemIdColor}`);
+    
+    // Construction de la ligne du panier
     document.querySelector("#listePanier").appendChild(cartItem);
-    document
-      .querySelector(`#item-${item.productId}-${item.color.replace(/\s/g, "")}`)
-      .appendChild(itemImage);
-    document
-      .querySelector(`#item-${item.productId}-${item.color.replace(/\s/g, "")}`)
-      .appendChild(itemName);
-    document
-      .querySelector(`#item-${item.productId}-${item.color.replace(/\s/g, "")}`)
-      .appendChild(itemQuantity);
-    document
-      .querySelector(`#item-${item.productId}-${item.color.replace(/\s/g, "")}`)
-      .appendChild(itemPrice);
-    document
-      .querySelector(`#item-${item.productId}-${item.color.replace(/\s/g, "")}`)
-      .appendChild(itemDelete);
+    const itemElements = [itemImage, itemName, itemQuantity, itemPrice, itemDelete]
+    itemElements.forEach( itemElement => {document.querySelector(`#item-${itemIdColor}`).appendChild(itemElement)});
+    
     document
       .querySelector(
-        `#delete-${item.productId}-${item.color.replace(/\s/g, "")}`
+        `#delete-${itemIdColor}`
       )
       .addEventListener("click", (event) =>
         deleteItem(event, item.productId, item.color)
       );
+
     document
       .querySelector(
         `#quantity-${item.productId}-${item.color.replace(/\s/g, "")}`
@@ -226,10 +214,12 @@ async function displayCart() {
       .addEventListener("change", () =>
         updateQuantity(item.productId, item.color, product.price)
       );
+
     document.getElementById(
       "prixTotal"
     ).innerHTML = `Total : ${await totalPrice()}`;
+    
   }
 
-  document.querySelectorAll("section").forEach(section => { section.style.display = "block" });
+  document.querySelectorAll("section").forEach(section => { section.removeAttribute('style') });
 }

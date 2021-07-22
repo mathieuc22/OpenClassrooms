@@ -1,5 +1,6 @@
 // Constante de l'URL de l'API
-const APIURL = "http://localhost:3000/api/teddies/";
+//const APIURL = "http://localhost:3000/api/teddies/";
+const APIURL = "https://shrouded-meadow-70236.herokuapp.com/api/teddies/";
 
 /**
  * Formatage du prix en euros avec les décimales
