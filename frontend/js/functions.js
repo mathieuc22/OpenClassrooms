@@ -157,6 +157,10 @@ export async function updateQuantity(itemId, itemColor, itemPrice) {
   ).innerHTML = `Total : ${await totalPrice()}`;
 }
 
+/**
+ * Déclenchement de la commande
+ * @param {event} event - Evenement de soumission du formulaire.
+ */
 export async function sendOrder(event) {
   // Permet d'empêcher la soumission du formulaire
   event.preventDefault();
@@ -188,9 +192,7 @@ export async function sendOrder(event) {
       }
     })
     .then((order) => {
-      alert(
-        `Merci ${contact.firstName} la commande d'un montant de ${price} est passée, vous pouvez trouver sa référence : ${order.orderId}`
-      );
+      window.open(`${window.location.href.replace('panier','confirmation')}?name=${contact.firstName}&price=${price}&order=${order.orderId}`, '_self'); 
     });
 }
 

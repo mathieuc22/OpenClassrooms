@@ -696,4 +696,32 @@ footer .trademark {
   color: white;
   background-color: #bd86b2;
 }
+
+.confirmation {
+  background-color: #f3e9f1;
+  border-radius: 50px;
+  padding: 20px;
+  text-align: center;
+  width: 80%;
+  margin: auto;
+  max-width: 800px;
+}
+
+.confirmation__title {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.confirmation__price {
+  font-weight: 700;
+}
+
+.confirmation__order {
+  font-weight: 700;
+  font-style: italic;
+}
+
+.confirmation__image {
+  width: 30%;
+}
 /*# sourceMappingURL=style.css.map */

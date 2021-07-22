@@ -46,6 +46,10 @@ document.addEventListener("DOMContentLoaded", function () {
         .querySelector("#contact")
         .addEventListener("submit", (event) => sendOrder(event));
       break;
+    case "confirmation.html":
+      // Récupération de l'id produit en parsant l'url
+      const urlCommandParams = new URLSearchParams(window.location.search);
+      displayConfirm(urlCommandParams);
   }
 
   // Notification du panier sur le header
@@ -114,8 +118,6 @@ async function getProduit(idProduit) {
   // Récupère le produit de l'API
   const product = await getProduct(idProduit);
 
-  // Print products
-  console.log(product);
   // Changement du titre de la page
   document.title = product.name + " | Orinoco";
 
@@ -223,5 +225,16 @@ async function displayCart() {
     
   }
 
+  document.querySelectorAll("section").forEach(section => { section.removeAttribute('style') });
+}
+
+/**
+ * Construction de confirmation d'achat
+ * @param {object} urlCommandParams - L'id du produit.
+ */
+function displayConfirm(urlCommandParams) {
+  // Passage des paramètres dans la page de confirmation
+  urlCommandParams.forEach((param, key) => { document.querySelector(`#${key}`).innerHTML = param })
+  // Affichage de la section
   document.querySelectorAll("section").forEach(section => { section.removeAttribute('style') });
 }
