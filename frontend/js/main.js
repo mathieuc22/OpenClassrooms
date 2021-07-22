@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Sélection des fonctions à exécuter en fonction de la page courante
   switch (page) {
+    case "":
     case "index.html":
       // Par défaut, chager la liste des produits
       getProduits();
