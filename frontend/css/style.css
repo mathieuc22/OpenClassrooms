@@ -237,6 +237,14 @@ footer .trademark {
   margin-top: 30px;
 }
 
+@media (max-width: 599px) {
+  .teddies {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+    width: 100%;
+  }
+}
+
 .teddy {
   position: relative;
   border-radius: 15px;
@@ -246,6 +254,12 @@ footer .trademark {
           box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   -webkit-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
+}
+
+@media (max-width: 599px) {
+  .teddy {
+    border-radius: 0;
+  }
 }
 
 .teddy:hover {
@@ -345,6 +359,12 @@ footer .trademark {
       flex-wrap: wrap;
 }
 
+@media (max-width: 599px) {
+  .cover {
+    width: 100%;
+  }
+}
+
 .cover .top-product {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -365,6 +385,13 @@ footer .trademark {
   transition: all 0.1s ease-in-out;
   overflow: hidden;
   position: relative;
+}
+
+@media (max-width: 599px) {
+  .cover .top-product {
+    border-radius: 0;
+    margin: 0;
+  }
 }
 
 .cover .top-product:hover {
@@ -449,6 +476,15 @@ footer .trademark {
           justify-content: center;
   -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
           box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 599px) {
+  .cover .presentation {
+    border-radius: 0;
+    margin: 0;
+    width: 100%;
+    margin-top: 10px;
+  }
 }
 
 .cover .presentation__title {
