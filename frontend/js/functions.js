@@ -167,26 +167,33 @@ export async function sendOrder(event) {
 
   // Récupère le panier du localstorage
   let cart = getCart();
-  let products = [];
-  cart.forEach((item) => products.push(item.productId));
 
-  // Récupération des éléments du formulaire
-  const contactForm = new FormData(event.target);
-  let contact = {};
-  contactForm.forEach((value, key) => (contact[key] = value));
+  if (cart.length === 0) {
+    
+    // Contrôle sur le panier
 
-  // Récupération du montant total du panier
-  let price = await totalPrice();
+  } else {
 
-  // Envoi de la commande à l'API, si c'est ok on vide le panier et affiche la page de confirmation
-  fetch(APIURL + "order", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ contact, products }),
-  })
+    let products = [];
+    cart.forEach((item) => products.push(item.productId));
+
+    // Récupération des éléments du formulaire
+    const contactForm = new FormData(event.target);
+    let contact = {};
+    contactForm.forEach((value, key) => (contact[key] = value));
+
+    // Récupération du montant total du panier
+    let price = await totalPrice();
+
+    // Envoi de la commande à l'API, si c'est ok on vide le panier et affiche la page de confirmation
+    fetch(APIURL + "order", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ contact, products }),
+    })
     .then(function (response) {
       if (response.ok) {
         return response.json();
@@ -196,6 +203,7 @@ export async function sendOrder(event) {
       window.open(`${window.location.href.replace('panier','confirmation')}?name=${contact.firstName}&price=${price}&order=${order.orderId}`, '_self');
       localStorage.removeItem("products");
     });
+  }
 }
 
 export function sendCart(event, idProduit) {

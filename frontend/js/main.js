@@ -31,12 +31,19 @@ document.addEventListener("DOMContentLoaded", function () {
       // Récupération de l'id produit en parsant l'url
       const urlSearchParams = new URLSearchParams(window.location.search);
       const idProduit = urlSearchParams.get("produit");
-      // Charger le produit
-      getProduit(idProduit);
-      // Envoi du produit au panier
-      document
-        .querySelector("#cart")
-        .addEventListener("click", (event) => sendCart(event, idProduit));
+
+      if (idProduit) {
+        // Charger le produit
+        getProduit(idProduit);
+        // Envoi du produit au panier
+        document.querySelector("#cart").addEventListener("click", (event) => sendCart(event, idProduit));
+      } else {
+        // Une erreur est survenue
+        document.querySelectorAll("section").forEach(section => { section.style.display = "none" });
+        const noProduct = document.createElement("div");
+        noProduct.innerHTML = "Cette page ne fait référence à aucun produit";
+        document.querySelector("main").appendChild(noProduct);
+      }
       break;
     case "panier.html":
       // Par défaut, chager le panier
@@ -123,6 +130,9 @@ async function getProduits() {
  * @param {string} idProduit - L'id du produit.
  */
 async function getProduit(idProduit) {
+
+
+
   // Récupère le produit de l'API
   const product = await getProduct(idProduit);
 
@@ -172,68 +182,79 @@ async function displayCart() {
   // Récupère le panier du localstorage
   let items = getCart();
 
-  // Pour chaque élément du panier on restitue une ligne avec le nom du produit, sa couleur, la quantité et le prix
-  for (const item of items) {
-    // Récupère le produit de l'API
-    const product = await getProduct(item.productId);
+  if (items.length === 0) {
 
-    // Construit les éléments html
-    const cartItem = document.createElement("li");
-    const itemImage = document.createElement("img");
-    const itemName = document.createElement("div");
-    const itemQuantity = document.createElement("input");
-    const itemPrice = document.createElement("div");
-    const itemDelete = document.createElement("button");
-    // Nouvel identifiant id + couleur
-    const itemIdColor = `${item.productId}-${item.color.replace(/\s/g, "")}`
+    // Le panier est vide
+    document.querySelectorAll("section").forEach(section => { section.style.display = "none" });
+    const noProduct = document.createElement("div");
+    noProduct.innerHTML = "Votre panier est vide";
+    document.querySelector("main").appendChild(noProduct);
 
-    // Définition des attributs des éléments html
-    cartItem.setAttribute("id", `item-${itemIdColor}`);
-    cartItem.setAttribute("class", "panier__item");
-    itemImage.setAttribute("class", "panier__image");
-    itemImage.setAttribute("src", product.imageUrl);
-    itemImage.setAttribute("alt", `Image du produit ${product.name}`);
-    itemName.setAttribute("class", "panier__name");
-    itemName.innerHTML = `${product.name} - ${item.color}`;
-    itemPrice.setAttribute("class", "panier__price");
-    itemPrice.setAttribute("id",`price-${itemIdColor}`);
-    itemPrice.innerHTML = formatPrice(product.price * item.quantity);
-    itemQuantity.setAttribute("class", "panier__quantity");
-    itemQuantity.setAttribute("id",`quantity-${itemIdColor}`);
-    itemQuantity.setAttribute("type", "number");
-    itemQuantity.setAttribute("min", 1);
-    itemQuantity.setAttribute("value", item.quantity);
-    itemDelete.setAttribute("class", "panier__delete far fa-trash-alt");
-    itemDelete.setAttribute("id",`delete-${itemIdColor}`);
+  } else {
     
-    // Construction de la ligne du panier
-    document.querySelector("#listePanier").appendChild(cartItem);
-    const itemElements = [itemImage, itemName, itemQuantity, itemPrice, itemDelete]
-    itemElements.forEach( itemElement => {document.querySelector(`#item-${itemIdColor}`).appendChild(itemElement)});
-    
-    document
-      .querySelector(
-        `#delete-${itemIdColor}`
-      )
-      .addEventListener("click", (event) =>
-        deleteItem(event, item.productId, item.color)
-      );
+    // Pour chaque élément du panier on restitue une ligne avec le nom du produit, sa couleur, la quantité et le prix
+    for (const item of items) {
+      // Récupère le produit de l'API
+      const product = await getProduct(item.productId);
 
-    document
-      .querySelector(
-        `#quantity-${item.productId}-${item.color.replace(/\s/g, "")}`
-      )
-      .addEventListener("change", () =>
-        updateQuantity(item.productId, item.color, product.price)
-      );
+      // Construit les éléments html
+      const cartItem = document.createElement("li");
+      const itemImage = document.createElement("img");
+      const itemName = document.createElement("div");
+      const itemQuantity = document.createElement("input");
+      const itemPrice = document.createElement("div");
+      const itemDelete = document.createElement("button");
+      // Nouvel identifiant id + couleur
+      const itemIdColor = `${item.productId}-${item.color.replace(/\s/g, "")}`
 
-    document.getElementById(
-      "prixTotal"
-    ).innerHTML = `Total : ${await totalPrice()}`;
-    
+      // Définition des attributs des éléments html
+      cartItem.setAttribute("id", `item-${itemIdColor}`);
+      cartItem.setAttribute("class", "panier__item");
+      itemImage.setAttribute("class", "panier__image");
+      itemImage.setAttribute("src", product.imageUrl);
+      itemImage.setAttribute("alt", `Image du produit ${product.name}`);
+      itemName.setAttribute("class", "panier__name");
+      itemName.innerHTML = `${product.name} - ${item.color}`;
+      itemPrice.setAttribute("class", "panier__price");
+      itemPrice.setAttribute("id",`price-${itemIdColor}`);
+      itemPrice.innerHTML = formatPrice(product.price * item.quantity);
+      itemQuantity.setAttribute("class", "panier__quantity");
+      itemQuantity.setAttribute("id",`quantity-${itemIdColor}`);
+      itemQuantity.setAttribute("type", "number");
+      itemQuantity.setAttribute("min", 1);
+      itemQuantity.setAttribute("value", item.quantity);
+      itemDelete.setAttribute("class", "panier__delete far fa-trash-alt");
+      itemDelete.setAttribute("id",`delete-${itemIdColor}`);
+      
+      // Construction de la ligne du panier
+      document.querySelector("#listePanier").appendChild(cartItem);
+      const itemElements = [itemImage, itemName, itemQuantity, itemPrice, itemDelete]
+      itemElements.forEach( itemElement => {document.querySelector(`#item-${itemIdColor}`).appendChild(itemElement)});
+      
+      document
+        .querySelector(
+          `#delete-${itemIdColor}`
+        )
+        .addEventListener("click", (event) =>
+          deleteItem(event, item.productId, item.color)
+        );
+
+      document
+        .querySelector(
+          `#quantity-${item.productId}-${item.color.replace(/\s/g, "")}`
+        )
+        .addEventListener("change", () =>
+          updateQuantity(item.productId, item.color, product.price)
+        );
+
+      document.getElementById(
+        "prixTotal"
+      ).innerHTML = `Total : ${await totalPrice()}`;
+      
+    }
+    document.querySelectorAll("section").forEach(section => { section.removeAttribute('style') });
   }
 
-  document.querySelectorAll("section").forEach(section => { section.removeAttribute('style') });
 }
 
 /**
