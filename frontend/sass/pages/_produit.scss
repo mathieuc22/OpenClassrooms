@@ -1,6 +1,5 @@
 .product {
     display: flex;
-    width: 80%;
     margin: auto;
     flex-wrap: wrap;
     justify-content: center;
@@ -12,6 +11,9 @@
         max-width: 500px;
         flex: auto;
         margin: 10px;
+        @media (max-width: 599px) {
+            min-width: unset;
+        }
     }
     &__info {
         padding: 10px;
@@ -31,14 +33,13 @@
         margin-bottom: 5px;
     }
     &__colors {
-        display: flex;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
         border-radius: 5px;
         background-color: $backgroundColorPalePink;
         border: 1px solid darken($color: $backgroundColorPalePink, $amount: 30%);
         margin-bottom: 10px;
         label {
-            flex: 1;
             display: flex;
             text-align: center;
             align-items: stretch;
@@ -64,6 +65,9 @@
                 background-color: darken($color: $backgroundColorPalePink, $amount: 30%)
             }
         }
+    }
+    &__button-cart {
+        display: flex;
     }
 }
 
@@ -99,8 +103,11 @@
         font-weight: 700;
     }
     &__button-group {
-        display: flex;
-        flex-wrap: wrap-reverse;
-        justify-content:space-around;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 8px;
+        @media (max-width: 599px) {
+            grid-template-columns: 1fr;
+        }
     }
 }

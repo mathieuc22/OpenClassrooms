@@ -12,11 +12,12 @@
     box-shadow: 0 5px 10px 0 rgba(0,0,0,0.4);
     transform: translate3d(0, -2px, 0);
   }
+  &:active {
+    box-shadow: 0 5px 10px 0 rgba(0,0,0,0.4);
+    transform: translate3d(0, 2px, 0);
+  }
   &__title {
     font-weight: 700;
-  }
-  &__price {
-    align-self: flex-end;
   }
   &__image {
     width: 100%;
@@ -31,6 +32,10 @@
     align-items: center;
     color: black;
     font-size: 0.9em;
+    @media (max-width: 599px) {
+      padding: 8px;
+      flex-direction: column;
+    }
     div > * {
       padding: 2px;
     }

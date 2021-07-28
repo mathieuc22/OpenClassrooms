@@ -7,21 +7,27 @@
         margin-bottom: 5px;
     }
     &__item {
-        display: flex;
-        justify-content: space-between;
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr 1fr;
         align-items: center;
         border-top: 1px solid black;
-        height: 50px;
+        margin: 5px 0;
+        padding: 3px;
+        @media (max-width: 599px) {
+            grid-template-columns: 1fr 2fr;
+            justify-items: center;
+            grid-gap: 3px;
+        }
     }
     &__image {
         height: 40px;
     }
     &__name {
-        flex: auto;
-        height: 40px;
-        margin: 0 10px 0 10px;
+        margin: 0 10px;
     }
     &__quantity {
+        text-align: center;
         width: 50px;
         margin: 0 10px 0 10px;
     }
@@ -34,6 +40,8 @@
         background:none;
         cursor: pointer;
         font-size: 1.2em;
+        position: absolute;
+        right: 0px;
     }
     &__total-price {
         border-top: 1px solid black;
@@ -51,6 +59,10 @@
     background-color: $backgroundColorPalePink;
     display: flex;
     margin-top: 20px;
+    @media (max-width: 599px) {
+        width: unset;
+        border-radius: 0px;
+    }
 }
 
 .contact {
@@ -60,8 +72,12 @@
         flex: auto;
         align-items: center;
         margin: 10px 0 10px 0;
+        @media (max-width: 599px) {
+            flex-wrap: wrap;
+        }
         p {
             display: flex;
+            width: 100%;
             justify-content: space-between;
             flex-direction: column;
         }
@@ -71,8 +87,11 @@
         height: 30px;
         border: 1px solid darken($color: $backgroundColorPalePink, $amount: 10%);
         border-radius: 2px;
+        @media (max-width: 599px) {
+            width: 100%;
+        }
         &--long {
-            width: 320px;
+            width: 100%;
         }
         &--margin-right {
             margin-right: 25px;
