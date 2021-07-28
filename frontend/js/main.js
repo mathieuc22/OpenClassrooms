@@ -2,20 +2,19 @@ import {
   formatPrice,
   feedCart,
   getCart,
-  getProducts,
   sendCart,
   deleteItem,
   updateQuantity,
   getProduct,
   totalPrice,
   sendOrder,
+  sendError,
 } from "./functions.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   // Récupération du nom de la page pour déclencher les bonnes fonctions
   const path = window.location.pathname;
   const page = path.split("/").pop();
-  console.log(page);
 
   // Masque les sections avant le chargement des éléments
   document.querySelectorAll("section").forEach(section => { section.style.display = "none" });
@@ -38,11 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Envoi du produit au panier
         document.querySelector("#cart").addEventListener("click", (event) => sendCart(event, idProduit));
       } else {
-        // Une erreur est survenue
-        document.querySelectorAll("section").forEach(section => { section.style.display = "none" });
-        const noProduct = document.createElement("div");
-        noProduct.innerHTML = "Cette page ne fait référence à aucun produit";
-        document.querySelector("main").appendChild(noProduct);
+        sendError("Cette page ne fait référence à aucun produit");
       }
       break;
     case "panier.html":
@@ -59,11 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (urlCommandParams > "") {
         displayConfirm(urlCommandParams);
       } else {
-        // Une erreur est survenue
-        document.querySelectorAll("section").forEach(section => { section.style.display = "none" });
-        const noProduct = document.createElement("div");
-        noProduct.innerHTML = "Aucune référence n'a été trouvée";
-        document.querySelector("main").appendChild(noProduct);
+        sendError("Aucune référence n'a été trouvée");
       }
   }
 
@@ -78,7 +69,15 @@ document.addEventListener("DOMContentLoaded", function () {
 async function getProduits() {
   
   // Récupère le produit de l'API
-  const products = await getProducts();
+  let products
+  try {
+    products = await getProduct();
+    console.log(products)
+  }
+  catch {
+    sendError("Aucune référence n'a été trouvée");
+    return;
+  }
 
   setTimeout(() => {
     
@@ -131,10 +130,15 @@ async function getProduits() {
  */
 async function getProduit(idProduit) {
 
-
-
   // Récupère le produit de l'API
-  const product = await getProduct(idProduit);
+  let product
+  try {
+    product = await getProduct(idProduit);
+  }
+  catch {
+    sendError("Aucune référence n'a été trouvée")
+    return;
+  }
 
   // Changement du titre de la page
   document.title = product.name + " | Orinoco";
@@ -185,10 +189,7 @@ async function displayCart() {
   if (items.length === 0) {
 
     // Le panier est vide
-    document.querySelectorAll("section").forEach(section => { section.style.display = "none" });
-    const noProduct = document.createElement("div");
-    noProduct.innerHTML = "Votre panier est vide";
-    document.querySelector("main").appendChild(noProduct);
+    document.querySelector('.modal').style.display = "block";
 
   } else {
     
