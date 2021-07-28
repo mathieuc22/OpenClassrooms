@@ -220,7 +220,7 @@ async function displayCart() {
       itemPrice.innerHTML = formatPrice(product.price * item.quantity);
       itemQuantity.setAttribute("class", "panier__quantity");
       itemQuantity.setAttribute("id",`quantity-${itemIdColor}`);
-      for(var i = 0; i<11; i++){
+      for(var i = 1; i<12; i++){
         let option = document.createElement("option");
         option.setAttribute("value", i);
         option.innerHTML = i;
