@@ -201,7 +201,7 @@ async function displayCart() {
       const cartItem = document.createElement("li");
       const itemImage = document.createElement("img");
       const itemName = document.createElement("div");
-      const itemQuantity = document.createElement("input");
+      const itemQuantity = document.createElement("select");
       const itemPrice = document.createElement("div");
       const itemDelete = document.createElement("button");
       // Nouvel identifiant id + couleur
@@ -220,9 +220,13 @@ async function displayCart() {
       itemPrice.innerHTML = formatPrice(product.price * item.quantity);
       itemQuantity.setAttribute("class", "panier__quantity");
       itemQuantity.setAttribute("id",`quantity-${itemIdColor}`);
-      itemQuantity.setAttribute("type", "number");
-      itemQuantity.setAttribute("min", 1);
-      itemQuantity.setAttribute("value", item.quantity);
+      for(var i = 0; i<11; i++){
+        let option = document.createElement("option");
+        option.setAttribute("value", i);
+        option.innerHTML = i;
+        itemQuantity.appendChild(option);
+      }
+      itemQuantity.value = item.quantity;
       itemDelete.setAttribute("class", "panier__delete far fa-trash-alt");
       itemDelete.setAttribute("id",`delete-${itemIdColor}`);
       
