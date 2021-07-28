@@ -1,0 +1,51 @@
+.teddy {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  transition: all 0.1s ease-in-out;
+  @media (max-width: 599px) {
+      border-radius: 0;
+  }
+  &:hover {
+    box-shadow: 0 5px 10px 0 rgba(0,0,0,0.4);
+    transform: translate3d(0, -2px, 0);
+  }
+  &:active {
+    box-shadow: 0 5px 10px 0 rgba(0,0,0,0.4);
+    transform: translate3d(0, 2px, 0);
+  }
+  &__title {
+    font-weight: 700;
+  }
+  &__image {
+    width: 100%;
+    height: 10em;
+    object-fit: cover;
+    object-position: center;
+  }
+  &__link {
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: black;
+    font-size: 0.9em;
+    @media (max-width: 599px) {
+      padding: 8px;
+      flex-direction: column;
+    }
+    div > * {
+      padding: 2px;
+    }
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      content: " ";
+    }
+  }
+}

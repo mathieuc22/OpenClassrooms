@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta name="description" content="Applications thématiques ne vendant qu’un seul groupe de produits" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-    <link rel="shortcut icon" type="image/png" href="/frontend/img/favicon.jpg" />
+    <link rel="shortcut icon" type="image/png" href="../img/favicon.jpg" />
 
-    <link rel="stylesheet" type="text/css" href="/frontend/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
 
-    <script type="module" src="/frontend/js/main.js"></script>
+    <script type="module" src="../js/main.js"></script>
     <script src="https://kit.fontawesome.com/a76bab607b.js" crossorigin="anonymous"></script>
     
     <title>Panier | Orinoco</title>
@@ -17,39 +17,91 @@
 
   <body>
     <header>
-      <nav>
-        <a href="/index.html"><img class="logo" src="/frontend/img/logo_orinoco.png" alt="logo Orinoco" /></a>
-        <div><a href="/frontend/components/panier.html"><i class="fas fa-shopping-basket"></i><span id="nbItems"></span></a></div>
+      <a href="../../index.html"><img class="logo" src="../img/logo_orinoco.png" alt="logo Orinoco" /></a>
+      <nav class="navbar">
+        <ul class="navbar__list">
+          <li class="navbar__list-item">
+            <div class="navbar__cart">
+              <a href="../components/panier.html">
+                <i class="fas fa-shopping-basket"></i>
+                <span id="nbItems" class="navbar__nb-items"></span>
+              </a>
+            </div>
+          </li>
+        </ul>
       </nav>
     </header>
 
     <main>
-      <h1>Panier :</h1>
-      <form>
-        <ul id="listePanier">
+      
+      <section class="panier">
+        <h1 class="panier__title">Panier d'achat</h1>
+        <ul id="listePanier" class="panier__list fadein">
 
         </ul>
-      </form>
-      <div id="prixTotal"></div>
-      <p>Formulaire de commande :</p>
-      <form id="contact">
-        <label for="firstName">Prénom :</label><br>
-        <input type="text" id="firstName" name="firstName" required><br>
+        <div id="prixTotal" class="panier__total-price"></div>
+      </section>
 
-        <label for="lastName">Nom de famille :</label><br>
-        <input type="text" id="lastName" name="lastName" required><br>
+      <section class="formulaire">
+        <form id="contact" class="contact">
+          <h1>Formulaire de commande</h1>
+          <div class="contact__fieldline">
+            <p>
+              <label for="firstName">Prénom</label>
+              <input class="contact__input contact__input--margin-right" type="text" id="firstName" name="firstName" required>
+            </p>
+            <p>
+              <label for="lastName">Nom de famille</label>
+              <input class="contact__input" type="text" id="lastName" name="lastName" required>
+            </p>
+          </div>
+          <div class="contact__fieldline">
+            <p>
+              <label for="email">Email</label>
+              <input class="contact__input contact__input--long" type="email" id="email" name="email" required>
+            </p>
+          </div>
+          <div class="contact__fieldline">
+            <p>
+              <label for="address">Addresse</label>
+              <input class="contact__input contact__input--long" type="text" id="address" name="address" required>
+            </p>
+          </div>
+          <div class="contact__fieldline">
+            <p>
+              <label for="city">Ville</label>
+              <input class="contact__input" type="text" id="city" name="city" required> 
+            </p>
+          </div>
+          <div class="contact__fieldline">
+            <button class="button" type="submit">Commander</button>
+          </div>
+        </form>
 
-        <label for="address">Entrez votre addresse :</label><br>
-        <input type="text" id="address" name="address" required><br>
-
-        <label for="city">Entrez votre ville :</label><br>
-        <input type="text" id="city" name="city" required><br>
-
-        <label for="email">Entrez votre email :</label><br>
-        <input type="email" id="email" name="email" required><br>
-
-        <input type="submit" value="Commander">
-      </form>
+      </section>
     </main>
+
+    <footer>
+      <img class="teddybear" src="../img/undraw_teddy_bear.svg" alt="petite fille et nounours">
+      <svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveaspectratio=none><path fill="#f3e9f1" fill-opacity="1" d="M0,192L21.8,181.3C43.6,171,87,149,131,149.3C174.5,149,218,171,262,176C305.5,181,349,171,393,170.7C436.4,171,480,181,524,197.3C567.3,213,611,235,655,256C698.2,277,742,299,785,293.3C829.1,288,873,256,916,202.7C960,149,1004,75,1047,48C1090.9,21,1135,43,1178,74.7C1221.8,107,1265,149,1309,186.7C1352.7,224,1396,256,1418,272L1440,288L1440,320L1418.2,320C1396.4,320,1353,320,1309,320C1265.5,320,1222,320,1178,320C1134.5,320,1091,320,1047,320C1003.6,320,960,320,916,320C872.7,320,829,320,785,320C741.8,320,698,320,655,320C610.9,320,567,320,524,320C480,320,436,320,393,320C349.1,320,305,320,262,320C218.2,320,175,320,131,320C87.3,320,44,320,22,320L0,320Z"></path></svg>
+      <ul class="social">
+        <li class="social__item">
+          <i class="fab fa-instagram-square"></i>
+        </li>
+        <li class="social__item">
+          <i class="fa fa-twitter-square"></i>
+        </li>
+        <li class="social__item">
+          <i class="fa fa-facebook-square"></i>
+        </li>
+        <li class="social__item">
+          <i class="fa fa-pinterest-square"></i>
+        </li>
+      </ul>
+      <div class="trademark">
+        © 2021 Orinoco, Inc. 
+      </div>
+    </footer>
+
   </body>
 </html>

@@ -1,7 +1,11 @@
 // Constante de l'URL de l'API
-export const APIURL = "http://localhost:3000/api/teddies/";
+//const APIURL = "http://localhost:3000/api/teddies/";
+const APIURL = "https://shrouded-meadow-70236.herokuapp.com/api/teddies/";
 
-// Formatage du prix en euros avec les décimales
+/**
+ * Formatage du prix en euros avec les décimales
+ * @param {number} price - Le montant à convertir.
+ */
 export function formatPrice(price) {
   return new Intl.NumberFormat("fr-FR", {
     style: "currency",
@@ -9,7 +13,9 @@ export function formatPrice(price) {
   }).format(price / 100);
 }
 
-// Récupération du panier depuis le localstorage
+/**
+ * Récupération du panier depuis le localstorage
+ */
 export function getCart() {
   // Initie le tableau des produits du panier
   let products = [];
@@ -20,7 +26,9 @@ export function getCart() {
   return products;
 }
 
-// Récupération des produits depuis l'API
+/**
+ * Récupération des produits depuis l'API
+ */
 export async function getProducts() {
   try {
     const response = await fetch(APIURL);
@@ -30,17 +38,31 @@ export async function getProducts() {
     // Print products
     console.log(`Erreur : ${err}`);
     // Une erreur est survenue
+    document.querySelectorAll("section").forEach(section => { section.style.display = "none" });
     const noProduct = document.createElement("div");
     noProduct.innerHTML = "Aucune référence n'a été trouvée";
     document.querySelector("main").appendChild(noProduct);
   }
 }
 
-// Récupération du produit depuis l'API
+/**
+ * Récupération du produit depuis l'API
+ * @param {string} productId - L'id du produit.
+ */
 export async function getProduct(productId) {
-  const response = await fetch(APIURL + productId);
-  const product = await response.json();
-  return product;
+  try {
+    const response = await fetch(APIURL + productId);
+    const product = await response.json();
+    return product;
+  } catch (err) {
+    // Print products
+    console.log(`Erreur : ${err}`);
+    // Une erreur est survenue
+    document.querySelectorAll("section").forEach(section => { section.style.display = "none" });
+    const noProduct = document.createElement("div");
+    document.querySelector("main").appendChild(noProduct);
+    noProduct.innerHTML = "Aucune référence n'a été trouvée";
+  }
 }
 
 export function feedCart() {
@@ -135,41 +157,53 @@ export async function updateQuantity(itemId, itemColor, itemPrice) {
   ).innerHTML = `Total : ${await totalPrice()}`;
 }
 
+/**
+ * Déclenchement de la commande
+ * @param {event} event - Evenement de soumission du formulaire.
+ */
 export async function sendOrder(event) {
   // Permet d'empêcher la soumission du formulaire
   event.preventDefault();
 
   // Récupère le panier du localstorage
   let cart = getCart();
-  let products = [];
-  cart.forEach((item) => products.push(item.productId));
 
-  // Récupération des éléments du formulaire
-  const contactForm = new FormData(event.target);
-  let contact = {};
-  contactForm.forEach((value, key) => (contact[key] = value));
+  if (cart.length === 0) {
+    
+    // Contrôle sur le panier
 
-  // Récupération du montant total du panier
-  let price = await totalPrice();
+  } else {
 
-  fetch(APIURL + "order", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ contact, products }),
-  })
+    let products = [];
+    cart.forEach((item) => products.push(item.productId));
+
+    // Récupération des éléments du formulaire
+    const contactForm = new FormData(event.target);
+    let contact = {};
+    contactForm.forEach((value, key) => (contact[key] = value));
+
+    // Récupération du montant total du panier
+    let price = await totalPrice();
+
+    // Envoi de la commande à l'API, si c'est ok on vide le panier et affiche la page de confirmation
+    fetch(APIURL + "order", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ contact, products }),
+    })
     .then(function (response) {
       if (response.ok) {
         return response.json();
       }
     })
     .then((order) => {
-      alert(
-        `Merci ${contact.firstName} la commande d'un montant de ${price} est passée, vous pouvez trouver sa référence : ${order.orderId}`
-      );
+      window.open(`${window.location.href.replace('panier','confirmation')}?name=${contact.firstName}&price=${price}&order=${order.orderId}`, '_self');
+      localStorage.removeItem("products");
     });
+  }
 }
 
 export function sendCart(event, idProduit) {
@@ -200,5 +234,14 @@ export function sendCart(event, idProduit) {
   products.push(product);
   localStorage.setItem("products", JSON.stringify(products));
   feedCart();
-  alert("Le produit a été ajouté au panier");
+  
+  // Affichage du modal d'ajout au panier
+  document.querySelector('.modal__item-name').innerHTML = document.querySelector('.product__title').textContent;
+  document.querySelector('.modal__item-color').innerHTML = color;
+  document.querySelector('.modal__item-price').innerHTML = document.querySelector('.product__price').textContent;
+  document.querySelector('.modal').style.display = "block";
+
+  // Gestion des actions des boutons
+  document.querySelector("#continue").addEventListener("click", (event) => document.querySelector('.modal').removeAttribute("style"));
+
 }

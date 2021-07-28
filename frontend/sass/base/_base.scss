@@ -1,0 +1,14 @@
+body {
+    min-height:100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto', sans-serif;
+}
+
+main {
+    flex: auto;
+}
+
+h1 {
+    font-family: 'Permanent Marker', cursive;
+}
