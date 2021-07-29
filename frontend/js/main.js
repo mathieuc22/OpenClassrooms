@@ -72,7 +72,6 @@ async function getProduits() {
   let products
   try {
     products = await getProduct();
-    console.log(products)
   }
   catch {
     sendError("Aucune référence n'a été trouvée");
@@ -100,7 +99,7 @@ async function getProduits() {
       const productPrice = document.createElement("div");
       // Add html content to all the product components
       productId.setAttribute("id", `product-${product._id}`);
-      productId.setAttribute("class", "teddy fadein");
+      productId.setAttribute("class", "teddy");
       productLink.setAttribute("id", `link-${product._id}`);
       productLink.setAttribute("class", "teddy__link");
       productLink.setAttribute("href", `frontend/components/produit.html?produit=${product._id}`);
