@@ -21,42 +21,55 @@ exports.getOneSauce = (req, res, next) => {
 };
 
 exports.modifySauce = (req, res, next) => {
-  const sauceObject = req.file ?
-    {
+  let sauceObject
+  if (req.file) {
+    sauceObject = {
       ...JSON.parse(req.body.sauce),
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    } : { ...req.body };
+    }
+    // suppression du fichier précédent
+    Sauce.findOne({ _id: req.params.id })
+      .then(sauce => {
+        const filename = sauce.imageUrl.split('/images/')[1];
+        fs.unlink(`images/${filename}`, (err) => {
+          if (err) throw err;
+        });
+      })
+      .catch(error => res.status(500).json({ error }));
+  } else {
+    sauceObject = { ...req.body }
+  }
   Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
     .then(() => res.status(200).json({ message: 'Objet modifié !'}))
     .catch(error => res.status(400).json({ error }));
 };
 
-exports.likeSauce = async (req, res, next) => {
-  const sauceObject = { ...req.body }
-  let sauce = await Sauce.findOne({ _id: req.params.id });
-  switch (sauceObject.like) {
+exports.likeSauce = (req, res, next) => {
+  switch (req.body.like) {
     case 1:
-      sauce.usersLiked.push(sauceObject.userId);
-      sauce.likes ++
-      sauce.save();
-      res.status(200).json({ message: 'Objet supprimé !'});
+      Sauce.updateOne({ _id: req.params.id }, { $push: { 'usersLiked': req.body.userId }, $inc: { 'likes': 1 } })
+        .then(() => res.status(200).json({ message: 'Sauce likée'}))
+        .catch(error => res.status(400).json({ error }));
       break;
     case -1:
-      sauce.usersDisliked.push(sauceObject.userId);
-      sauce.dislikes ++
-      sauce.save()
-      res.status(200).json({ message: 'Objet supprimé !'});
+      Sauce.updateOne({ _id: req.params.id }, { $push: { 'usersDisliked': req.body.userId }, $inc: { 'dislikes': 1 } })
+        .then(() => res.status(200).json({ message: 'Sauce pas likée'}))
+        .catch(error => res.status(400).json({ error }));
       break;
     case 0:
-      if (sauce.usersLiked.includes(sauceObject.userId)) {
-        sauce.usersLiked.splice(sauce.usersLiked.indexOf(sauceObject.userId), 1)
-        sauce.likes = sauce.usersLiked.length
-      } else {
-        sauce.usersDisliked.splice(sauce.usersDisliked.indexOf(sauceObject.userId), 1)
-        sauce.dislikes = sauce.usersDisliked.length
-      }
-      sauce.save()
-      res.status(200).json({ message: 'Objet supprimé !'});
+      Sauce.findOne({ _id: req.params.id })
+        .then(sauce => {
+          if (sauce.usersLiked.includes(req.body.userId)) {
+            sauce.usersLiked.splice(sauce.usersLiked.indexOf(req.body.userId), 1)
+            sauce.likes = sauce.usersLiked.length
+          } else {
+            sauce.usersDisliked.splice(sauce.usersDisliked.indexOf(req.body.userId), 1)
+            sauce.dislikes = sauce.usersDisliked.length
+          }
+          sauce.save()
+          res.status(200).json({ message: 'Opinion modifiée !'});
+        })
+        .catch(error => res.status(500).json({ error }));
       break;
   }
   
