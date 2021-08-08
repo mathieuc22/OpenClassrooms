@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongodbErrorHandler = require('mongoose-mongodb-errors');
 
 const sauceSchema = mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -13,5 +14,7 @@ const sauceSchema = mongoose.Schema({
   usersLiked: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   usersDisliked: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 });
+
+sauceSchema.plugin(mongodbErrorHandler);
 
 module.exports = mongoose.model('Sauce', sauceSchema);

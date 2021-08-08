@@ -4,6 +4,7 @@ const userRoutes = require('./routes/user');
 const sauceRoutes = require('./routes/sauce');
 const path = require('path');
 
+// Connexion à la base de données
 mongoose.connect('mongodb+srv://mathieu:mathieuc@cluster0.bag8u.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
@@ -12,6 +13,7 @@ mongoose.connect('mongodb+srv://mathieu:mathieuc@cluster0.bag8u.mongodb.net/myFi
 
 const app = express();
 
+// Gestion des headers pour le frontend
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');

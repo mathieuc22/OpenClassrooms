@@ -1,6 +1,5 @@
 const Sauce = require('../models/sauce');
 const fs = require('fs');
-const sauce = require('../models/sauce');
 
 exports.createSauce = (req, res, next) => {
     const sauceObject = JSON.parse(req.body.sauce);
@@ -21,27 +20,35 @@ exports.getOneSauce = (req, res, next) => {
 };
 
 exports.modifySauce = (req, res, next) => {
-  let sauceObject
-  if (req.file) {
-    sauceObject = {
-      ...JSON.parse(req.body.sauce),
-      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    }
-    // suppression du fichier précédent
-    Sauce.findOne({ _id: req.params.id })
-      .then(sauce => {
-        const filename = sauce.imageUrl.split('/images/')[1];
-        fs.unlink(`images/${filename}`, (err) => {
-          if (err) throw err;
-        });
-      })
-      .catch(error => res.status(500).json({ error }));
-  } else {
-    sauceObject = { ...req.body }
-  }
-  Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
-    .then(() => res.status(200).json({ message: 'Objet modifié !'}))
-    .catch(error => res.status(400).json({ error }));
+  Sauce.findOne({ _id: req.params.id })
+    .then(sauce => {
+      if (sauce.userId.toString() === req.body.userId) {
+        let sauceObject
+        if (req.file) {
+          sauceObject = {
+            ...JSON.parse(req.body.sauce),
+            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+          }
+          // suppression du fichier précédent
+          Sauce.findOne({ _id: req.params.id })
+            .then(sauce => {
+              const filename = sauce.imageUrl.split('/images/')[1];
+              fs.unlink(`images/${filename}`, (err) => {
+                if (err) throw err;
+              });
+            })
+            .catch(error => res.status(500).json({ error }));
+        } else {
+          sauceObject = { ...req.body }
+        }
+        Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
+          .then(() => res.status(200).json({ message: 'Objet modifié !'}))
+          .catch(error => res.status(400).json({ error }));
+      } else {
+        res.status(403).json({ message: 'Modification non autorisée pour cet utilisateur'});
+      }
+    })
+    .catch(error => res.status(500).json({ error }));
 };
 
 exports.likeSauce = (req, res, next) => {
