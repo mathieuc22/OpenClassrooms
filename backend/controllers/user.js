@@ -1,12 +1,15 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+// Utilisation de bcrypt pour hasher le mot de passe
 const bcrypt = require('bcrypt');
- 
+// Utilisation de cryptojs pour crypter l'adresse email
+const SHA256 = require("crypto-js/sha256");
+
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
         const user = new User({
-          email: req.body.email,
+          email: SHA256(req.body.email),
           password: hash
         });
         user.save()
@@ -17,7 +20,7 @@ exports.signup = (req, res, next) => {
   };
 
 exports.login = (req, res, next) => {
-    User.findOne({ email: req.body.email })
+    User.findOne({ email: SHA256(req.body.email).toString() })
         .then(user => {
         if (!user) {
             return res.status(401).json({ error: 'Utilisateur non trouvé !' });
