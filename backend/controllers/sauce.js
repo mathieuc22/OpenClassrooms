@@ -22,7 +22,7 @@ exports.getOneSauce = (req, res, next) => {
 exports.modifySauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then(sauce => {
-      if (sauce.userId.toString() === req.body.userId) {
+      if (sauce.userId.toString() === JSON.parse(req.body.sauce).userId) {
         let sauceObject
         if (req.file) {
           sauceObject = {
@@ -30,14 +30,10 @@ exports.modifySauce = (req, res, next) => {
             imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
           }
           // suppression du fichier précédent
-          Sauce.findOne({ _id: req.params.id })
-            .then(sauce => {
-              const filename = sauce.imageUrl.split('/images/')[1];
-              fs.unlink(`images/${filename}`, (err) => {
-                if (err) throw err;
-              });
-            })
-            .catch(error => res.status(500).json({ error }));
+          const filename = sauce.imageUrl.split('/images/')[1];
+          fs.unlink(`images/${filename}`, (err) => {
+            if (err) throw err;
+          });
         } else {
           sauceObject = { ...req.body }
         }
