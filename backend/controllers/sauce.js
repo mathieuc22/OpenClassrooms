@@ -22,21 +22,23 @@ exports.getOneSauce = (req, res, next) => {
 exports.modifySauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then(sauce => {
-      if (sauce.userId.toString() === JSON.parse(req.body.sauce).userId) {
-        let sauceObject
-        if (req.file) {
-          sauceObject = {
-            ...JSON.parse(req.body.sauce),
-            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-          }
-          // suppression du fichier précédent
-          const filename = sauce.imageUrl.split('/images/')[1];
-          fs.unlink(`images/${filename}`, (err) => {
-            if (err) throw err;
-          });
-        } else {
-          sauceObject = { ...req.body }
+      let sauceObject, reqUser
+      if (req.file) {
+        reqUser = JSON.parse(req.body.sauce).userId
+        sauceObject = {
+          ...JSON.parse(req.body.sauce),
+          imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
         }
+        // suppression du fichier précédent
+        const filename = sauce.imageUrl.split('/images/')[1];
+        fs.unlink(`images/${filename}`, (err) => {
+          if (err) throw err;
+        });
+      } else {
+        reqUser = req.body.userId
+        sauceObject = { ...req.body }
+      }
+      if (sauce.userId.toString() === reqUser) {
         Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
           .then(() => res.status(200).json({ message: 'Objet modifié !'}))
           .catch(error => res.status(400).json({ error }));
