@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const hpp = require('hpp');
 const rateLimit = require("express-rate-limit");
+require('dotenv').config();
 
 const userRoutes = require('./routes/user');
 const sauceRoutes = require('./routes/sauce');
@@ -16,7 +17,7 @@ mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
 // Connexion à la base de données
-mongoose.connect('mongodb+srv://mathieu:mathieuc@cluster0.bag8u.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}?retryWrites=true&w=majority`,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))

@@ -34,7 +34,7 @@ exports.login = (req, res, next) => {
                 userId: user._id,
                 token: jwt.sign(
                 { userId: user._id },
-                'Filthy_Casino',
+                process.env.SECRET_KEY,
                 { expiresIn: '24h' }
                 )
             });
