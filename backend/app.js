@@ -14,7 +14,7 @@ sequelize.sync();
 // routes
 const postRoutes = require('./routes/post');
 const commentRoutes = require('./routes/comment');
-// const userRoutes = require('./routes/user');
+const userRoutes = require('./routes/user');
 
 const app = express();
 
@@ -29,6 +29,6 @@ app.use(express.json());
 
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
-//app.use('/api/auth', userRoutes);
+app.use('/api/auth', userRoutes);
 
 module.exports = app;

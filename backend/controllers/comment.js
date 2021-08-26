@@ -3,9 +3,7 @@ const Comment = require('../models/comment')
 
 // Create and Save a new comment
 exports.create = (req, res) => {
-  console.log(req.body)
   const commentObject = { ...req.body };
-  console.log(commentObject)
   Comment.create({
     ...commentObject
   })
