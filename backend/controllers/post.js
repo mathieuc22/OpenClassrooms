@@ -1,11 +1,10 @@
 const sequelize = require('../middleware/database')
 const Post = require('../models/post')
+const Comment = require('../models/comment')
 
 // Create and Save a new Posts
 exports.create = (req, res) => {
-  console.log(req.body)
   const postObject = { ...req.body };
-  console.log(postObject)
   Post.create({
     ...postObject
   })
@@ -15,7 +14,7 @@ exports.create = (req, res) => {
 
 // Retrieve all Posts from the database.
 exports.findAll = (req, res) => {
-  Post.findAll()
+  Post.findAll({ include: Comment })
     .then(posts => res.status(200).json({ posts: posts }))
     .catch(error => res.status(400).json({ error }));
 };
@@ -48,7 +47,7 @@ exports.update = (req, res) => {
     .catch(error => res.status(500).json({ error }));
 };
 
-// Delete a Posts with the specified id in the request
+// Delete a Post with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
   Post.destroy({ where: { id: id } })
@@ -60,4 +59,16 @@ exports.delete = (req, res) => {
       }
     })
     .catch(error => res.status(500).json({ error }));
+};
+
+// Comment a Post with the specified id in the request
+exports.comment = async (req, res) => {
+  const id = req.params.id;
+  const post = await Post.findByPk(id)
+  const commentObject = { ...req.body };
+  post.createComment({
+    ...commentObject
+  })
+    .then(comment => res.status(201).json({ comment: comment }))
+    .catch(error => res.status(400).json({ error }));
 };

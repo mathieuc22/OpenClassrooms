@@ -10,6 +10,7 @@ router.post('/', postCtrl.create);
 router.get('/', postCtrl.findAll);
 router.get('/:id', postCtrl.findOne);
 router.put('/:id', postCtrl.update);
+router.post('/:id', postCtrl.comment);
 router.delete('/:id', postCtrl.delete);
 
 module.exports = router;
