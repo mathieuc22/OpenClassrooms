@@ -51,3 +51,21 @@ exports.findAll = (req, res) => {
     .then(users => res.status(200).json({ users: users }))
     .catch(error => res.status(400).json({ error }));
 };
+
+// Delete a user with the specified id in the request
+exports.delete = async (req, res) => {
+  const id = req.params.id;
+  if (req.user.id != id && !req.user.moderator) {
+    res.status(403).json({ message: 'Modification non autorisée pour cet utilisateur'});
+  } else {
+    User.destroy({ where: { id: id } })
+      .then(num => {
+        if (num == 1) {
+          res.status(200).json({ message: `L'utilisateur id=${id} a été supprimé`});
+        } else {
+          res.status(400).json({ message: `Suppression l'utilisateur id=${id} impossible` });
+        }
+      })
+      .catch(error => res.status(500).json({ error }));
+  }
+};

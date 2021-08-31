@@ -1,5 +1,5 @@
 const sequelize = require('../middleware/database')
-const jwt = require('jsonwebtoken');
+
 const Post = require('../models/post')
 const Comment = require('../models/comment')
 const User = require('../models/user')
@@ -41,42 +41,40 @@ exports.findOne = (req, res) => {
 };
 
 // Update a Posts by the id in the request
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   const id = req.params.id;
-  Post.update(req.body, { where: { id: id }
-  // pour postgresql  returning: true,
-  })
-    .then((num, post) => {
-      if (num == 1) {
-        console.log(post)
-        res.status(200).json({ message: post });
-      } else {
-        res.status(400).json({ message: `Cannot update Post with id=${id}. Maybe Post was not found or req.body is empty!` });
-      }
+  const post = await Post.findByPk(id);
+  if (req.user.id != post.author && !req.user.moderator) {
+    res.status(403).json({ message: 'Modification non autorisée pour cet utilisateur'});
+  } else {
+    Post.update(req.body, { where: { id: id }
+    // pour postgresql  returning: true,
     })
-    .catch(error => res.status(500).json({ error }));
+      .then((num, post) => {
+        if (num == 1) {
+          console.log(post)
+          res.status(200).json({ message: post });
+        } else {
+          res.status(400).json({ message: `Cannot update Post with id=${id}. Maybe Post was not found or req.body is empty!` });
+        }
+      })
+      .catch(error => res.status(500).json({ error }));
+  }
 };
 
 // Delete a Post with the specified id in the request
 exports.delete = async (req, res) => {
   const id = req.params.id;
-  const token = req.headers.authorization.split(' ')[1];
-  const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
-  const userId = await User.findByPk(decodedToken.userId);
   const post = await Post.findByPk(id);
-  console.log(req.headers.authorization)
-  console.log(decodedToken.userId)
-  console.log(userId)
-  console.log(post.author)
-  if (userId != post.author) {
+  if (req.user.id != post.author && !req.user.moderator) {
     res.status(403).json({ message: 'Modification non autorisée pour cet utilisateur'});
   } else {
     Post.destroy({ where: { id: id } })
       .then(num => {
         if (num == 1) {
-          res.status(200).json({ message: "Post was deleted successfully."});
+          res.status(200).json({ message: `Le post id=${id} a été supprimé`});
         } else {
-          res.status(400).json({ message: `Cannot update Post with id=${id}. Maybe Post was not found or req.body is empty!` });
+          res.status(400).json({ message: `Suppression du post id=${id} impossible` });
         }
       })
       .catch(error => res.status(500).json({ error }));
