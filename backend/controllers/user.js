@@ -12,7 +12,7 @@ exports.signup = (req, res, next) => {
           email: SHA256(req.body.email).toString(),
           password: hash
         })
-          .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
+          .then(user => res.status(201).json({ message: 'Utilisateur créé !', uuid: user.id }))
           .catch(error => res.status(400).json({ error }));
       })
       .catch(error => res.status(500).json({ error }));
