@@ -7,6 +7,11 @@ const User = sequelize.define('user', {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4
   },
+  username: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true
+  },
   email: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -15,6 +20,10 @@ const User = sequelize.define('user', {
   password: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  moderator: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   },
 })
 
