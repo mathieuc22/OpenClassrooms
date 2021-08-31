@@ -31,6 +31,7 @@ Post.belongsTo(User, {
 // relation le post stocke un tableau utilisateurs dans la colonne like
 Post.belongsToMany(User, {
   through: 'post_user',
+  type: Sequelize.UUID,
   as: 'likes'
 });
 // User.belongsToMany(Post, {

@@ -9,7 +9,9 @@ module.exports = async (req, res, next) => {
     const userId = decodedToken.userId;
     const user = await User.findByPk(userId);
     if (user){
-      req.user = user;
+      req.user = []
+      req.user.id = user.id;
+      req.user.moderator = user.moderator;
       next();
     } else {
       res.status(403).json({

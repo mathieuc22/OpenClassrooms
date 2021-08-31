@@ -6,9 +6,9 @@ const User = require('../models/user')
 
 // Create and Save a new Posts
 exports.create = (req, res) => {
-  const postObject = { ...req.body };
   Post.create({
-    ...postObject
+    ...req.body,
+    author: req.user.id
   })
     .then(post => res.status(201).json({ post: post }))
     .catch(error => res.status(400).json({ error }));
@@ -83,22 +83,19 @@ exports.delete = async (req, res) => {
 
 // Comment a Post with the specified id in the request
 exports.comment = async (req, res) => {
-  const id = req.params.id;
-  const post = await Post.findByPk(id)
-  const commentObject = { ...req.body };
+  const post = await Post.findByPk(req.params.id)
   post.createComment({
-    ...commentObject
+    text: req.body.text,
+    author: req.user.id
   })
     .then(comment => res.status(201).json({ comment: comment }))
     .catch(error => res.status(400).json({ error }));
 };
 
-// Update a Posts by the id in the request
+// Add like by the id in the request
 exports.like = async (req, res) => {
-  const id = req.params.id;
-  const post = await Post.findByPk(id)
-  const user = await User.findByPk(req.body.user)
-  post.addLikes(user, { through: { selfGranted: false } })
+  const post = await Post.findByPk(req.params.id)
+  post.addLikes(req.user.id, { through: { selfGranted: false } })
     .then(post => res.status(200).json({ post: post }))
     .catch(error => res.status(404).json({ error }));
   };
