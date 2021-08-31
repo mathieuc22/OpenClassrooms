@@ -10,7 +10,9 @@ exports.signup = (req, res, next) => {
       .then(hash => {
         User.create({
           email: SHA256(req.body.email).toString(),
-          password: hash
+          password: hash,
+          username: req.body.username,
+          moderator: req.body.moderator
         })
           .then(user => res.status(201).json({ message: 'Utilisateur créé !', uuid: user.id }))
           .catch(error => res.status(400).json({ error }));
