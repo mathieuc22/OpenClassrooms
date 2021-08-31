@@ -8,7 +8,7 @@ const User = require('../models/user')
 exports.create = (req, res) => {
   Post.create({
     ...req.body,
-    author: req.user.id
+    authorId: req.user.id
   })
     .then(post => res.status(201).json({ post: post }))
     .catch(error => res.status(400).json({ error }));
@@ -86,7 +86,7 @@ exports.comment = async (req, res) => {
   const post = await Post.findByPk(req.params.id)
   post.createComment({
     text: req.body.text,
-    author: req.user.id
+    authorId: req.user.id
   })
     .then(comment => res.status(201).json({ comment: comment }))
     .catch(error => res.status(400).json({ error }));

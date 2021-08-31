@@ -18,11 +18,10 @@ Comment.belongsTo(Post);
 
 // relation le post doit avoir un utilisateur du model Post
 Post.belongsTo(User, {
-  foreignKey: {
-    name: 'author',
-    type: Sequelize.UUID,
-    allowNull: false
-  }
+  as: 'author',
+  type: Sequelize.UUID,
+  allowNull: false,
+  onDelete: 'cascade'
 });
 
 // relation le post stocke un tableau utilisateurs dans la colonne like
@@ -31,8 +30,5 @@ Post.belongsToMany(User, {
   type: Sequelize.UUID,
   as: 'likes'
 });
-// User.belongsToMany(Post, {
-//   through: 'post_user'
-// });
 
 module.exports = Post;
