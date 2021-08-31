@@ -1,11 +1,9 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../middleware/database');
+const User = require('../models/user')
 const Comment = require('../models/comment')
 
 const Post = sequelize.define('post', {
-  author: {
-    type: Sequelize.STRING
-  },
   channel: {
     type: Sequelize.STRING
   },
@@ -15,15 +13,28 @@ const Post = sequelize.define('post', {
   text: {
     type: Sequelize.STRING
   },
-  author: {
-    type: Sequelize.STRING
-  },
-  like: {
-    type: Sequelize.STRING
-  },
 })
 
+// relation un post a plusieurs commentaires, un commentaire a un post
 Post.hasMany(Comment);
 Comment.belongsTo(Post);
+
+// relation le post doit avoir un utilisateur du model Post
+Post.belongsTo(User, {
+  foreignKey: {
+    name: 'author',
+    type: Sequelize.UUID,
+    allowNull: false
+  }
+});
+
+// relation le post stocke un tableau utilisateurs dans la colonne like
+Post.belongsToMany(User, {
+  through: 'post_user',
+  as: 'likes'
+});
+// User.belongsToMany(Post, {
+//   through: 'post_user'
+// });
 
 module.exports = Post;

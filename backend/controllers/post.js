@@ -1,6 +1,7 @@
 const sequelize = require('../middleware/database')
 const Post = require('../models/post')
 const Comment = require('../models/comment')
+const User = require('../models/user')
 
 // Create and Save a new Posts
 exports.create = (req, res) => {
@@ -14,7 +15,7 @@ exports.create = (req, res) => {
 
 // Retrieve all Posts from the database.
 exports.findAll = (req, res) => {
-  Post.findAll({ include: Comment })
+  Post.findAll()
     .then(posts => res.status(200).json({ posts: posts }))
     .catch(error => res.status(400).json({ error }));
 };
@@ -22,7 +23,12 @@ exports.findAll = (req, res) => {
 // Find a single Posts with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
-  Post.findByPk(id)
+  Post.findByPk(id, { include: [ Comment, { model: User,
+    attributes: ['id'],
+    through: {
+      attributes: []
+    } ,
+    as: 'likes' } ] })
     .then(post => {
       if (post) {
         res.status(200).json({ post: post })
@@ -36,9 +42,12 @@ exports.findOne = (req, res) => {
 // Update a Posts by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
-  Post.update(req.body, { where: { id: id } })
+  Post.update(req.body, { where: { id: id } 
+  // pour postgresql  returning: true,
+  })
     .then((num, post) => {
       if (num == 1) {
+        console.log(post)
         res.status(200).json({ message: post });
       } else {
         res.status(400).json({ message: `Cannot update Post with id=${id}. Maybe Post was not found or req.body is empty!` });
@@ -72,3 +81,13 @@ exports.comment = async (req, res) => {
     .then(comment => res.status(201).json({ comment: comment }))
     .catch(error => res.status(400).json({ error }));
 };
+
+// Update a Posts by the id in the request
+exports.like = async (req, res) => {
+  const id = req.params.id;
+  const post = await Post.findByPk(id)
+  const user = await User.findByPk(req.body.user)
+  post.addLikes(user, { through: { selfGranted: false } })
+    .then(post => res.status(200).json({ post: post }))
+    .catch(error => res.status(404).json({ error }));
+  };
