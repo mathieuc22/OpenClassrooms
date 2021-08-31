@@ -4,9 +4,6 @@ const User = require('../models/user')
 const Comment = require('../models/comment')
 
 const Post = sequelize.define('post', {
-  channel: {
-    type: Sequelize.STRING
-  },
   title: {
     type: Sequelize.STRING
   },

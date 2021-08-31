@@ -3,9 +3,6 @@ const sequelize = require('../middleware/database');
 const User = require('../models/user')
 
 const Comment = sequelize.define('comment', {
-  parent_comment: {
-    type: Sequelize.STRING
-  },
   text: {
     type: Sequelize.STRING
   },
