@@ -95,7 +95,16 @@ exports.comment = async (req, res) => {
 // Add like by the id in the request
 exports.like = async (req, res) => {
   const post = await Post.findByPk(req.params.id)
-  post.addLikes(req.user.id, { through: { selfGranted: false } })
-    .then(post => res.status(200).json({ post: post }))
-    .catch(error => res.status(404).json({ error }));
-  };
+  const likes = await post.getLikes({where: {
+    id: req.user.id,
+  }})
+  if (!likes.length) {
+    post.addLikes(req.user.id, { through: { selfGranted: false } })
+      .then(() => res.status(200).json({ message: `Like ajouté pour l'utilisateur ${req.user.id}` }))
+      .catch(error => res.status(404).json({ error }));
+  } else {
+    post.removeLikes(req.user.id, { through: { selfGranted: false } })
+      .then(() => res.status(200).json({ message: `Like enlevé pour l'utilisateur ${req.user.id}` }))
+      .catch(error => res.status(404).json({ error }));
+  }
+};
