@@ -27,7 +27,7 @@
 </template>
 
 <script>
-const API_URL = "http://localhost:3000/api/auth/login";
+// const API_URL = "http://localhost:3000/api/auth/login";
 export default {
   name: 'Login',
   data() {
@@ -40,19 +40,8 @@ export default {
   },
   methods: {
     async loginUser() {
-      fetch(API_URL, {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(this.login),
-        })
-        .then(response => response.json())
-        .then(result => {
-          localStorage.setItem("user", result.token);
-          this.$router.push("/");
-        });
+      await this.$store.dispatch('authenticate', JSON.stringify(this.login));
+      this.$router.push('/');
     }
   }
 };

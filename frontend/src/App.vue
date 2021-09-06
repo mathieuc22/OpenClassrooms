@@ -2,7 +2,8 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <span v-if="!user"><router-link to="/login">Login</router-link> |</span>
+      <span v-if="isAuthenticated"><router-link to="/submit">New post</router-link> |</span>
+      <span v-if="!isAuthenticated"><router-link to="/login">Login</router-link> |</span>
       <span v-else><button @click="logoutUser">Logout</button> |</span>
       <router-link to="/about">About</router-link>
     </div>
@@ -13,28 +14,14 @@
 
 <script>
 export default {
-  data: () => ({
-    user: ''
-  }),
-  mounted() {
-    if (localStorage.user) {
-      this.user = localStorage.user;
-    }
-  },
-  updated() {
-    if (localStorage.user) {
-      this.user = localStorage.user;
-    }
-  },
-  watch: {
-    user(newUser) {
-      localStorage.user = newUser;
-    }
+  computed: {
+    isAuthenticated() {
+        return this.$store.getters.isAuthenticated;
+      },
   },
   methods: {
     logoutUser() {
-      localStorage.removeItem("user");
-      this.user = '';
+      this.$store.dispatch('logOut')
       this.$router.push("/login");
     }
   }
