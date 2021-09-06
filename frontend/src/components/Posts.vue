@@ -9,12 +9,14 @@
             <small>{{post.createdAt}}</small>
           </div>
         </router-link>
+        <p @click="likePost(post.id)">Like</p>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+const API_URL = "http://localhost:3000/api/posts";
 export default {
   computed: {
       posts() {
@@ -24,5 +26,21 @@ export default {
   created() {
     this.$store.dispatch('loadPosts');
   },
+  methods: {
+    async likePost(id) {
+      try {
+        await fetch(API_URL + '/' + id + '/like', {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + this.$store.getters.user.token,
+          },
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
 }
 </script>

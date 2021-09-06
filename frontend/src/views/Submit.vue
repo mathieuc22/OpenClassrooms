@@ -37,13 +37,12 @@ export default {
   methods: {
     async submitPost() {
       try {
-        const bearer = localStorage.getItem("user");
         await fetch(API_URL, {
           method: "POST",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            'Authorization': 'Bearer ' + bearer,
+            'Authorization': 'Bearer ' + this.$store.getters.token,
           },
           body: JSON.stringify(this.post),
         })

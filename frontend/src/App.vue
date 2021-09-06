@@ -2,9 +2,10 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <span v-if="isAuthenticated"><router-link to="/submit">New post</router-link> |</span>
-      <span v-if="!isAuthenticated"><router-link to="/login">Login</router-link> |</span>
-      <span v-else><button @click="logoutUser">Logout</button> |</span>
+      <span v-if="isAuthenticated"><router-link to="/submit">New post</router-link> | </span>
+      <span v-if="isAuthenticated">{{userName}} | </span>
+      <span v-if="!isAuthenticated"><router-link to="/login">Login</router-link> | </span>
+      <span v-else><button @click="logoutUser">Logout</button> | </span>
       <router-link to="/about">About</router-link>
     </div>
     <h1>Groupomania</h1>
@@ -17,6 +18,9 @@ export default {
   computed: {
     isAuthenticated() {
         return this.$store.getters.isAuthenticated;
+      },
+    userName() {
+        return this.$store.getters.user.name;
       },
   },
   methods: {

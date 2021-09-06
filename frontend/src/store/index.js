@@ -5,28 +5,36 @@ const AUTH_URL = "http://localhost:3000/api/auth/login";
 
 const store = createStore({
   state: {
+    user: JSON.parse(localStorage.getItem('user')) || '',
     posts: [],
-    token: localStorage.getItem('user') || '',
+    post: '',
     status: '',
   },
   getters: {
+    user: (state) => state.user,
     posts: (state) => {
       return state.posts;
     },
-    isAuthenticated: state => !!state.token,
+    post: (state) => {
+      return state.post;
+    },
+    isAuthenticated: state => !!state.user,
     authStatus: state => state.status,
   },
   mutations: {
     SET_ITEMS(state, posts) {
       state.posts = posts;
     },
-    AUTH_SUCCESS(state, token) {
+    SET_ITEM(state, post) {
+      state.post = post;
+    },
+    AUTH_SUCCESS(state, userInfo) {
       state.status = 'success'
-      state.token = token
+      state.user = userInfo
     },
     AUTH_LOGOUT(state) {
       state.status = 'logged out'
-      state.token = ''
+      state.user.token = ''
     },
   },
   actions: {
@@ -40,23 +48,34 @@ const store = createStore({
           },
           body: user,
         })
-        const data = await response.json()
-        const token = data.token
-        localStorage.setItem("user", token);
-        commit("AUTH_SUCCESS", token);
+        const data = await response.json();
+        const userInfo = { id: data.userId, name: data.userName, token: data.token };
+        localStorage.setItem("user", JSON.stringify(userInfo));
+        commit("AUTH_SUCCESS", userInfo);
       } catch (error) {
         console.log(error);
       }
     },
-    async loadPosts({ commit }) {
+    async loadPosts({ commit, state }) {
       try {
-        const bearer = localStorage.getItem("user");
         const response = await fetch(API_URL, {
           headers: {
-            'Authorization': 'Bearer ' + bearer,
+            'Authorization': 'Bearer ' + state.user.token,
           }})
         const data = await response.json()
         commit("SET_ITEMS", data.posts);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async loadPost({ commit, state }, id) {
+      try {
+        const response = await fetch(API_URL + '/' + id, {
+          headers: {
+            'Authorization': 'Bearer ' + state.user.token,
+          }})
+        const data = await response.json()
+        commit("SET_ITEM", data.post);
       } catch (error) {
         console.log(error);
       }
