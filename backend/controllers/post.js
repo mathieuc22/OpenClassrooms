@@ -17,11 +17,19 @@ exports.create = (req, res) => {
 // Retrieve all Posts from the database.
 exports.findAll = (req, res) => {
   Post.findAll({ 
-    include: {
-      model: User,
-      attributes: ['username'],
-      as: 'author'
-    },
+    include: [
+      {
+        model: User,
+        attributes: ['username'],
+        as: 'author'
+      },
+      {
+        model: User,
+        attributes: ['id'],
+        through: {
+          attributes: []
+        },
+        as: 'likes' }],
     order: [['createdAt','DESC',]],
   })
   .then(posts => res.status(200).json({ posts: posts }))
