@@ -120,11 +120,11 @@ exports.like = async (req, res) => {
   }})
   if (!likes.length) {
     post.addLikes(req.user.id, { through: { selfGranted: false } })
-      .then(() => res.status(200).json({ message: `Like ajouté pour l'utilisateur ${req.user.id}` }))
+      .then(() => res.status(200).json({ message: `Like ajouté pour l'utilisateur ${req.user.id}`, like: true }))
       .catch(error => res.status(404).json({ error }));
   } else {
     post.removeLikes(req.user.id, { through: { selfGranted: false } })
-      .then(() => res.status(200).json({ message: `Like enlevé pour l'utilisateur ${req.user.id}` }))
+      .then(() => res.status(200).json({ message: `Like enlevé pour l'utilisateur ${req.user.id}`, like: false }))
       .catch(error => res.status(404).json({ error }));
   }
 };
