@@ -8,7 +8,6 @@ const store = createStore({
     user: JSON.parse(localStorage.getItem('user')) || '',
     posts: [],
     post: '',
-    status: '',
   },
   getters: {
     user: (state) => state.user,
@@ -19,7 +18,6 @@ const store = createStore({
       return state.post;
     },
     isAuthenticated: state => !!state.user,
-    authStatus: state => state.status,
   },
   mutations: {
     SET_ITEMS(state, posts) {
@@ -29,12 +27,10 @@ const store = createStore({
       state.post = post;
     },
     AUTH_SUCCESS(state, userInfo) {
-      state.status = 'success'
       state.user = userInfo
     },
     AUTH_LOGOUT(state) {
-      state.status = 'logged out'
-      state.user.token = ''
+      state.user = ''
     },
   },
   actions: {
