@@ -10,6 +10,7 @@
           </div>
         </router-link>
         <p @click="likePost(post.id)">Like</p>
+        <p>Likes: {{post.likes.length}}</p>
       </li>
     </ul>
   </div>
@@ -23,7 +24,7 @@ export default {
         return this.$store.getters.posts;
       },
     },
-  created() {
+  beforeCreate() {
     this.$store.dispatch('loadPosts');
   },
   methods: {
