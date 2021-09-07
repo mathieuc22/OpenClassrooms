@@ -6,7 +6,7 @@
           <div>
             <h2>{{post.title}}</h2>
             <h3>{{post.author.username}}</h3>
-            <small>{{post.createdAt}}</small>
+            <small>{{ formatDate(post.createdAt) }}</small>
           </div>
         </router-link>
         <p @click="likePost(post.id)">Like</p>
@@ -20,13 +20,16 @@ const API_URL = "http://localhost:3000/api/posts";
 export default {
   computed: {
       posts() {
-          return this.$store.getters.posts;
-        },
+        return this.$store.getters.posts;
+      },
     },
   created() {
     this.$store.dispatch('loadPosts');
   },
   methods: {
+    formatDate(date) {
+      return new Intl.DateTimeFormat('fr').format(new Date(date));
+    },
     async likePost(id) {
       try {
         await fetch(API_URL + '/' + id + '/like', {
