@@ -9,22 +9,22 @@
             <small>{{ formatDate(post.createdAt) }}</small>
           </div>
         </router-link>
-        <p @click="likePost(post.id)">Like</p>
-        <p>Likes: {{post.likes.length}}</p>
+        <p :id="`likeMessage-${post.id}`" @click="likePost(post.id)">Like</p>
+        <p>Likes: <span :id="`likeNumber-${post.id}`">{{post.likes.length}}</span></p>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-const API_URL = "http://localhost:3000/api/posts";
+import axios from "axios";
 export default {
   computed: {
       posts() {
         return this.$store.getters.posts;
       },
     },
-  beforeCreate() {
+  mounted() {
     this.$store.dispatch('loadPosts');
   },
   methods: {
@@ -33,14 +33,16 @@ export default {
     },
     async likePost(id) {
       try {
-        await fetch(API_URL + '/' + id + '/like', {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            'Authorization': 'Bearer ' + this.$store.getters.user.token,
-          },
-        })
+        axios.post("/" + id + "/like")
+          .then((result) => {
+            if (result.data.like) {
+              this.userLike = "Unlike";
+              this.nbLikes++;
+            } else {
+              this.userLike = "Like";
+              this.nbLikes--;
+            }
+          });
       } catch (error) {
         console.log(error);
       }
