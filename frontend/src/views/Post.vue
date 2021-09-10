@@ -1,9 +1,8 @@
 <template>
   <div v-if="!loaded">
-    <p>No post yet</p>
+    <p>Post is loading...</p>
   </div>
   <div v-else>
-    {{post.author.username}}
     <h2>{{ post.title }}</h2>
     <h3>Author: {{ post.author.username }}</h3>
     <p>Likes: {{ nbLikes }}</p>
@@ -39,10 +38,11 @@ export default {
     //   return this.$store.getters.post || '';
     // },
     isAuthor() {
-      return this.post.author === this.$store.getters.user.id;
+      return this.post.authorId === this.$store.getters.user.id;
     },
   },
   methods: {
+    // fonction de formattage de la date récupérée de l'API
     formatDate(date) {
       return new Intl.DateTimeFormat("fr").format(new Date(date));
     },
@@ -67,6 +67,8 @@ export default {
     // this.$store.dispatch('loadPost', this.$route.params.id);
   },
   mounted() {
+    // récupéation du token depuis le store vuex
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.getters.user.token;
     axios.get("/" + this.$route.params.id)
     .then(response => {
       this.post = response.data.post;
