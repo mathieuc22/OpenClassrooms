@@ -8,14 +8,13 @@
       placeholder="Title"
       v-model="post.title"
     />
-    <!-- Password -->
     <input
       type="text"
       id="text"
       placeholder="Text"
       v-model="post.text"
     />
-    <!-- Sign in button -->
+    <!-- Post button -->
     <button type="submit">
       Submit
     </button>
@@ -23,7 +22,7 @@
 </template>
 
 <script>
-const API_URL = "http://localhost:3000/api/posts";
+import axios from "axios";
 export default {
   name: 'Submit',
   data() {
@@ -35,21 +34,19 @@ export default {
     };
   },
   methods: {
+    // création d'un nouveau post avec l'API
     async submitPost() {
-      try {
-        await fetch(API_URL, {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            'Authorization': 'Bearer ' + this.$store.getters.token,
-          },
-          body: JSON.stringify(this.post),
-        })
-      } catch (error) {
+      // récupère du store le token d'authentification pour la requête
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.getters.user.token;
+      // envoie les données du formulaire à l'API
+      axios.post('', this.post)
+      .then(function (response) {
+        console.log(response);
+        this.$router.push('/');
+      })
+      .catch(function (error) {
         console.log(error);
-      }
-      this.$router.push('/');
+      });
     }
   }
 };
