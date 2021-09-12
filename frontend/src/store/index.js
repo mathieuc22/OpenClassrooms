@@ -11,10 +11,12 @@ const store = createStore({
     user: JSON.parse(localStorage.getItem('user')) || '',
     posts: [],
     post: {},
+    errorMessage: '',
     loading: 0
   },
   getters: {
     user: (state) => state.user,
+    errorMessage: (state) => state.errorMessage,
     posts: (state) => {
       return state.posts;
     },
@@ -37,7 +39,11 @@ const store = createStore({
       state.post = post;
     },
     AUTH_SUCCESS(state, userInfo) {
-      state.user = userInfo
+      state.user = userInfo,
+      state.errorMessage = ''
+    },
+    AUTH_ERROR(state, errorMessage) {
+      state.errorMessage = errorMessage
     },
     AUTH_LOGOUT(state) {
       state.user = ''
@@ -53,7 +59,13 @@ const store = createStore({
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
         commit("AUTH_SUCCESS", userInfo);
       } catch (error) {
-        console.log(error);
+        // récupération d'un message d'erreur personnalisé ou du message brut
+        if (error.response) {
+          commit("AUTH_ERROR", error.response.data.message || error.response.data.error);
+        } else {
+          commit("AUTH_ERROR", error);
+        }
+
       }
     },
     async loadPosts({ commit, state }) {

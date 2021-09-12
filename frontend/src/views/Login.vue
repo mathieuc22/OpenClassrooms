@@ -24,6 +24,7 @@
       Sign in
     </button>
   </form>
+  <p v-if="errorMessage">{{errorMessage}}</p>
 </template>
 
 <script>
@@ -35,13 +36,23 @@ export default {
       login: {
         email: "",
         password: ""
-      }
+      },
     };
+  },
+  computed: {
+    // si une erreur survient lors de l'authentification elle est restituée
+    errorMessage() {
+      return this.$store.getters.errorMessage;
+    },
   },
   methods: {
     async loginUser() {
-      await this.$store.dispatch('authenticate', JSON.stringify(this.login));
-      this.$router.push('/');
+      try {
+        await this.$store.dispatch('authenticate', JSON.stringify(this.login));
+        this.$router.push('/');
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 };

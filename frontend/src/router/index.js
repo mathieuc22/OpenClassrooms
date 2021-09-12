@@ -30,7 +30,8 @@ const routes = [
   {
     path: '/posts/:id',
     name: 'Post',
-    component: Post
+    component: Post,
+    beforeEnter: ifAuthenticated
   },
   {
     path: '/login',

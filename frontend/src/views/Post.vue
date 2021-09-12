@@ -1,5 +1,8 @@
 <template>
-  <div v-if="!loaded">
+  <div v-if="errorMessage">
+    {{errorMessage}}
+  </div>
+  <div v-else-if="!loaded">
     <p>Post is loading...</p>
   </div>
   <div v-else>
@@ -28,8 +31,9 @@ export default {
     return {
       loaded: false,
       post: '',
-      userLike: "",
-      nbLikes: "",
+      userLike: ' ',
+      nbLikes: '',
+      errorMessage: '',
     };
   },
   computed: {
@@ -59,6 +63,15 @@ export default {
         this.userLike = 'Like';
       }
       this.nbLikes = this.post.likes.length;
+    })
+    // si une erreur est retournée, elle est restituée sur la page et on force la déconnexion
+    .catch(error => {
+      if (error.response) {
+        this.errorMessage = error.response.data.message;
+      } else {
+        this.errorMessage = error;
+      }
+      this.$store.dispatch('logOut');
     })
   },
 };

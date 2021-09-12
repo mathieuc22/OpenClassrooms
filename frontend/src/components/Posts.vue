@@ -1,11 +1,11 @@
 <template>
-  <div v-if="!loaded">
-    <p>Posts are loading...</p>
-  </div>
   <div v-if="errorMessage">
     {{errorMessage}}
   </div>
-  <div>
+  <div v-else-if="!loaded">
+    <p>Posts are loading...</p>
+  </div>
+  <div v-else>
     <ul>
       <PostItem
         v-for="post in posts"
@@ -38,8 +38,13 @@ export default {
       this.posts = response.data.posts;
       this.loaded = true;
     })
+    // si une erreur est retournée, elle est restituée sur la page et on force la déconnexion
     .catch(error => {
-      this.errorMessage = error.response.data.message;
+      if (error.response) {
+        this.errorMessage = error.response.data.message || error.response.data.error;
+      } else {
+        this.errorMessage = error;
+      }
       this.$store.dispatch('logOut');
     })
   },
