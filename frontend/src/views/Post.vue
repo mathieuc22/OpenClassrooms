@@ -20,8 +20,10 @@
 
 <script>
 import axios from "axios";
+import Functions from '../functions/functions';
 export default {
   name: "Post",
+  mixins:[Functions],
   data: function () {
     return {
       loaded: false,
@@ -39,28 +41,6 @@ export default {
     // },
     isAuthor() {
       return this.post.authorId === this.$store.getters.user.id;
-    },
-  },
-  methods: {
-    // fonction de formattage de la date récupérée de l'API
-    formatDate(date) {
-      return new Intl.DateTimeFormat("fr").format(new Date(date));
-    },
-    async likePost(id) {
-      try {
-        axios.post("/" + id + "/like")
-          .then((result) => {
-            if (result.data.like) {
-              this.userLike = "Unlike";
-              this.nbLikes++;
-            } else {
-              this.userLike = "Like";
-              this.nbLikes--;
-            }
-          });
-      } catch (error) {
-        console.log(error);
-      }
     },
   },
   created() {
