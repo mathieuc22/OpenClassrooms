@@ -1,15 +1,19 @@
 <template>
-  <router-link :to="'/posts/' + post.id">
-    <div>
-      <h2>{{post.title}}</h2>
-      <h3>{{post.author.username}}</h3>
-      <small>{{ formatDate(post.createdAt) }}</small>
+  <li class="post">
+    <router-link class="post__link" :to="'/posts/' + post.id">
+      <div class="post__author">
+        <small>Publié par {{post.author.username}} le {{ formatDate(post.createdAt) }}</small>
+      </div>
+      <div>
+        <h2>{{post.title}}</h2>
+      </div>
+    </router-link>
+    <div>Likes: {{ nbLikes }}
+      <span class="button__like" @click="likePost(post.id)">
+        {{ userLike }}
+      </span>
     </div>
-  </router-link>
-  <p>Likes: {{ nbLikes }}</p>
-  <p @click="likePost(post.id)">
-    {{ userLike }}
-  </p>
+  </li>
 </template>
 
 <script>
@@ -43,3 +47,31 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+
+.post {
+  background: white;
+  border-radius: 10px;
+  font-size: 0.8em;
+  border: 1px solid white;
+  -webkit-box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25); 
+  box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
+  &__link {
+    outline: none;
+    text-decoration: none;
+    color: blue;
+  }
+  &__link:hover {
+    color: blue;
+  }
+  &__link:active {
+    color: blue;
+  }
+}
+
+.button__like {
+  cursor: pointer;
+}
+
+</style>

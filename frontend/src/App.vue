@@ -1,15 +1,21 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <span v-if="isAuthenticated"><router-link to="/submit">New post</router-link> | </span>
-      <span v-if="isAuthenticated">{{userName}} | </span>
-      <span v-if="!isAuthenticated"><router-link to="/login">Login</router-link> | </span>
-      <span v-else><button @click="logoutUser">Logout</button> | </span>
-      <router-link to="/about">About</router-link>
+      <div class="logo">
+        <img class="logo__img" src="./assets/logo.png" alt="logo Groupomania" />
+        <h1 class="logo__title">Groupomania</h1>
+      </div>
+      <div class="nav__links">
+        <router-link to="/">Home</router-link> |
+        <span v-if="isAuthenticated"><router-link to="/submit">New post</router-link> | </span>
+        <span v-if="isAuthenticated">{{userName}} | </span>
+        <span v-if="!isAuthenticated"><router-link to="/login">Login</router-link> | </span>
+        <span v-else><button @click="logoutUser">Logout</button></span>
+      </div>
     </div>
-    <h1>Groupomania</h1>
-    <router-view/>
+    <main class="main">
+      <router-view/>
+    </main>
   </div>
 </template>
 
@@ -33,24 +39,50 @@ export default {
 </script>
 
 <style lang="scss">
+
+$primary-color: #091f43;
+$secondary-color: #d1515a;
+$bg-color: #d8d8d8;
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: $primary-color;
+  background: #d8d8d8;
+}
+
+h1 {
+  margin: 0;
 }
 
 #nav {
-  padding: 30px;
-
+  padding: 20px;
+  background: $primary-color;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  .logo {
+    display: flex;
+    &__img {
+        height: 40px;
+        width: 40px;
+    }
+  }
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: white;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: $secondary-color;
     }
   }
 }
+
+.main {
+    position: relative;
+    margin:auto;
+}
+
 </style>

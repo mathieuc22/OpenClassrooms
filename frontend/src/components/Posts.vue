@@ -5,15 +5,13 @@
   <div v-else-if="!loaded">
     <p>Posts are loading...</p>
   </div>
-  <div v-else>
-    <ul>
-      <PostItem
-        v-for="post in posts"
-        v-bind:key="post.id"
-        v-bind:post="post"
-      ></PostItem>
-    </ul>
-  </div>
+  <ul v-else class="posts">
+    <PostItem
+      v-for="post in posts"
+      v-bind:key="post.id"
+      v-bind:post="post"
+    ></PostItem>
+  </ul>
 </template>
 
 <script>
@@ -50,3 +48,28 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.posts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 800px;
+    width: 100%;
+}
+
+</style>
