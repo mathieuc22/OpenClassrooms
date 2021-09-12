@@ -19,6 +19,9 @@
       Submit
     </button>
   </form>
+  <div v-if="errorMessage">
+    {{errorMessage}}
+  </div>
 </template>
 
 <script>
@@ -35,17 +38,23 @@ export default {
   },
   methods: {
     // création d'un nouveau post avec l'API
-    async submitPost() {
+    submitPost() {
       // récupère du store le token d'authentification pour la requête
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.getters.user.token;
       // envoie les données du formulaire à l'API
       axios.post('', this.post)
-      .then(function (response) {
+      .then(response => {
         console.log(response);
         this.$router.push('/');
       })
-      .catch(function (error) {
-        console.log(error);
+      // si une erreur est retournée, elle est restituée sur la page et on force la déconnexion
+      .catch(error => {
+        if (error.response) {
+          this.errorMessage = error.response.data.message;
+        } else {
+          this.errorMessage = error;
+        }
+        this.$store.dispatch('logOut');
       });
     }
   }
