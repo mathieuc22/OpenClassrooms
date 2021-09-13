@@ -19,7 +19,7 @@
         </div>
       </router-link>
     </div>
-    <div class="post__delete" v-if="isAuthor" @click="deletePost(post.id)">
+    <div class="post__delete" v-if="isAuthor" @click="deletePost(post.id, index)">
       Supprimer le post
     </div>
   </li>
@@ -29,7 +29,7 @@
 import Functions from '../functions/functions';
 export default {
   name: 'PostItem',
-  props: ['post'],
+  props: ['post','index'],
   mixins:[Functions],
   data: function () {
     return {

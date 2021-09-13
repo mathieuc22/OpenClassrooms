@@ -5,7 +5,7 @@ var Functions = {
     formatDate(date) {
       return new Intl.DateTimeFormat("fr").format(new Date(date));
     },
-    async likePost(id) {
+    likePost(id) {
       try {
         axios.post("/" + id + "/like")
           .then((result) => {
@@ -22,11 +22,18 @@ var Functions = {
         console.log(error);
       }
     },
-    async deletePost(id) {
+    // fonction de suppression d'un post
+    deletePost(id, index) {
       try {
         axios.delete("/" + id)
           .then((result) => {
             console.log(result);
+            // si on supprime depuis la page d'accueil on renvoie l'index du post à supprimer, sinon on renvoie sur Home
+            if (index) {
+              this.$emit('deleteThisPost', index)
+            } else {
+              this.$router.push('/');
+            }
           });
       } catch (error) {
         console.log(error);

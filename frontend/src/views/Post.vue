@@ -21,6 +21,7 @@
           </i>
         </div>
         <p>{{ post.text }}</p>
+        <i class="postDetail__delete fas fa-trash" v-if="isAuthor" @click="deletePost(post.id)"></i> 
       </div>
       <CommentItem
         v-bind:comments="post.comments"
@@ -113,6 +114,10 @@ export default {
     box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
     overflow: hidden;
     padding: 20px;
+  }
+  &__delete {
+    color: $secondary-color;
+    cursor: pointer;
   }
 }
 

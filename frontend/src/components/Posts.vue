@@ -7,9 +7,11 @@
   </div>
   <ul v-else class="posts">
     <PostItem
-      v-for="post in posts"
+      v-for="(post, index) in posts"
       v-bind:key="post.id"
       v-bind:post="post"
+      v-bind:index="index"
+      v-on:deleteThisPost="removePostItem"
     ></PostItem>
   </ul>
 </template>
@@ -27,6 +29,12 @@ export default {
   },
   components: {
     PostItem
+  },
+  methods: {
+    // permet de supprimer le post renvoyé par le composant enfant
+    removePostItem (index) {
+      this.posts.splice(index, 1)
+    }
   },
   mounted() {
     // récupéation du token depuis le store vuex
