@@ -56,6 +56,7 @@ export default {
       // récupère du store le token d'authentification pour la requête
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.getters.user.token;
       // envoie les données du formulaire à l'API
+      console.log(this.comment)
       axios.post("/" + this.$route.params.id, this.comment)
       .then(response => {
         console.log(response);
@@ -65,7 +66,7 @@ export default {
         newComment.author = {username: this.$store.getters.user.name};
         console.log(newComment);
         this.allComments.unshift(newComment);
-        this.comment = ''
+        this.comment.text = ''
       })
       // si une erreur est retournée, elle est restituée sur la page et on force la déconnexion
       .catch(error => {
