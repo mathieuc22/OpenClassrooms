@@ -98,7 +98,7 @@ exports.update = async (req, res) => {
 exports.delete = async (req, res) => {
   const id = req.params.id;
   const post = await Post.findByPk(id);
-  if (req.user.id != post.author && !req.user.moderator) {
+  if (req.user.id != post.authorId && !req.user.moderator) {
     res.status(403).json({ message: 'Modification non autorisée pour cet utilisateur'});
   } else {
     Post.destroy({ where: { id: id } })
@@ -117,7 +117,7 @@ exports.delete = async (req, res) => {
 exports.deleteComment = async (req, res) => {
   const id = req.params.id;
   const comment = await Comment.findByPk(id);
-  if (req.user.id != comment.author && !req.user.moderator) {
+  if (req.user.id != comment.authorId && !req.user.moderator) {
     res.status(403).json({ message: 'Modification non autorisée pour cet utilisateur'});
   } else {
     Comment.destroy({ where: { id: id } })
