@@ -9,6 +9,7 @@ var Functions = {
       try {
         axios.post("/" + id + "/like")
           .then((result) => {
+            this.isActive = !this.isActive;
             if (result.data.like) {
               this.userLike = "Unlike";
               this.nbLikes++;

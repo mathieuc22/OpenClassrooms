@@ -6,13 +6,14 @@
         <h1 class="logo__title">Groupomania</h1>
       </div>
       <div class="nav__links">
-        <router-link to="/">Home</router-link> |
-        <span v-if="isAuthenticated"><router-link to="/submit">New post</router-link> | </span>
+        <router-link to="/">Accueil</router-link> |
+        <span v-if="isAuthenticated"><router-link to="/submit">Créer un post</router-link> | </span>
         <span v-if="isAuthenticated">{{userName}} | </span>
-        <span v-if="!isAuthenticated"><router-link to="/login">Login</router-link> | </span>
-        <span v-else><button @click="logoutUser">Logout</button></span>
+        <span v-if="!isAuthenticated"><router-link to="/login">Se connecter</router-link> | </span>
+        <span v-else><button @click="logoutUser">Se déconnecter</button></span>
       </div>
     </div>
+    <div id="top"></div>
     <main class="main">
       <router-view/>
     </main>
@@ -21,6 +22,9 @@
 
 <script>
 export default {
+  created(){
+      document.title = "Groupomania - Accueil"
+  },
   computed: {
     isAuthenticated() {
         return this.$store.getters.isAuthenticated;
@@ -40,34 +44,57 @@ export default {
 
 <style lang="scss">
 
-$primary-color: #091f43;
-$secondary-color: #d1515a;
-$bg-color: #d8d8d8;
+@import './assets/variables.scss';
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+}
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: $primary-color;
-  background: #d8d8d8;
+  background: $bg-color;
 }
 
 h1 {
   margin: 0;
 }
 
+#top {
+    padding-top: 80px;
+}
+
 #nav {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  margin:auto;
+  box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
+  z-index: 1;
   padding: 20px;
   background: $primary-color;
   color: white;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   .logo {
     display: flex;
+    user-select: none;
     &__img {
         height: 40px;
         width: 40px;
+        margin-right: 10px;
     }
   }
   a {
@@ -81,8 +108,10 @@ h1 {
 }
 
 .main {
-    position: relative;
-    margin:auto;
+  position: relative;
+  margin:auto;
+  min-height: 100vh;
+  padding: 20px 0;
 }
 
 </style>
