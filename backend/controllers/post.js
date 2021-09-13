@@ -113,6 +113,25 @@ exports.delete = async (req, res) => {
   }
 };
 
+// Delete a Comment with the specified id in the request
+exports.deleteComment = async (req, res) => {
+  const id = req.params.id;
+  const comment = await Comment.findByPk(id);
+  if (req.user.id != comment.author && !req.user.moderator) {
+    res.status(403).json({ message: 'Modification non autorisée pour cet utilisateur'});
+  } else {
+    Comment.destroy({ where: { id: id } })
+      .then(num => {
+        if (num == 1) {
+          res.status(200).json({ message: `Le commentaire id=${id} a été supprimé`});
+        } else {
+          res.status(400).json({ message: `Suppression du commentaire id=${id} impossible` });
+        }
+      })
+      .catch(error => res.status(500).json({ error }));
+  }
+};
+
 // Comment a Post with the specified id in the request
 exports.comment = async (req, res) => {
   const post = await Post.findByPk(req.params.id)
