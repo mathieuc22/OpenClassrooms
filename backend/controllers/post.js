@@ -39,25 +39,29 @@ exports.findAll = (req, res) => {
 // Find a single Posts with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
-  Post.findByPk(id, { include: [ 
-    {
-      model: Comment,
-      include: {
-        model: User,
-        attributes: ['username'],
-        as: 'author'
-      }
-    },
-    { model: User,
-      attributes: ['id'],
-      through: {
-        attributes: []
+  Post.findByPk(id, { 
+    include: [ 
+      { model: Comment,
+        include: {
+          model: User,
+          attributes: ['username'],
+          as: 'author'
+        },
       },
-      as: 'likes' },
-    { model: User,
-    attributes: ['username'],
-    as: 'author' }
-   ] })
+      { model: User,
+        attributes: ['id'],
+        through: {
+          attributes: []
+        },
+        as: 'likes'
+      },
+      { model: User,
+      attributes: ['username'],
+      as: 'author'
+      }
+    ],
+    order: [[ {model: Comment}, 'createdAt','DESC',]],
+    })
     .then(post => {
       if (post) {
         res.status(200).json({ post: post })
