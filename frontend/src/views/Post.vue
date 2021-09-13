@@ -23,9 +23,34 @@
         <p>{{ post.text }}</p>
         <i class="postDetail__delete fas fa-trash" v-if="isAuthor" @click="deletePost(post.id)"></i> 
       </div>
-      <CommentItem
-        v-bind:comments="post.comments"
-      ></CommentItem>
+
+
+      <div class="postDetail__comments">
+        <h3>Commentaires</h3>
+        <form
+          @submit.prevent="submitComment"
+        >
+          <input
+            type="text"
+            id="text"
+            placeholder="Text"
+            v-model="commentForm.text"
+          />
+          <!-- Post button -->
+          <button type="submit">
+            Submit
+          </button>
+        </form>
+        <ul>
+          <CommentItem
+            v-for="(comment, index) in comments"
+            v-bind:key="comment.id"
+            v-bind:comment="comment"
+            v-bind:index="index"
+            v-on:deleteThisComment="removeCommentItem"
+          ></CommentItem>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -45,6 +70,10 @@ export default {
       nbLikes: '',
       errorMessage: '',
       isActive: false,
+      comments: '',
+      commentForm: {
+        text: ""
+      },
     };
   },
   components: {
@@ -58,12 +87,42 @@ export default {
       return this.post.authorId === this.$store.getters.user.id;
     },
   },
+  methods: {
+    // création d'un nouveau post avec l'API
+    submitComment() {
+      // récupère du store le token d'authentification pour la requête
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.getters.user.token;
+      // envoie les données du formulaire à l'API
+      axios.post("/" + this.$route.params.id, this.commentForm)
+      .then(response => {
+        // ajoute le nouvel élément à la liste des commentaires
+        let newComment = response.data.comment;
+        newComment.author = {username: this.$store.getters.user.name};
+        this.comments.unshift(newComment);
+        this.commentForm.text = ''
+      })
+      // si une erreur est retournée, elle est restituée sur la page et on force la déconnexion
+      .catch(error => {
+        if (error.response) {
+          this.errorMessage = error.response.data.message;
+        } else {
+          this.errorMessage = error;
+        }
+        this.$store.dispatch('logOut');
+      });
+    },
+    // permet de supprimer le post renvoyé par le composant enfant
+    removeCommentItem (index) {
+      this.comments.splice(index, 1)
+    }
+  },
   mounted() {
     // récupéation du token depuis le store vuex
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.getters.user.token;
     axios.get("/" + this.$route.params.id)
     .then(response => {
       this.post = response.data.post;
+      this.comments = response.data.post.comments;
       this.loaded = true;
       if (this.post.likes.some(x => x.id === this.user.id)) {
         this.isActive = true;
