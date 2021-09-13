@@ -10,13 +10,18 @@
     <div class="post__link">
       <router-link :to="'/posts/' + post.id">
         <div class="post__author">
-          <small>Publié par {{post.author.username}} le {{ formatDate(post.createdAt) }}</small>
+          <small>
+            Publié par {{post.author.username}} le {{ formatDate(post.createdAt) }}
+          </small>
         </div>
         <div>
           <h2>{{post.title}}</h2>
         </div>
       </router-link>
-      </div>
+    </div>
+    <div class="post__delete" v-if="isAuthor" @click="deletePost(post.id)">
+      Supprimer le post
+    </div>
   </li>
 </template>
 
@@ -44,10 +49,9 @@ export default {
   },
   mounted() {
     if (this.post.likes.some(x => x.id === this.user.id)) {
-      this.userLike = 'Unlike';
       this.isActive = true;
     } else {
-      this.userLike = 'Like';
+      this.isActive = false;
     }
     this.nbLikes = this.post.likes.length;
   },
@@ -99,6 +103,15 @@ export default {
       color: $primary-color;
     }
   }
+  &__delete {
+    background: $primary-color;
+    color: white;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    text-align: center;
+    width: 70px;
+  }
 }
 
 .like {
@@ -108,10 +121,6 @@ export default {
 
 .like--active {
   color: hotpink;
-}
-
-.button__like {
-  cursor: pointer;
 }
 
 </style>

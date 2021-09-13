@@ -22,6 +22,16 @@ var Functions = {
         console.log(error);
       }
     },
+    async deletePost(id) {
+      try {
+        axios.delete("/" + id)
+          .then((result) => {
+            console.log(result);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 };
 export default Functions;
