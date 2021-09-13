@@ -33,6 +33,7 @@ exports.login = (req, res, next) => {
           }
           res.status(200).json({
             userId: user.id,
+            userName: user.username,
             token: jwt.sign(
             { userId: user.id },
             process.env.SECRET_KEY,

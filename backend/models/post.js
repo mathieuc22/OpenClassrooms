@@ -13,7 +13,9 @@ const Post = sequelize.define('post', {
 })
 
 // relation un post a plusieurs commentaires, un commentaire a un post
-Post.hasMany(Comment);
+Post.hasMany(Comment, {
+  onDelete: 'cascade'
+});
 Comment.belongsTo(Post);
 
 // relation le post doit avoir un utilisateur du model Post

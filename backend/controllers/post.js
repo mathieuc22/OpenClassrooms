@@ -16,20 +16,52 @@ exports.create = (req, res) => {
 
 // Retrieve all Posts from the database.
 exports.findAll = (req, res) => {
-  Post.findAll()
-    .then(posts => res.status(200).json({ posts: posts }))
-    .catch(error => res.status(400).json({ error }));
+  Post.findAll({ 
+    include: [
+      {
+        model: User,
+        attributes: ['username'],
+        as: 'author'
+      },
+      {
+        model: User,
+        attributes: ['id'],
+        through: {
+          attributes: []
+        },
+        as: 'likes' }],
+    order: [['createdAt','DESC',]],
+  })
+  .then(posts => res.status(200).json({ posts: posts }))
+  .catch(error => res.status(400).json({ error }));
 };
 
 // Find a single Posts with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
-  Post.findByPk(id, { include: [ Comment, { model: User,
-    attributes: ['id'],
-    through: {
-      attributes: []
-    } ,
-    as: 'likes' } ] })
+  Post.findByPk(id, { 
+    include: [ 
+      { model: Comment,
+        include: {
+          model: User,
+          attributes: ['username'],
+          as: 'author'
+        },
+      },
+      { model: User,
+        attributes: ['id'],
+        through: {
+          attributes: []
+        },
+        as: 'likes'
+      },
+      { model: User,
+      attributes: ['username'],
+      as: 'author'
+      }
+    ],
+    order: [[ {model: Comment}, 'createdAt','DESC',]],
+    })
     .then(post => {
       if (post) {
         res.status(200).json({ post: post })
@@ -66,7 +98,7 @@ exports.update = async (req, res) => {
 exports.delete = async (req, res) => {
   const id = req.params.id;
   const post = await Post.findByPk(id);
-  if (req.user.id != post.author && !req.user.moderator) {
+  if (req.user.id != post.authorId && !req.user.moderator) {
     res.status(403).json({ message: 'Modification non autorisée pour cet utilisateur'});
   } else {
     Post.destroy({ where: { id: id } })
@@ -75,6 +107,25 @@ exports.delete = async (req, res) => {
           res.status(200).json({ message: `Le post id=${id} a été supprimé`});
         } else {
           res.status(400).json({ message: `Suppression du post id=${id} impossible` });
+        }
+      })
+      .catch(error => res.status(500).json({ error }));
+  }
+};
+
+// Delete a Comment with the specified id in the request
+exports.deleteComment = async (req, res) => {
+  const id = req.params.id;
+  const comment = await Comment.findByPk(id);
+  if (req.user.id != comment.authorId && !req.user.moderator) {
+    res.status(403).json({ message: 'Modification non autorisée pour cet utilisateur'});
+  } else {
+    Comment.destroy({ where: { id: id } })
+      .then(num => {
+        if (num == 1) {
+          res.status(200).json({ message: `Le commentaire id=${id} a été supprimé`});
+        } else {
+          res.status(400).json({ message: `Suppression du commentaire id=${id} impossible` });
         }
       })
       .catch(error => res.status(500).json({ error }));
@@ -100,11 +151,11 @@ exports.like = async (req, res) => {
   }})
   if (!likes.length) {
     post.addLikes(req.user.id, { through: { selfGranted: false } })
-      .then(() => res.status(200).json({ message: `Like ajouté pour l'utilisateur ${req.user.id}` }))
+      .then(() => res.status(200).json({ message: `Like ajouté pour l'utilisateur ${req.user.id}`, like: true }))
       .catch(error => res.status(404).json({ error }));
   } else {
     post.removeLikes(req.user.id, { through: { selfGranted: false } })
-      .then(() => res.status(200).json({ message: `Like enlevé pour l'utilisateur ${req.user.id}` }))
+      .then(() => res.status(200).json({ message: `Like enlevé pour l'utilisateur ${req.user.id}`, like: false }))
       .catch(error => res.status(404).json({ error }));
   }
 };
