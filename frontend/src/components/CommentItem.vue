@@ -2,9 +2,8 @@
   <li>
     <small><i class="fas fa-user"></i> {{ comment.author.username }} - {{ formatDate(comment.createdAt) }}</small>
     <p>{{ comment.text }}</p>
-    <div class="post__delete" v-if="isAuthor" @click="deleteComment(comment.id, index)">
-      Supprimer le commentaire
-    </div>
+    <i class="postDetail__delete fas fa-trash"  v-if="isAuthor" @click="deleteComment(comment.id, index)">
+    </i>
   </li>
 </template>
 

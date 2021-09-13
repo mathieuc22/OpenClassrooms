@@ -19,9 +19,8 @@
         </div>
       </router-link>
     </div>
-    <div class="post__delete" v-if="isAuthor" @click="deletePost(post.id, index)">
-      Supprimer le post
-    </div>
+    <i class="post__delete fas fa-trash" v-if="isAuthor" @click="deletePost(post.id, index)">
+    </i>
   </li>
 </template>
 
@@ -79,6 +78,7 @@ export default {
     background: $secondary-color;
     user-select: none;
     margin-right: 10px;
+    font-size: 1.2em;
   }
   &__link {
     position: relative;
@@ -108,8 +108,9 @@ export default {
     color: white;
     display: flex;
     align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
     cursor: pointer;
-    text-align: center;
     width: 70px;
   }
 }
