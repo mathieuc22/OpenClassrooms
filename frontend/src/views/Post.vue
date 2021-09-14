@@ -37,7 +37,7 @@
       </div>
 
       <div class="postDetail__comments">
-        <h3>Commentaires</h3>
+        <h2>Commentaires</h2>
         <div>
           <form class="formulaire" @submit.prevent="submitComment">
             <div class="formulaire__fieldline">
