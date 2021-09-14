@@ -1,32 +1,30 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <div class="logo">
-        <img class="logo__img" src="./assets/logo.png" alt="logo Groupomania" />
-        <h1 class="logo__title">Groupomania</h1>
-      </div>
-      <div class="nav__links">
-        <router-link to="/">Accueil</router-link>
-        <router-link v-if="isAuthenticated" to="/submit">Créer un post</router-link>
-        <div v-if="isAuthenticated" class="menu__summary">{{userName}}
-          <ul class="menu__detail">
-            <li @click="showModal = true">Supprimer le compte</li>
-            <li @click="logoutUser">Se déconnecter</li>
-          </ul>
-        </div>
-        <router-link v-if="!isAuthenticated" to="/login">Se connecter</router-link>
-      </div>
+  <div id="nav">
+    <div class="logo">
+      <img class="logo__img" src="./assets/logo.png" alt="logo Groupomania" />
+      <h1 class="logo__title">Groupomania</h1>
     </div>
-    <div id="top"></div>
-    <Modal 
-      v-if="showModal"
-      @close="showModal = false"
-      v-on:confirm="deleteUser"
-    ></Modal>
-    <main class="main">
-      <router-view/>
-    </main>
+    <div class="nav__links">
+      <router-link v-if="isAuthenticated" to="/">Accueil</router-link>
+      <router-link v-if="isAuthenticated" to="/submit">Créer un post</router-link>
+      <div v-if="isAuthenticated" class="menu__summary">{{userName}}
+        <ul class="menu__detail">
+          <li @click="showModal = true">Supprimer le compte</li>
+          <li @click="logoutUser">Se déconnecter</li>
+        </ul>
+      </div>
+      <router-link v-if="!isAuthenticated" to="/login">Se connecter</router-link>
+    </div>
   </div>
+  <div id="top"></div>
+  <Modal 
+    v-if="showModal"
+    @close="showModal = false"
+    v-on:confirm="deleteUser"
+  ></Modal>
+  <main class="main">
+    <router-view/>
+  </main>
 </template>
 
 <script>
@@ -98,6 +96,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: $primary-color;
   background: $bg-color;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  position: relative;
+  padding: 20px 0;
 }
 
 button,
@@ -215,13 +221,6 @@ h1, h2, h3 {
 
 .menu__detail > *:hover {
   font-weight: 700;
-}
-
-.main {
-  position: relative;
-  margin:auto;
-  min-height: 100vh;
-  padding: 20px 0;
 }
 
 </style>
