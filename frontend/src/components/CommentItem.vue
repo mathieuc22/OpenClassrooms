@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { postAxios } from '../functions/axios'
 import Functions from '../functions/functions';
 export default {
   name: 'CommentItem',
@@ -35,7 +35,7 @@ export default {
     deleteComment(id, index) {
       console.log('id: ' + id + ', index: ' +index)
       try {
-        axios.delete("/comment/" + id)
+        postAxios.delete("/comment/" + id)
           .then((result) => {
             console.log(result);
             // si on supprime depuis la page d'accueil on renvoie l'index du post à supprimer, sinon on renvoie sur Home
