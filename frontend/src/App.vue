@@ -54,6 +54,7 @@ export default {
       .catch(error => {
         console.log(error)
       })
+      this.$store.dispatch('logOut');
       this.$router.push("/login");
     }
   }
