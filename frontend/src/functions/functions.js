@@ -1,4 +1,4 @@
-import axios from "axios";
+import { postAxios } from '../functions/axios'
 var Functions = {
   methods: {
     // fonction de formattage de la date récupérée de l'API
@@ -7,7 +7,8 @@ var Functions = {
     },
     likePost(id) {
       try {
-        axios.post("/" + id + "/like")
+        postAxios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.getters.user.token;
+        postAxios.post("/" + id + "/like")
           .then((result) => {
             this.isActive = !this.isActive;
             if (result.data.like) {
@@ -25,7 +26,8 @@ var Functions = {
     // fonction de suppression d'un post
     deletePost(id, index) {
       try {
-        axios.delete("/" + id)
+        postAxios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.getters.user.token;
+        postAxios.delete("/" + id)
           .then((result) => {
             console.log(result);
             // si on supprime depuis la page d'accueil on renvoie l'index du post à supprimer, sinon on renvoie sur Home

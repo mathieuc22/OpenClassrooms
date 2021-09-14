@@ -1,8 +1,8 @@
 <template>
-  <li>
+  <li class="comment">
     <small><i class="fas fa-user"></i> {{ comment.author.username }} - {{ formatDate(comment.createdAt) }}</small>
-    <p>{{ comment.text }}</p>
-    <i class="postDetail__delete fas fa-trash"  v-if="isAuthor" @click="deleteComment(comment.id, index)">
+    <div class="comment__text">{{ comment.text }}</div>
+    <i class="postDetail__delete fas fa-trash"  v-if="isAuthor || isModerator " @click="deleteComment(comment.id, index)">
     </i>
   </li>
 </template>
@@ -26,6 +26,9 @@ export default {
     isAuthor() {
       return this.comment.authorId === this.$store.getters.user.id;
     },
+    isModerator() {
+      return this.$store.getters.user.moderator;
+    },
   },
   methods: {
     // fonction de suppression d'un post
@@ -47,4 +50,16 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../assets/variables.scss";
+
+  .comment {
+    margin: 10px 0;
+    background: $bg-color;
+    padding: 10px;
+    border-radius: 5px;
+    &__text {
+      margin: 5px 0;
+      white-space: pre;
+    }
+  }
 </style>
