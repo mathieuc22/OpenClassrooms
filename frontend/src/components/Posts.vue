@@ -38,7 +38,6 @@ export default {
   },
   mounted() {
     // récupéation du token depuis le store vuex
-    console.log(postAxios)
     postAxios.defaults.headers.common["Authorization"] = 'Bearer ' + this.$store.getters.user.token;
     postAxios.get()
     .then(response => {

@@ -49,7 +49,7 @@ const store = createStore({
       try {
         const response = await authAxios.post('login', user);
         const data = response.data;
-        const userInfo = { id: data.userId, name: data.userName, token: data.token };
+        const userInfo = { id: data.userId, name: data.userName, moderator: data.moderator, token: data.token };
         localStorage.setItem("user", JSON.stringify(userInfo));
         commit("AUTH_SUCCESS", userInfo);
       } catch (error) {

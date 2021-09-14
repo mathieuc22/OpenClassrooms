@@ -138,8 +138,9 @@ h1, h2, h3 {
 
 .menu__summary {
   position: relative;
-  cursor: pointer;
-  transition: all 0.5s ease-out;
+  user-select: none;
+  border-radius: 5px 5px 0 0;
+  transition: all 0.3s ease-out;
 }
 
 .menu__detail {
@@ -154,16 +155,15 @@ h1, h2, h3 {
   font-weight: 300;
   font-size: 0.9em;
   border-radius: 0 0 5px 5px;
-  transition: all 0.5s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .menu__detail > * {
-  margin: 3px;
+  margin: 10px 0;
 }
 
 .menu__summary:hover {
   background: $secondary-color;
-  font-weight: 700;
 }
 
 .menu__summary:hover .menu__detail {

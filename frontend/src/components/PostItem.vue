@@ -19,7 +19,7 @@
         </div>
       </router-link>
     </div>
-    <i class="post__delete fas fa-trash" v-if="isAuthor" @click="deletePost(post.id, index)">
+    <i class="post__delete fas fa-trash" v-if="isAuthor || isModerator" @click="deletePost(post.id, index)">
     </i>
   </li>
 </template>
@@ -44,6 +44,9 @@ export default {
     },
     isAuthor() {
       return this.post.authorId === this.$store.getters.user.id;
+    },
+    isModerator() {
+      return this.$store.getters.user.moderator;
     },
   },
   mounted() {

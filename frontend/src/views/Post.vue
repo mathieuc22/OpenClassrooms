@@ -21,7 +21,7 @@
           </i>
         </div>
         <p>{{ post.text }}</p>
-        <i class="postDetail__delete fas fa-trash" v-if="isAuthor" @click="deletePost(post.id)"></i> 
+        <i class="postDetail__delete fas fa-trash" v-if="isAuthor || isModerator" @click="deletePost(post.id)"></i> 
       </div>
 
 
@@ -85,6 +85,9 @@ export default {
     },
     isAuthor() {
       return this.post.authorId === this.$store.getters.user.id;
+    },
+    isModerator() {
+      return this.$store.getters.user.moderator;
     },
   },
   methods: {
