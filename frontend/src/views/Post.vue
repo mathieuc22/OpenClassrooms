@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { postAxios } from '../functions/axios'
 import Functions from '../functions/functions';
 import CommentItem from '@/components/CommentItem.vue'
 export default {
@@ -91,9 +91,9 @@ export default {
     // création d'un nouveau post avec l'API
     submitComment() {
       // récupère du store le token d'authentification pour la requête
-      axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.getters.user.token;
+      postAxios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.getters.user.token;
       // envoie les données du formulaire à l'API
-      axios.post("/" + this.$route.params.id, this.commentForm)
+      postAxios.post("/" + this.$route.params.id, this.commentForm)
       .then(response => {
         // ajoute le nouvel élément à la liste des commentaires
         let newComment = response.data.comment;
@@ -118,8 +118,8 @@ export default {
   },
   mounted() {
     // récupéation du token depuis le store vuex
-    axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.getters.user.token;
-    axios.get("/" + this.$route.params.id)
+    postAxios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.getters.user.token;
+    postAxios.get("/" + this.$route.params.id)
     .then(response => {
       this.post = response.data.post;
       this.comments = response.data.post.comments;

@@ -6,11 +6,15 @@
         <h1 class="logo__title">Groupomania</h1>
       </div>
       <div class="nav__links">
-        <router-link to="/">Accueil</router-link> |
-        <span v-if="isAuthenticated"><router-link to="/submit">Créer un post</router-link> | </span>
-        <span v-if="isAuthenticated">{{userName}} | </span>
-        <span v-if="!isAuthenticated"><router-link to="/login">Se connecter</router-link> | </span>
-        <span v-else><button @click="logoutUser">Se déconnecter</button></span>
+        <router-link to="/">Accueil</router-link>
+        <router-link v-if="isAuthenticated" to="/submit">Créer un post</router-link>
+        <div v-if="isAuthenticated" class="menu__summary">{{userName}}
+          <ul class="menu__detail">
+            <li @click="deleteUser">Supprimer le compte</li>
+            <li @click="logoutUser">Se déconnecter</li>
+          </ul>
+        </div>
+        <router-link v-if="!isAuthenticated" to="/login">Se connecter</router-link>
       </div>
     </div>
     <div id="top"></div>
@@ -21,6 +25,7 @@
 </template>
 
 <script>
+import { authAxios } from './functions/axios'
 export default {
   created(){
       document.title = "Groupomania - Accueil"
@@ -36,6 +41,19 @@ export default {
   methods: {
     logoutUser() {
       this.$store.dispatch('logOut')
+      this.$router.push("/login");
+    },
+    deleteUser() {
+      // récupéation du token depuis le store vuex
+      authAxios.defaults.headers.common["Authorization"] = 'Bearer ' + this.$store.getters.user.token;
+      authAxios.delete('users/' + this.$store.getters.user.id)
+      .then(response => {
+        console.log(response)
+      })
+      // si une erreur est retournée, elle est restituée sur la page et on force la déconnexion
+      .catch(error => {
+        console.log(error)
+      })
       this.$router.push("/login");
     }
   }
@@ -71,11 +89,11 @@ h1, h2, h3 {
 }
 
 #top {
-    padding-top: 80px;
+  padding-top: 80px;
 }
 
 #nav {
-  overflow: hidden;
+  // overflow: hidden;
   position: fixed;
   top: 0;
   width: 100%;
@@ -105,6 +123,55 @@ h1, h2, h3 {
       color: $secondary-color;
     }
   }
+}
+
+.nav__links {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav__links > * {
+  width: 110px;
+  text-align: center;
+}
+
+.menu__summary {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.5s ease-out;
+}
+
+.menu__detail {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  right: 0;
+  padding: 5px;
+  background: $secondary-color;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 300;
+  font-size: 0.9em;
+  border-radius: 0 0 5px 5px;
+  transition: all 0.5s ease-out;
+}
+
+.menu__detail > * {
+  margin: 3px;
+}
+
+.menu__summary:hover {
+  background: $secondary-color;
+  font-weight: 700;
+}
+
+.menu__summary:hover .menu__detail {
+  visibility: visible;
+  opacity: 1;
+}
+
+.menu__detail > *:hover {
+  font-weight: 700;
 }
 
 .main {

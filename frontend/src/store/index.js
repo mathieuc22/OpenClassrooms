@@ -1,10 +1,5 @@
 import { createStore } from "vuex";
-import axios from 'axios';
-
-axios.defaults.baseURL = 'http://localhost:3000/api/posts';
-axios.defaults.headers.post['Content-Type'] = 'application/json';
-axios.defaults.headers.post['Accept'] = 'application/json';
-const AUTH_URL = "http://localhost:3000/api/auth/login";
+import { postAxios, authAxios } from '../functions/axios'
 
 const store = createStore({
   state: {
@@ -52,11 +47,10 @@ const store = createStore({
   actions: {
     async authenticate({ commit }, user) {
       try {
-        const response = await axios.post(AUTH_URL, user);
+        const response = await authAxios.post('login', user);
         const data = response.data;
         const userInfo = { id: data.userId, name: data.userName, token: data.token };
         localStorage.setItem("user", JSON.stringify(userInfo));
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
         commit("AUTH_SUCCESS", userInfo);
       } catch (error) {
         // récupération d'un message d'erreur personnalisé ou du message brut
@@ -70,8 +64,8 @@ const store = createStore({
     },
     async loadPosts({ commit, state }) {
       try {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + state.user.token;
-        const response = await axios.get();
+        postAxios.defaults.headers.common['Authorization'] = 'Bearer ' + state.user.token;
+        const response = await postAxios.get();
         commit("SET_ITEMS", response.data.posts);
       } catch (error) {
         console.log(error);
@@ -79,8 +73,8 @@ const store = createStore({
     },
     async loadPost({ commit, state }, id) {
       try {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + state.user.token;
-        const response = await axios.get('/' + id);
+        postAxios.defaults.headers.common['Authorization'] = 'Bearer ' + state.user.token;
+        const response = await postAxios.get('/' + id);
         commit('SET_ITEM', response.data.post);
         return response.data.post;
       } catch (error) {
@@ -89,7 +83,8 @@ const store = createStore({
     },
     logOut({ commit }) {
       localStorage.removeItem("user");
-      axios.defaults.headers.common['Authorization'] = '';
+      postAxios.defaults.headers.common['Authorization'] = '';
+      authAxios.defaults.headers.common['Authorization'] = '';
       commit("AUTH_LOGOUT");
     },
   },

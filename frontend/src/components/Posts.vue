@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { postAxios } from '../functions/axios'
 import PostItem from '@/components/PostItem.vue'
 export default {
   data: function () {
@@ -38,8 +38,9 @@ export default {
   },
   mounted() {
     // récupéation du token depuis le store vuex
-    axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.getters.user.token;
-    axios.get()
+    console.log(postAxios)
+    postAxios.defaults.headers.common["Authorization"] = 'Bearer ' + this.$store.getters.user.token;
+    postAxios.get()
     .then(response => {
       this.posts = response.data.posts;
       this.loaded = true;

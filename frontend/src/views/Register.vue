@@ -33,7 +33,7 @@
 </template>
 
 <script>
-const API_URL = "http://localhost:3000/api/auth";
+import { authAxios } from '../functions/axios'
 export default {
   name: 'Register',
   data() {
@@ -47,35 +47,17 @@ export default {
   },
   methods: {
     async registerUser() {
-      fetch(API_URL + '/signup', {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(this.login),
-        })
-        .then(response => response.json())
-        .then(result => {
-          localStorage.setItem("user", result.token);
-          this.loginUser();
+      try {
+        await authAxios.post('/signup', JSON.stringify(this.login))
+        .then(response => {
+          console.log(response)
         });
+        await this.$store.dispatch('authenticate', JSON.stringify(this.login));
+        this.$router.push('/');
+      } catch (error) {
+        console.log(error);
+      }
     },
-    async loginUser() {
-      fetch(API_URL + '/login', {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(this.login),
-        })
-        .then(response => response.json())
-        .then(result => {
-          localStorage.setItem("user", result.token);
-          this.$router.push("/");
-        });
-    }
   }
 };
 </script>
