@@ -2,7 +2,7 @@
   <li>
     <small><i class="fas fa-user"></i> {{ comment.author.username }} - {{ formatDate(comment.createdAt) }}</small>
     <p>{{ comment.text }}</p>
-    <i class="postDetail__delete fas fa-trash"  v-if="isAuthor" @click="deleteComment(comment.id, index)">
+    <i class="postDetail__delete fas fa-trash"  v-if="isAuthor || isModerator " @click="deleteComment(comment.id, index)">
     </i>
   </li>
 </template>
@@ -25,6 +25,9 @@ export default {
   computed: {
     isAuthor() {
       return this.comment.authorId === this.$store.getters.user.id;
+    },
+    isModerator() {
+      return this.$store.getters.user.moderator;
     },
   },
   methods: {
