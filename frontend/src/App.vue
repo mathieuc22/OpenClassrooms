@@ -35,7 +35,7 @@ import Modal from '@/components/Modal.vue'
 export default {
   data: function() {
     return {
-      showModal: true
+      showModal: false
     }
   },
   components: {
@@ -109,7 +109,6 @@ textarea {
   background-color: transparent;
   font-family: inherit;
   padding: 0;
-  cursor: pointer;
 }
 
 h1, h2, h3 {
@@ -128,7 +127,7 @@ h1, h2, h3 {
   border-radius: 5px;
   cursor: pointer;
   &--secondary {
-    background-color: lighten($color: $secondary-color, $amount: 10%);
+    background-color: $secondary-color;
   }
 }
 
