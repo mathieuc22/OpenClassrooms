@@ -12,16 +12,16 @@
     <input
       type="password"
       id="password"
-      placeholder="Password"
+      placeholder="Mot de passe"
       v-model="login.password"
     />
     <p>
-      Dont have an account? Click
-      <router-link to="/register"> here </router-link> to sign up
+      Vous n'avez pas de compte ? Cliquez 
+      <router-link to="/register">ici</router-link> pour en créer un.
     </p>
     <!-- Sign in button -->
     <button type="submit">
-      Sign in
+      Se connecter
     </button>
   </form>
   <p v-if="errorMessage">{{errorMessage}}</p>

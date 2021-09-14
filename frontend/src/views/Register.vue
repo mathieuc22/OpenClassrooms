@@ -5,7 +5,7 @@
     <input
       type="text"
       id="username"
-      placeholder="Username"
+      placeholder="Nom d'utilisateur"
       v-model="login.username"
     />
     <input
@@ -18,16 +18,16 @@
     <input
       type="password"
       id="password"
-      placeholder="Password"
+      placeholder="Mot de passe"
       v-model="login.password"
     />
     <p>
-      Do have an account? Click
-      <router-link to="/login"> here </router-link> to log in
+      Vous avez déjà un compte? Cliquez 
+      <router-link to="/login">ici</router-link> pour vous connecter
     </p>
     <!-- Sign in button -->
     <button type="submit">
-      Sign up
+      Créer un compte
     </button>
   </form>
 </template>
