@@ -10,7 +10,7 @@
         <router-link v-if="isAuthenticated" to="/submit">Créer un post</router-link>
         <div v-if="isAuthenticated" class="menu__summary">{{userName}}
           <ul class="menu__detail">
-            <li @click="deleteUser">Supprimer le compte</li>
+            <li @click="showModal = true">Supprimer le compte</li>
             <li @click="logoutUser">Se déconnecter</li>
           </ul>
         </div>
@@ -18,6 +18,11 @@
       </div>
     </div>
     <div id="top"></div>
+    <Modal 
+      v-if="showModal"
+      @close="showModal = false"
+      v-on:confirm="deleteUser"
+    ></Modal>
     <main class="main">
       <router-view/>
     </main>
@@ -26,7 +31,16 @@
 
 <script>
 import { authAxios } from './functions/axios'
+import Modal from '@/components/Modal.vue'
 export default {
+  data: function() {
+    return {
+      showModal: true
+    }
+  },
+  components: {
+    Modal
+  },
   created(){
       document.title = "Groupomania - Accueil"
   },
@@ -54,6 +68,7 @@ export default {
       .catch(error => {
         console.log(error)
       })
+      this.showModal = false;
       this.$store.dispatch('logOut');
       this.$router.push("/login");
     }
@@ -85,8 +100,36 @@ body {
   background: $bg-color;
 }
 
+button,
+input,
+optgroup,
+select,
+textarea {
+  border: none;
+  background-color: transparent;
+  font-family: inherit;
+  padding: 0;
+  cursor: pointer;
+}
+
 h1, h2, h3 {
   margin: 0;
+}
+
+.button {
+  display: inline-block;
+  padding: 12px 30px;
+  width: 60%;
+  text-decoration: none;
+  background-color: $primary-color;
+  color: white;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  &--secondary {
+    background-color: lighten($color: $secondary-color, $amount: 10%);
+  }
 }
 
 #top {
