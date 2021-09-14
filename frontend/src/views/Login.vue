@@ -118,10 +118,14 @@ export default {
   &__input {
     width: 100%;
     height: 30px;
+    padding: 2px;
     border: 1px solid darken($color: $primary-color, $amount: 10%);
     border-radius: 2px;
     @media (max-width: 599px) {
       width: 100%;
+    }
+    &--multiple {
+      height: 90px;
     }
     &--margin-right {
       margin-right: 25px;
