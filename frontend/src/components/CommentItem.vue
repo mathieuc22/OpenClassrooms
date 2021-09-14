@@ -1,7 +1,7 @@
 <template>
-  <li>
+  <li class="comment">
     <small><i class="fas fa-user"></i> {{ comment.author.username }} - {{ formatDate(comment.createdAt) }}</small>
-    <p>{{ comment.text }}</p>
+    <div class="comment__text">{{ comment.text }}</div>
     <i class="postDetail__delete fas fa-trash"  v-if="isAuthor || isModerator " @click="deleteComment(comment.id, index)">
     </i>
   </li>
@@ -50,4 +50,16 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../assets/variables.scss";
+
+  .comment {
+    margin: 10px 0;
+    background: $bg-color;
+    padding: 10px;
+    border-radius: 5px;
+    &__text {
+      margin: 5px 0;
+      white-space: pre;
+    }
+  }
 </style>

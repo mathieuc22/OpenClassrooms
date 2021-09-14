@@ -26,7 +26,7 @@
           />
         </p>
       </div>
-        <div class="formulaire__fieldline formulaire__fieldline--center">
+      <div class="formulaire__fieldline formulaire__fieldline--center">
         <!-- Post button -->
         <button class="button" type="submit">Publier</button>
       </div>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { postAxios } from '../functions/axios'
+import { postAxios } from "../functions/axios";
 export default {
   name: "Submit",
   data() {
