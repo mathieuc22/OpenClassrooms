@@ -8,15 +8,13 @@
       </i>
     </div>
     <div class="post__link">
-      <router-link :to="'/posts/' + post.id">
         <div class="post__author">
-          <small>
             Publié par {{post.author.username}} le {{ formatDate(post.createdAt) }}
-          </small>
         </div>
-        <div>
-          <h2>{{post.title}}</h2>
-        </div>
+        <h2 class="post__title">
+          {{post.title}}
+        </h2>
+      <router-link :to="'/posts/' + post.id">
       </router-link>
     </div>
     <i class="post__delete fas fa-trash" v-if="isAuthor || isModerator" @click="deletePost(post.id, index)">
@@ -72,20 +70,29 @@ export default {
   box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
   display: flex;
   overflow: hidden;
+  @media (max-width: 599px) {
+    border-radius: unset;
+    border: unset;
+  }
   &__likes {
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 15px;
+    padding: 10px 0;
     background: $secondary-color;
     user-select: none;
-    margin-right: 10px;
     font-size: 1.2em;
+    width: 15%;
+    min-width: 40px;
+    max-width: 70px;
   }
   &__link {
+    overflow: hidden;
     position: relative;
     flex: auto;
+    padding: 5px;
+    width: 640px;
     a {
       outline: none;
       text-decoration: none;
@@ -106,6 +113,17 @@ export default {
       color: $primary-color;
     }
   }
+  &__author {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 0.9em;
+  }
+  &__title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
   &__delete {
     background: $primary-color;
     color: white;
@@ -114,7 +132,9 @@ export default {
     justify-content: center;
     font-size: 1.2em;
     cursor: pointer;
-    width: 70px;
+    width: 15%;
+    min-width: 40px;
+    max-width: 70px;
   }
 }
 

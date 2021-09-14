@@ -6,83 +6,91 @@
     </div>
     <div class="nav__links">
       <router-link v-if="isAuthenticated" to="/">Accueil</router-link>
-      <router-link v-if="isAuthenticated" to="/submit">Créer un post</router-link>
-      <div v-if="isAuthenticated" class="menu__summary">{{userName}}
+      <router-link v-if="isAuthenticated" to="/submit"
+        >Créer un post</router-link
+      >
+      <div v-if="isAuthenticated" class="menu__summary">
+        {{ userName }}
         <ul class="menu__detail">
           <li @click="showModal = true">Supprimer le compte</li>
           <li @click="logoutUser">Se déconnecter</li>
         </ul>
       </div>
-      <router-link v-if="!isAuthenticated" to="/login">Se connecter</router-link>
+      <router-link v-if="!isAuthenticated" to="/login"
+        >Se connecter</router-link
+      >
     </div>
   </div>
   <div id="top"></div>
-  <Modal 
+  <Modal
     v-if="showModal"
     @close="showModal = false"
     v-on:confirm="deleteUser"
   ></Modal>
   <main class="main">
-    <router-view/>
+    <router-view />
   </main>
 </template>
 
 <script>
-import { authAxios } from './functions/axios'
-import Modal from '@/components/Modal.vue'
+import { authAxios } from "./functions/axios";
+import Modal from "@/components/Modal.vue";
 export default {
-  data: function() {
+  data: function () {
     return {
-      showModal: false
-    }
+      showModal: false,
+    };
   },
   components: {
-    Modal
+    Modal,
   },
-  created(){
-      document.title = "Groupomania - Accueil"
+  created() {
+    document.title = "Groupomania - Accueil";
   },
   computed: {
     isAuthenticated() {
-        return this.$store.getters.isAuthenticated;
-      },
+      return this.$store.getters.isAuthenticated;
+    },
     userName() {
-        return this.$store.getters.user.name;
-      },
+      return this.$store.getters.user.name;
+    },
   },
   methods: {
     logoutUser() {
-      this.$store.dispatch('logOut')
+      this.$store.dispatch("logOut");
       this.$router.push("/login");
     },
     deleteUser() {
       // récupéation du token depuis le store vuex
-      authAxios.defaults.headers.common["Authorization"] = 'Bearer ' + this.$store.getters.user.token;
-      authAxios.delete('users/' + this.$store.getters.user.id)
-      .then(response => {
-        console.log(response)
-      })
-      // si une erreur est retournée, elle est restituée sur la page et on force la déconnexion
-      .catch(error => {
-        console.log(error)
-      })
+      authAxios.defaults.headers.common["Authorization"] =
+        "Bearer " + this.$store.getters.user.token;
+      authAxios
+        .delete("users/" + this.$store.getters.user.id)
+        .then((response) => {
+          console.log(response);
+        })
+        // si une erreur est retournée, elle est restituée sur la page et on force la déconnexion
+        .catch((error) => {
+          console.log(error);
+        });
       this.showModal = false;
-      this.$store.dispatch('logOut');
+      this.$store.dispatch("logOut");
       this.$router.push("/login");
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-
-@import './assets/variables.scss';
+@import "./assets/variables.scss";
 
 html {
   box-sizing: border-box;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
@@ -117,7 +125,9 @@ textarea {
   padding: 0;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   margin: 0;
 }
 
@@ -146,8 +156,8 @@ h1, h2, h3 {
   position: fixed;
   top: 0;
   width: 100%;
-  margin:auto;
-  box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
+  margin: auto;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   z-index: 1;
   padding: 20px;
   background: $primary-color;
@@ -159,17 +169,30 @@ h1, h2, h3 {
     display: flex;
     user-select: none;
     &__img {
-        height: 40px;
-        width: 40px;
-        margin-right: 10px;
+      height: 40px;
+      width: 40px;
+      margin-right: 10px;
+    }
+    @media (max-width: 599px) {
+      padding: 5px 0;
     }
   }
   a {
     font-weight: bold;
     color: white;
-
     &.router-link-exact-active {
       color: $secondary-color;
+    }
+  }
+  @media (max-width: 599px) {
+    flex-direction: column;
+    padding: 0;
+    a {
+      font-weight: bold;
+      color: white;
+      &.router-link-exact-active {
+        color: $primary-color;
+      }
     }
   }
 }
@@ -177,6 +200,11 @@ h1, h2, h3 {
 .nav__links {
   display: flex;
   justify-content: space-between;
+  @media (max-width: 599px) {
+    background: $secondary-color;
+    width: 100%;
+    padding: 5px 0;
+  }
 }
 
 .nav__links > * {
@@ -222,5 +250,4 @@ h1, h2, h3 {
 .menu__detail > *:hover {
   font-weight: 700;
 }
-
 </style>
