@@ -75,41 +75,49 @@ exports.findOne = (req, res) => {
 // Update a Posts by the id in the request
 exports.update = async (req, res) => {
   const id = req.params.id;
-  const post = await Post.findByPk(id);
-  if (req.user.id != post.author && !req.user.moderator) {
-    res.status(403).json({ message: 'Modification non autorisée pour cet utilisateur'});
-  } else {
-    Post.update(req.body, { where: { id: id }
-    // pour postgresql  returning: true,
-    })
-      .then((num, post) => {
-        if (num == 1) {
-          console.log(post)
-          res.status(200).json({ message: post });
-        } else {
-          res.status(400).json({ message: `Cannot update Post with id=${id}. Maybe Post was not found or req.body is empty!` });
-        }
+  const post = await Post.findByPk(id)
+  if (post) {
+    if (req.user.id != post.author && !req.user.moderator) {
+      res.status(403).json({ message: 'Modification non autorisée pour cet utilisateur'});
+    } else {
+      Post.update(req.body, { where: { id: id }
+      // pour postgresql  returning: true,
       })
-      .catch(error => res.status(500).json({ error }));
+        .then((num, post) => {
+          if (num == 1) {
+            console.log(post)
+            res.status(200).json({ message: post });
+          } else {
+            res.status(400).json({ message: `Cannot update Post with id=${id}. Maybe Post was not found or req.body is empty!` });
+          }
+        })
+        .catch(error => res.status(500).json({ error }));
+    }
+  } else {
+    res.status(400).json({ message: `Publication id=${id} non trouvée` });
   }
 };
 
 // Delete a Post with the specified id in the request
 exports.delete = async (req, res) => {
   const id = req.params.id;
-  const post = await Post.findByPk(id);
-  if (req.user.id != post.authorId && !req.user.moderator) {
-    res.status(403).json({ message: 'Modification non autorisée pour cet utilisateur'});
+  const post = await Post.findByPk(id)
+  if (post) {
+    if (req.user.id != post.authorId && !req.user.moderator) {
+      res.status(403).json({ message: 'Modification non autorisée pour cet utilisateur'});
+    } else {
+      Post.destroy({ where: { id: id } })
+        .then(num => {
+          if (num == 1) {
+            res.status(200).json({ message: `Le post id=${id} a été supprimé`});
+          } else {
+            res.status(400).json({ message: `Suppression du post id=${id} impossible` });
+          }
+        })
+        .catch(error => res.status(500).json({ error }));
+    }
   } else {
-    Post.destroy({ where: { id: id } })
-      .then(num => {
-        if (num == 1) {
-          res.status(200).json({ message: `Le post id=${id} a été supprimé`});
-        } else {
-          res.status(400).json({ message: `Suppression du post id=${id} impossible` });
-        }
-      })
-      .catch(error => res.status(500).json({ error }));
+    res.status(400).json({ message: `Publication id=${id} non trouvée` });
   }
 };
 
@@ -117,45 +125,59 @@ exports.delete = async (req, res) => {
 exports.deleteComment = async (req, res) => {
   const id = req.params.id;
   const comment = await Comment.findByPk(id);
-  if (req.user.id != comment.authorId && !req.user.moderator) {
-    res.status(403).json({ message: 'Modification non autorisée pour cet utilisateur'});
+  if (comment) {
+    if (req.user.id != comment.authorId && !req.user.moderator) {
+      res.status(403).json({ message: 'Modification non autorisée pour cet utilisateur'});
+    } else {
+      Comment.destroy({ where: { id: id } })
+        .then(num => {
+          if (num == 1) {
+            res.status(200).json({ message: `Le commentaire id=${id} a été supprimé`});
+          } else {
+            res.status(400).json({ message: `Suppression du commentaire id=${id} impossible` });
+          }
+        })
+        .catch(error => res.status(500).json({ error }));
+    }
   } else {
-    Comment.destroy({ where: { id: id } })
-      .then(num => {
-        if (num == 1) {
-          res.status(200).json({ message: `Le commentaire id=${id} a été supprimé`});
-        } else {
-          res.status(400).json({ message: `Suppression du commentaire id=${id} impossible` });
-        }
-      })
-      .catch(error => res.status(500).json({ error }));
+    res.status(400).json({ message: `Commentaire id=${id} non trouvée` });
   }
 };
 
 // Comment a Post with the specified id in the request
 exports.comment = async (req, res) => {
-  const post = await Post.findByPk(req.params.id)
-  post.createComment({
-    text: req.body.text,
-    authorId: req.user.id
-  })
-    .then(comment => res.status(201).json({ comment: comment }))
-    .catch(error => res.status(400).json({ error }));
+  const id = req.params.id;
+  const post = await Post.findByPk(id)
+  if (post) {
+    post.createComment({
+      text: req.body.text,
+      authorId: req.user.id
+    })
+      .then(comment => res.status(201).json({ comment: comment }))
+      .catch(error => res.status(400).json({ error }));
+  } else {
+    res.status(400).json({ message: `Publication id=${id} non trouvée` });
+  }
 };
 
 // Add like by the id in the request
 exports.like = async (req, res) => {
-  const post = await Post.findByPk(req.params.id)
-  const likes = await post.getLikes({where: {
-    id: req.user.id,
-  }})
-  if (!likes.length) {
-    post.addLikes(req.user.id, { through: { selfGranted: false } })
-      .then(() => res.status(200).json({ message: `Like ajouté pour l'utilisateur ${req.user.id}`, like: true }))
-      .catch(error => res.status(404).json({ error }));
+  const id = req.params.id;
+  const post = await Post.findByPk(id)
+  if (post) {
+    const likes = await post.getLikes({where: {
+      id: req.user.id,
+    }})
+    if (!likes.length) {
+      post.addLikes(req.user.id, { through: { selfGranted: false } })
+        .then(() => res.status(200).json({ message: `Like ajouté pour l'utilisateur ${req.user.id}`, like: true }))
+        .catch(error => res.status(404).json({ error }));
+    } else {
+      post.removeLikes(req.user.id, { through: { selfGranted: false } })
+        .then(() => res.status(200).json({ message: `Like enlevé pour l'utilisateur ${req.user.id}`, like: false }))
+        .catch(error => res.status(404).json({ error }));
+    }
   } else {
-    post.removeLikes(req.user.id, { through: { selfGranted: false } })
-      .then(() => res.status(200).json({ message: `Like enlevé pour l'utilisateur ${req.user.id}`, like: false }))
-      .catch(error => res.status(404).json({ error }));
+    res.status(400).json({ message: `Publication id=${id} non trouvée` });
   }
 };
