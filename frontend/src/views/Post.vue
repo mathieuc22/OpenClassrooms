@@ -1,8 +1,6 @@
 <template>
   <div class="postView">
-    <div v-if="errorMessage">
-      {{ errorMessage }}
-    </div>
+    <Error v-if="errorMessage" :message="errorMessage" :status="errorStatus"></Error>
     <div v-else-if="!loaded">
       <p>Post is loading...</p>
     </div>
@@ -82,6 +80,7 @@
 <script>
 import { postAxios } from "../functions/axios";
 import Functions from "../functions/functions";
+import Error from '../components/Error.vue';
 import CommentItem from "@/components/CommentItem.vue";
 export default {
   name: "Post",
@@ -93,6 +92,7 @@ export default {
       userLike: " ",
       nbLikes: "",
       errorMessage: "",
+      errorStatus: "",
       isActive: false,
       comments: "",
       commentForm: {
@@ -102,6 +102,7 @@ export default {
   },
   components: {
     CommentItem,
+    Error,
   },
   computed: {
     user() {
@@ -137,7 +138,6 @@ export default {
           } else {
             this.errorMessage = error;
           }
-          this.$store.dispatch("logOut");
         });
     },
     // permet de supprimer le post renvoyé par le composant enfant
@@ -165,11 +165,11 @@ export default {
       // si une erreur est retournée, elle est restituée sur la page et on force la déconnexion
       .catch((error) => {
         if (error.response) {
+          this.errorStatus = error.response.status;
           this.errorMessage = error.response.data.message;
         } else {
           this.errorMessage = error;
         }
-        this.$store.dispatch("logOut");
       });
   },
 };

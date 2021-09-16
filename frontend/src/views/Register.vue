@@ -19,7 +19,7 @@
         <p>
           <label for="email">Email</label>
           <input
-            type="text"
+            type="email"
             id="email"
             placeholder="jean@groupomania.fr"
             class="formulaire__input"
@@ -54,15 +54,15 @@
       <router-link to="/login">ici</router-link> pour vous connecter
     </small>
   </div>
-  <div v-if="errorMessage">
-    {{ errorMessage }}
-  </div>
+  <Error v-if="errorMessage" :message="errorMessage" :status="errorStatus"></Error>
 </template>
 
 <script>
+import Error from '../components/Error.vue';
 import { authAxios } from "../functions/axios";
 export default {
   name: "Register",
+  components: { Error },
   data() {
     return {
       errorMessage: "",

@@ -32,14 +32,14 @@
       </div>
     </form>
   </div>
-  <div v-if="errorMessage">
-    {{ errorMessage }}
-  </div>
+  <Error v-if="errorMessage" :message="errorMessage" :status="errorStatus"></Error>
 </template>
 
 <script>
+import Error from '../components/Error.vue';
 import { postAxios } from "../functions/axios";
 export default {
+  components: { Error },
   name: "Submit",
   data() {
     return {

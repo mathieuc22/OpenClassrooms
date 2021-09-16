@@ -7,11 +7,13 @@ const store = createStore({
     posts: [],
     post: {},
     errorMessage: '',
+    errorStatus: '',
     loading: 0
   },
   getters: {
     user: (state) => state.user,
     errorMessage: (state) => state.errorMessage,
+    errorStatus: (state) => state.errorStatus,
     posts: (state) => {
       return state.posts;
     },
@@ -35,10 +37,12 @@ const store = createStore({
     },
     AUTH_SUCCESS(state, userInfo) {
       state.user = userInfo,
-      state.errorMessage = ''
+      state.errorMessage = '',
+      state.errorStatus = ''
     },
-    AUTH_ERROR(state, errorMessage) {
-      state.errorMessage = errorMessage
+    AUTH_ERROR(state, errorInfo) {
+      state.errorMessage = errorInfo.message,
+      state.errorStatus = errorInfo.status
     },
     AUTH_LOGOUT(state) {
       state.user = ''
@@ -52,14 +56,16 @@ const store = createStore({
         const userInfo = { id: data.userId, name: data.userName, moderator: data.moderator, token: data.token };
         localStorage.setItem("user", JSON.stringify(userInfo));
         commit("AUTH_SUCCESS", userInfo);
+        return 'AUTH_SUCCESS';
       } catch (error) {
         // récupération d'un message d'erreur personnalisé ou du message brut
         if (error.response) {
-          commit("AUTH_ERROR", error.response.data.message || error.response.data.error);
+          const errorInfo = { message: error.response.data.message || error.response.data.error, status: error.response.status };
+          commit("AUTH_ERROR", errorInfo);
         } else {
           commit("AUTH_ERROR", error);
         }
-
+        throw 'AUTH_ERROR ';
       }
     },
     async loadPosts({ commit, state }) {
