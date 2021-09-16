@@ -34,7 +34,7 @@
       </div>
       <div class="formulaire__fieldline formulaire__fieldline--center">
         <!-- Sign in button -->
-        <button class="button" type="submit">
+        <button class="button" type="submit" aria-label="Se connecter">
           Se connecter
         </button>
       </div>

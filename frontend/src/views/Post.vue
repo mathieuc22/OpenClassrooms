@@ -12,7 +12,7 @@
             {{ formatDate(post.createdAt) }}
           </small>
         </div>
-        <div class="postDetail__likes" @click="likePost(post.id)">
+        <div class="postDetail__likes" @click="likePost(post.id)"  aria-label="Ajouter/supprimer un like">
           <span>{{ nbLikes }}</span>
           <i
             class="fa-heart like"
@@ -32,6 +32,7 @@
           class="postDetail__delete"
           v-if="isAuthor || isModerator"
           @click="deletePost(post.id)"
+           aria-label="Supprimer une publication"
         >
           <i class="fas fa-trash"></i>
           Supprimer le post ?

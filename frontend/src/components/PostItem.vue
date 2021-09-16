@@ -1,6 +1,6 @@
 <template>
   <li class="post">
-    <div class="post__likes" @click="likePost(post.id)">
+    <div role="button" class="post__likes" @click="likePost(post.id)"  aria-label="Ajouter/enlever un like">
       <span>{{ nbLikes }}</span>
       <i
         class="fa-heart like"
@@ -17,17 +17,18 @@
         Publié par {{ post.author.username }} le
         {{ formatDate(post.createdAt) }}
       </div>
-      <h2 class="post__title">
-        {{ post.title }}
-      </h2>
       <router-link :to="'/posts/' + post.id">
-        <span hidden>Lien vers le post</span>
+        <h2 class="post__title">
+          {{ post.title }}
+        </h2>
       </router-link>
     </div>
     <div
+      role="button" 
       class="post__delete"
       v-if="isAuthor || isModerator"
       @click="deletePost(post.id, index)"
+      aria-label="Supprimer la publication"
     >
       <i class="fas fa-trash"></i>
     </div>

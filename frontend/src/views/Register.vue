@@ -44,7 +44,7 @@
       </div>
       <div class="formulaire__fieldline formulaire__fieldline--center">
         <!-- Sign in button -->
-        <button class="button button--secondary" type="submit">
+        <button class="button button--secondary" type="submit" aria-label="Créer un compte">
           Créer un compte
         </button>
       </div>
