@@ -76,6 +76,7 @@ exports.findOne = (req, res) => {
 exports.update = async (req, res) => {
   const id = req.params.id;
   const post = await Post.findByPk(id)
+  // test si l'élément avec l'id est présent en base 
   if (post) {
     if (req.user.id != post.author && !req.user.moderator) {
       res.status(403).json({ message: 'Modification non autorisée pour cet utilisateur'});
@@ -102,6 +103,7 @@ exports.update = async (req, res) => {
 exports.delete = async (req, res) => {
   const id = req.params.id;
   const post = await Post.findByPk(id)
+  // test si l'élément avec l'id est présent en base 
   if (post) {
     if (req.user.id != post.authorId && !req.user.moderator) {
       res.status(403).json({ message: 'Modification non autorisée pour cet utilisateur'});
@@ -125,6 +127,7 @@ exports.delete = async (req, res) => {
 exports.deleteComment = async (req, res) => {
   const id = req.params.id;
   const comment = await Comment.findByPk(id);
+  // test si l'élément avec l'id est présent en base 
   if (comment) {
     if (req.user.id != comment.authorId && !req.user.moderator) {
       res.status(403).json({ message: 'Modification non autorisée pour cet utilisateur'});
@@ -148,6 +151,7 @@ exports.deleteComment = async (req, res) => {
 exports.comment = async (req, res) => {
   const id = req.params.id;
   const post = await Post.findByPk(id)
+  // test si l'élément avec l'id est présent en base 
   if (post) {
     post.createComment({
       text: req.body.text,
@@ -164,6 +168,7 @@ exports.comment = async (req, res) => {
 exports.like = async (req, res) => {
   const id = req.params.id;
   const post = await Post.findByPk(id)
+  // test si l'élément avec l'id est présent en base 
   if (post) {
     const likes = await post.getLikes({where: {
       id: req.user.id,
