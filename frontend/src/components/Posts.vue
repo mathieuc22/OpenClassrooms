@@ -3,7 +3,15 @@
     {{errorMessage}}
   </div>
   <div v-else-if="!loaded">
-    <p>Posts are loading...</p>
+    <p>Merci de patienter, les publications arrivent...</p>
+  </div>
+  <div v-else-if="posts.length == 0">
+    <p>
+      Aucune publication pour le moment,
+      <router-link :to="'/submit'">
+      soyez le premier
+      </router-link> !
+    </p>
   </div>
   <ul v-else class="posts">
     <PostItem
