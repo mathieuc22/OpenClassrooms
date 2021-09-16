@@ -8,14 +8,13 @@
     </div>
     <div v-else class="postDetail">
       <div class="postDetail__post">
-        <h2>{{ post.title }}</h2>
         <div class="postDetail__author">
           <small
             >Publié par {{ post.author.username }} le
-            {{ formatDate(post.createdAt) }}</small
-          >
+            {{ formatDate(post.createdAt) }}
+          </small>
         </div>
-        <div class="postDetail__likes">
+        <div class="postDetail__likes" @click="likePost(post.id)">
           <span>{{ nbLikes }}</span>
           <i
             class="fa-heart like"
@@ -24,16 +23,21 @@
               far: !isActive,
               fas: isActive,
             }"
-            @click="likePost(post.id)"
           >
           </i>
         </div>
-        <div class="postDetail__text">{{ post.text }}</div>
-        <i
-          class="postDetail__delete fas fa-trash"
+        <h2>{{ post.title }}</h2>
+        <div class="postDetail__text">
+          {{ post.text }}
+        </div>
+        <div
+          class="postDetail__delete"
           v-if="isAuthor || isModerator"
           @click="deletePost(post.id)"
-        ></i>
+        >
+          <i class="fas fa-trash"></i>
+          Supprimer le post ?
+        </div>
       </div>
 
       <div class="postDetail__comments">
@@ -42,11 +46,13 @@
           <form class="formulaire" @submit.prevent="submitComment">
             <div class="formulaire__fieldline">
               <p>
-                <label for="text">Text</label>
+                <label for="text"
+                  >Commenter en tant que <strong>{{ user.name }}</strong></label
+                >
                 <textarea
                   type="text"
                   id="text"
-                  placeholder="Text"
+                  placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
                   class="formulaire__input formulaire__input--multiple"
                   v-model="commentForm.text"
                 />
@@ -192,18 +198,39 @@ export default {
     background: white;
     border-radius: 5px;
     font-size: 0.8em;
-    border: 1px solid $primary-color;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     overflow: hidden;
     padding: 20px;
   }
+  &__post {
+    padding-left: 40px;
+    position: relative;
+  }
+  &__likes {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.3em;
+    font-weight: 700;
+    text-align: center;
+    left: 10px;
+    padding: 3px;
+    user-select: none;
+    cursor: pointer;
+  }
   &__text {
+    margin: 10px 0;
     white-space: pre;
   }
   &__delete {
     color: $secondary-color;
     cursor: pointer;
+    &:hover i {
+      transform: scale(150%);
+    }
+    &:active i {
+      transform: scale(50%);
+    }
   }
 }
-
 </style>

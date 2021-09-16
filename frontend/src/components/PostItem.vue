@@ -76,11 +76,12 @@ export default {
 .post {
   background: white;
   border-radius: 5px;
-  font-size: 0.8em;
-  border: 1px solid $primary-color;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   display: flex;
   overflow: hidden;
+  &:hover {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.50);
+  }
   @media (max-width: 599px) {
     border-radius: unset;
     border: unset;
@@ -107,12 +108,6 @@ export default {
     flex: auto;
     padding: 5px;
     width: 640px;
-    &:hover {
-      transform: translateY(-2px);
-    }
-    &:active {
-      transform: translateY(2px);
-    }
     a {
       outline: none;
       text-decoration: none;
