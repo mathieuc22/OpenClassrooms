@@ -55,6 +55,7 @@
                   placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
                   class="formulaire__input formulaire__input--multiple"
                   v-model="commentForm.text"
+                  required
                 />
               </p>
             </div>
@@ -225,6 +226,9 @@ export default {
   &__delete {
     color: $secondary-color;
     cursor: pointer;
+    & i {
+      transition: transform 0.2s;
+    }
     &:hover i {
       transform: scale(150%);
     }

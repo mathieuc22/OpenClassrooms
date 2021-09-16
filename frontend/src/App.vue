@@ -142,14 +142,17 @@ h3 {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: transform 0.2s;
   &--secondary {
     background-color: $secondary-color;
   }
   &:hover {
     transform: translateY(-2px);
+    box-shadow: 0px 2px 2px 0px rgb(0 0 0 / 30%);
   }
   &:active {
     transform: translateY(2px);
+    box-shadow: 0px -2px 2px 0px rgb(0 0 0 / 30%);
   }
 }
 

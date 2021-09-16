@@ -150,10 +150,13 @@ export default {
     width: 15%;
     min-width: 40px;
     max-width: 70px;
-    & i:hover {
+    & i {
+      transition: transform 0.2s;
+    }
+    &:hover i {
       transform: scale(150%);
     }
-    & i:active {
+    &:active i {
       transform: scale(50%);
     }
   }
@@ -162,6 +165,7 @@ export default {
 .like {
   color: hotpink;
   cursor: pointer;
+  transition: transform 0.2s;
   &:hover {
     transform: scale(150%);
   }
