@@ -4,30 +4,42 @@
       <span>{{ nbLikes }}</span>
       <i
         class="fa-heart like"
-        v-bind:class="{ 'like--active': isActive, 'far': !isActive, 'fas': isActive }">
+        v-bind:class="{
+          'like--active': isActive,
+          far: !isActive,
+          fas: isActive,
+        }"
+      >
       </i>
     </div>
     <div class="post__link">
-        <div class="post__author">
-            Publié par {{post.author.username}} le {{ formatDate(post.createdAt) }}
-        </div>
-        <h2 class="post__title">
-          {{post.title}}
-        </h2>
+      <div class="post__author">
+        Publié par {{ post.author.username }} le
+        {{ formatDate(post.createdAt) }}
+      </div>
+      <h2 class="post__title">
+        {{ post.title }}
+      </h2>
       <router-link :to="'/posts/' + post.id">
         <span hidden>Lien vers le post</span>
       </router-link>
     </div>
-    <div class="post__delete" v-if="isAuthor || isModerator" @click="deletePost(post.id, index)"><i class="fas fa-trash"></i></div>
+    <div
+      class="post__delete"
+      v-if="isAuthor || isModerator"
+      @click="deletePost(post.id, index)"
+    >
+      <i class="fas fa-trash"></i>
+    </div>
   </li>
 </template>
 
 <script>
-import Functions from '../functions/functions';
+import Functions from "../functions/functions";
 export default {
-  name: 'PostItem',
-  props: ['post','index'],
-  mixins:[Functions],
+  name: "PostItem",
+  props: ["post", "index"],
+  mixins: [Functions],
   data: function () {
     return {
       loaded: false,
@@ -48,26 +60,25 @@ export default {
     },
   },
   mounted() {
-    if (this.post.likes.some(x => x.id === this.user.id)) {
+    if (this.post.likes.some((x) => x.id === this.user.id)) {
       this.isActive = true;
     } else {
       this.isActive = false;
     }
     this.nbLikes = this.post.likes.length;
   },
-}
+};
 </script>
 
 <style lang="scss">
-
-@import '../assets/variables.scss';
+@import "../assets/variables.scss";
 
 .post {
   background: white;
   border-radius: 5px;
   font-size: 0.8em;
   border: 1px solid $primary-color;
-  box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   display: flex;
   overflow: hidden;
   @media (max-width: 599px) {
@@ -84,6 +95,7 @@ export default {
     font-weight: 700;
     color: white;
     user-select: none;
+    cursor: pointer;
     font-size: 1.2em;
     width: 15%;
     min-width: 40px;
@@ -112,7 +124,7 @@ export default {
       left: 0;
       right: 0;
       bottom: 0;
-      content: ' ';
+      content: " ";
     }
     a:hover {
       color: $primary-color;
@@ -144,10 +156,10 @@ export default {
     min-width: 40px;
     max-width: 70px;
     & i:hover {
-      transform:scale(150%);
+      transform: scale(150%);
     }
     & i:active {
-      transform:scale(50%);
+      transform: scale(50%);
     }
   }
 }
@@ -156,15 +168,14 @@ export default {
   color: hotpink;
   cursor: pointer;
   &:hover {
-    transform:scale(150%);
+    transform: scale(150%);
   }
   &:active {
-    transform:scale(50%);
+    transform: scale(50%);
   }
 }
 
 .like--active {
   color: hotpink;
 }
-
 </style>
