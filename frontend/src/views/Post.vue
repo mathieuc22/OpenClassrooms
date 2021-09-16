@@ -206,12 +206,4 @@ export default {
   }
 }
 
-.like {
-  color: $primary-color;
-  cursor: pointer;
-}
-
-.like--active {
-  color: hotpink;
-}
 </style>

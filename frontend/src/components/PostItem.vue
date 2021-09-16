@@ -1,10 +1,10 @@
 <template>
   <li class="post">
-    <div class="post__likes">
+    <div class="post__likes" @click="likePost(post.id)">
       <span>{{ nbLikes }}</span>
       <i
         class="fa-heart like"
-        v-bind:class="{ 'like--active': isActive, 'far': !isActive, 'fas': isActive }" @click="likePost(post.id)">
+        v-bind:class="{ 'like--active': isActive, 'far': !isActive, 'fas': isActive }">
       </i>
     </div>
     <div class="post__link">
@@ -15,10 +15,10 @@
           {{post.title}}
         </h2>
       <router-link :to="'/posts/' + post.id">
+        <span hidden>Lien vers le post</span>
       </router-link>
     </div>
-    <i class="post__delete fas fa-trash" v-if="isAuthor || isModerator" @click="deletePost(post.id, index)">
-    </i>
+    <div class="post__delete" v-if="isAuthor || isModerator" @click="deletePost(post.id, index)"><i class="fas fa-trash"></i></div>
   </li>
 </template>
 
@@ -80,7 +80,9 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     padding: 10px 0;
-    background: $secondary-color;
+    background: $primary-color;
+    font-weight: 700;
+    color: white;
     user-select: none;
     font-size: 1.2em;
     width: 15%;
@@ -93,6 +95,12 @@ export default {
     flex: auto;
     padding: 5px;
     width: 640px;
+    &:hover {
+      transform: translateY(-2px);
+    }
+    &:active {
+      transform: translateY(2px);
+    }
     a {
       outline: none;
       text-decoration: none;
@@ -125,7 +133,7 @@ export default {
     text-overflow: ellipsis;
   }
   &__delete {
-    background: $primary-color;
+    background: $secondary-color;
     color: white;
     display: flex;
     align-items: center;
@@ -135,12 +143,24 @@ export default {
     width: 15%;
     min-width: 40px;
     max-width: 70px;
+    & i:hover {
+      transform:scale(150%);
+    }
+    & i:active {
+      transform:scale(50%);
+    }
   }
 }
 
 .like {
-  color: $primary-color;
+  color: hotpink;
   cursor: pointer;
+  &:hover {
+    transform:scale(150%);
+  }
+  &:active {
+    transform:scale(50%);
+  }
 }
 
 .like--active {

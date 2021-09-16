@@ -145,6 +145,12 @@ h3 {
   &--secondary {
     background-color: $secondary-color;
   }
+  &:hover {
+    transform: translateY(-2px);
+  }
+  &:active {
+    transform: translateY(2px);
+  }
 }
 
 #top {
