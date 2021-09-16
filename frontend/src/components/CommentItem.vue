@@ -2,13 +2,13 @@
   <li class="comment">
     <small><i class="fas fa-user"></i> {{ comment.author.username }} - {{ formatDate(comment.createdAt) }}</small>
     <div class="comment__text">{{ comment.text }}</div>
-    <i class="postDetail__delete fas fa-trash"  v-if="isAuthor || isModerator " @click="deleteComment(comment.id, index)">
+    <i class="postDetail__delete fas fa-trash"  v-if="isAuthor || isModerator " @click="deleteComment(comment.id, index)"  role="button" aria-label="Supprimer un commentaire">
     </i>
   </li>
 </template>
 
 <script>
-import axios from "axios";
+import { postAxios } from '../functions/axios'
 import Functions from '../functions/functions';
 export default {
   name: 'CommentItem',
@@ -35,7 +35,7 @@ export default {
     deleteComment(id, index) {
       console.log('id: ' + id + ', index: ' +index)
       try {
-        axios.delete("/comment/" + id)
+        postAxios.delete("/comment/" + id)
           .then((result) => {
             console.log(result);
             // si on supprime depuis la page d'accueil on renvoie l'index du post à supprimer, sinon on renvoie sur Home

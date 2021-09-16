@@ -31,7 +31,7 @@ var Functions = {
           .then((result) => {
             console.log(result);
             // si on supprime depuis la page d'accueil on renvoie l'index du post à supprimer, sinon on renvoie sur Home
-            if (index) {
+            if (typeof index !== 'undefined') {
               this.$emit('deleteThisPost', index)
             } else {
               this.$router.push('/');

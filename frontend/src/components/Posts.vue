@@ -1,9 +1,13 @@
 <template>
-  <div v-if="errorMessage">
-    {{errorMessage}}
-  </div>
+  <Error v-if="errorMessage" :message="errorMessage" :status="errorStatus"></Error>
   <div v-else-if="!loaded">
-    <p>Posts are loading...</p>
+    Merci de patienter, les publications arrivent...
+  </div>
+  <div v-else-if="posts.length == 0">
+    Aucune publication pour le moment,
+    <router-link :to="'/submit'">
+    soyez le premier
+    </router-link> !
   </div>
   <ul v-else class="posts">
     <PostItem
@@ -19,6 +23,7 @@
 <script>
 import { postAxios } from '../functions/axios'
 import PostItem from '@/components/PostItem.vue'
+import Error from '@/components/Error.vue'
 export default {
   data: function () {
     return {
@@ -28,7 +33,8 @@ export default {
     };
   },
   components: {
-    PostItem
+    PostItem,
+    Error,
   },
   methods: {
     // permet de supprimer le post renvoyé par le composant enfant
@@ -51,7 +57,6 @@ export default {
       } else {
         this.errorMessage = error;
       }
-      this.$store.dispatch('logOut');
     })
   },
 }

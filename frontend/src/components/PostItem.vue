@@ -1,35 +1,46 @@
 <template>
   <li class="post">
-    <div class="post__likes">
+    <div role="button" class="post__likes" @click="likePost(post.id)"  aria-label="Ajouter/enlever un like">
       <span>{{ nbLikes }}</span>
       <i
         class="fa-heart like"
-        v-bind:class="{ 'like--active': isActive, 'far': !isActive, 'fas': isActive }" @click="likePost(post.id)">
+        v-bind:class="{
+          'like--active': isActive,
+          far: !isActive,
+          fas: isActive,
+        }"
+      >
       </i>
     </div>
     <div class="post__link">
+      <div class="post__author">
+        Publié par {{ post.author.username }} le
+        {{ formatDate(post.createdAt) }}
+      </div>
       <router-link :to="'/posts/' + post.id">
-        <div class="post__author">
-          <small>
-            Publié par {{post.author.username}} le {{ formatDate(post.createdAt) }}
-          </small>
-        </div>
-        <div>
-          <h2>{{post.title}}</h2>
-        </div>
+        <h2 class="post__title">
+          {{ post.title }}
+        </h2>
       </router-link>
     </div>
-    <i class="post__delete fas fa-trash" v-if="isAuthor || isModerator" @click="deletePost(post.id, index)">
-    </i>
+    <div
+      role="button" 
+      class="post__delete"
+      v-if="isAuthor || isModerator"
+      @click="deletePost(post.id, index)"
+      aria-label="Supprimer la publication"
+    >
+      <i class="fas fa-trash"></i>
+    </div>
   </li>
 </template>
 
 <script>
-import Functions from '../functions/functions';
+import Functions from "../functions/functions";
 export default {
-  name: 'PostItem',
-  props: ['post','index'],
-  mixins:[Functions],
+  name: "PostItem",
+  props: ["post", "index"],
+  mixins: [Functions],
   data: function () {
     return {
       loaded: false,
@@ -50,42 +61,54 @@ export default {
     },
   },
   mounted() {
-    if (this.post.likes.some(x => x.id === this.user.id)) {
+    if (this.post.likes.some((x) => x.id === this.user.id)) {
       this.isActive = true;
     } else {
       this.isActive = false;
     }
     this.nbLikes = this.post.likes.length;
   },
-}
+};
 </script>
 
 <style lang="scss">
-
-@import '../assets/variables.scss';
+@import "../assets/variables.scss";
 
 .post {
   background: white;
   border-radius: 5px;
-  font-size: 0.8em;
-  border: 1px solid $primary-color;
-  box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   display: flex;
   overflow: hidden;
+  &:hover {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.50);
+  }
+  @media (max-width: 599px) {
+    border-radius: unset;
+    border: unset;
+  }
   &__likes {
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 15px;
-    background: $secondary-color;
+    padding: 10px 0;
+    background: $primary-color;
+    font-weight: 700;
+    color: white;
     user-select: none;
-    margin-right: 10px;
+    cursor: pointer;
     font-size: 1.2em;
+    width: 15%;
+    min-width: 40px;
+    max-width: 70px;
   }
   &__link {
+    overflow: hidden;
     position: relative;
     flex: auto;
+    padding: 5px;
+    width: 640px;
     a {
       outline: none;
       text-decoration: none;
@@ -97,7 +120,7 @@ export default {
       left: 0;
       right: 0;
       bottom: 0;
-      content: ' ';
+      content: " ";
     }
     a:hover {
       color: $primary-color;
@@ -106,25 +129,53 @@ export default {
       color: $primary-color;
     }
   }
+  &__author {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 0.9em;
+  }
+  &__title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
   &__delete {
-    background: $primary-color;
+    background: $secondary-color;
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.2em;
     cursor: pointer;
-    width: 70px;
+    width: 15%;
+    min-width: 40px;
+    max-width: 70px;
+    & i {
+      transition: transform 0.2s;
+    }
+    &:hover i {
+      transform: scale(150%);
+    }
+    &:active i {
+      transform: scale(50%);
+    }
   }
 }
 
 .like {
-  color: $primary-color;
+  color: hotpink;
   cursor: pointer;
+  transition: transform 0.2s;
+  &:hover {
+    transform: scale(150%);
+  }
+  &:active {
+    transform: scale(50%);
+  }
 }
 
 .like--active {
   color: hotpink;
 }
-
 </style>

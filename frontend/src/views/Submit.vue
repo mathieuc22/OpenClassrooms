@@ -17,7 +17,7 @@
       </div>
       <div class="formulaire__fieldline">
         <p>
-          <label for="title">Texte</label>
+          <label for="text">Texte</label>
           <textarea
             id="text"
             placeholder="Text (facultatif)"
@@ -28,18 +28,18 @@
       </div>
       <div class="formulaire__fieldline formulaire__fieldline--center">
         <!-- Post button -->
-        <button class="button" type="submit">Publier</button>
+        <button class="button" type="submit" aria-label="Publier">Publier</button>
       </div>
     </form>
   </div>
-  <div v-if="errorMessage">
-    {{ errorMessage }}
-  </div>
+  <Error v-if="errorMessage" :message="errorMessage" :status="errorStatus"></Error>
 </template>
 
 <script>
+import Error from '../components/Error.vue';
 import { postAxios } from "../functions/axios";
 export default {
+  components: { Error },
   name: "Submit",
   data() {
     return {

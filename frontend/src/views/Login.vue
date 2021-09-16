@@ -9,7 +9,7 @@
         <p>
           <label for="email">Email</label>
           <input
-            type="text"
+            type="email"
             id="email"
             placeholder="jean@groupomania.fr"
             class="formulaire__input"
@@ -34,7 +34,7 @@
       </div>
       <div class="formulaire__fieldline formulaire__fieldline--center">
         <!-- Sign in button -->
-        <button class="button" type="submit">
+        <button class="button" type="submit" aria-label="Se connecter">
           Se connecter
         </button>
       </div>
@@ -44,20 +44,23 @@
       <router-link to="/register">ici</router-link> pour en créer un.
     </small>
   </div>
-  <div v-if="errorMessage">
-    {{errorMessage}}
-  </div>
+  <Error v-if="error.message" :message="error.message" :status="error.status"></Error>
 </template>
 
 <script>
-// const API_URL = "http://localhost:3000/api/auth/login";
+import Error from '../components/Error.vue';
 export default {
   name: 'Login',
+  components: { Error },
   data() {
     return {
       login: {
         email: "",
         password: ""
+      },
+      error: {
+        status: "",
+        message: ""
       },
     };
   },
@@ -66,17 +69,25 @@ export default {
     errorMessage() {
       return this.$store.getters.errorMessage;
     },
+    errorStatus() {
+      return this.$store.getters.errorStatus;
+    },
   },
   methods: {
-    async loginUser() {
-      try {
-        await this.$store.dispatch('authenticate', JSON.stringify(this.login));
-        this.$router.push('/');
-      } catch (error) {
-        console.log(error);
+    loginUser() {
+      this.$store.dispatch('authenticate', JSON.stringify(this.login))
+        .then((response) => {
+          console.log(response)
+          this.$router.push('/');
+        })
+        .catch((error) => {
+          console.log(error)
+          console.log(this.$store.getters.errorMessage)
+          this.error.message = this.$store.getters.errorMessage;
+          this.error.status = this.$store.getters.errorStatus;
+        })
       }
-    }
-  }
+  },
 };
 </script>
 
