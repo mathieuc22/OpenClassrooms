@@ -10,7 +10,7 @@
         >Créer un post</router-link
       >
       <div v-if="isAuthenticated" class="menu__summary" @click="openClose">
-        {{ userName }}
+        <i class="fa fa-user"></i> {{ userName }}
         <ul class="menu__detail" v-if="isOpen">
           <li @click="showModal = true">Supprimer le compte</li>
           <li @click="logoutUser">Se déconnecter</li>
@@ -187,7 +187,7 @@ h3 {
   margin: auto;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   z-index: 1;
-  padding: 20px;
+  padding: 15px;
   background: $primary-color;
   color: white;
   display: flex;
@@ -228,6 +228,7 @@ h3 {
 .nav__links {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   @media (max-width: 599px) {
     background: $secondary-color;
     width: 100%;
@@ -237,13 +238,14 @@ h3 {
 
 .nav__links > * {
   width: 110px;
+  padding: 5px 0;
   text-align: center;
 }
 
 .menu__summary {
   position: relative;
   user-select: none;
-  border-radius: 5px 5px 0 0;
+  border-radius: 5px;
   transition: all 0.3s ease-out;
 }
 

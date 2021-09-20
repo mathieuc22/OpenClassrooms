@@ -4,7 +4,7 @@
       <h1>Créer un compte</h1>
       <div class="formulaire__fieldline">
         <p>
-          <label for="username">Nom d'utilisateur</label>
+          <label for="username"><i class="fas fa-user"></i> Nom d'utilisateur</label>
           <input
             type="text"
             id="username"
@@ -17,7 +17,7 @@
       </div>
       <div class="formulaire__fieldline">
         <p>
-          <label for="email">Email</label>
+          <label for="email"><i class="fas fa-envelope"></i> Email</label>
           <input
             type="email"
             id="email"
@@ -30,7 +30,7 @@
       </div>
       <div class="formulaire__fieldline formulaire__fieldline--center">
         <p>
-          <label for="password">Mot de passe</label>
+          <label for="password"><i class="fas fa-lock"></i> Mot de passe</label>
           <!-- Password -->
           <input
             type="password"

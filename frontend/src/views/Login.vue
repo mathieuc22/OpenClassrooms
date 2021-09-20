@@ -7,7 +7,7 @@
       <h1>Connexion</h1>
       <div class="formulaire__fieldline">
         <p>
-          <label for="email">Email</label>
+          <label for="email"><i class="fas fa-envelope"></i> Email</label>
           <input
             type="email"
             id="email"
@@ -20,7 +20,7 @@
       </div>
       <div class="formulaire__fieldline">
         <p>
-          <label for="password">Mot de passe</label>
+          <label for="password"><i class="fas fa-lock"></i> Mot de passe</label>
           <!-- Password -->
           <input
             type="password"
