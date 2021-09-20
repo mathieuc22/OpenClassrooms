@@ -9,9 +9,9 @@
       <router-link v-if="isAuthenticated" to="/submit"
         >Créer un post</router-link
       >
-      <div v-if="isAuthenticated" class="menu__summary">
+      <div v-if="isAuthenticated" class="menu__summary" @click="openClose">
         {{ userName }}
-        <ul class="menu__detail">
+        <ul class="menu__detail" v-if="isOpen">
           <li @click="showModal = true">Supprimer le compte</li>
           <li @click="logoutUser">Se déconnecter</li>
         </ul>
@@ -39,6 +39,7 @@ export default {
   data: function () {
     return {
       showModal: false,
+      isOpen: false
     };
   },
   components: {
@@ -77,6 +78,11 @@ export default {
       this.$store.dispatch("logOut");
       this.$router.push("/login");
     },
+    openClose() {
+      // Toggle between open or closed ( true || false )
+      this.isOpen = !this.isOpen
+      console.log(this.isOpen)
+    }
   },
 };
 </script>
@@ -86,6 +92,7 @@ export default {
 
 html {
   box-sizing: border-box;
+  height: -webkit-fill-available;
 }
 
 *,
@@ -95,16 +102,29 @@ html {
 }
 
 body {
+  display: flex; 
+  flex-direction: column;
   margin: 0;
+  min-height: 100vh;
+  /* mobile viewport bug fix */
+  min-height: -webkit-fill-available;
+}
+
+input[type='text'],
+input[type='number'],
+input[type='email'],
+input[type='password'],
+textarea {
+  font-size: 16px;
 }
 
 #app {
+  flex: 1;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: $primary-color;
   background: $bg-color;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -134,7 +154,6 @@ h3 {
 .button {
   display: inline-block;
   padding: 12px 30px;
-  width: 60%;
   text-decoration: none;
   background-color: $primary-color;
   color: white;
@@ -230,8 +249,6 @@ h3 {
 
 .menu__detail {
   position: absolute;
-  visibility: hidden;
-  opacity: 0;
   right: 0;
   padding: 5px;
   background: $secondary-color;
@@ -257,6 +274,19 @@ h3 {
 }
 
 .menu__detail > *:hover {
+  font-weight: 700;
+}
+
+.menu__summary:focus {
+  background: $secondary-color;
+}
+
+.menu__summary:focus .menu__detail {
+  visibility: visible;
+  opacity: 1;
+}
+
+.menu__detail > *:focus {
   font-weight: 700;
 }
 </style>

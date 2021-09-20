@@ -133,7 +133,6 @@ export default {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font-size: 0.9em;
   }
   &__title {
     overflow: hidden;

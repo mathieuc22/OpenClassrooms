@@ -199,13 +199,12 @@ export default {
     flex-direction: column;
     background: white;
     border-radius: 5px;
-    font-size: 0.8em;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     overflow: hidden;
     padding: 20px;
   }
   &__post {
-    padding-left: 40px;
+    padding-left: 50px;
     position: relative;
   }
   &__likes {
@@ -221,7 +220,7 @@ export default {
     cursor: pointer;
   }
   &__text {
-    margin: 10px 0;
+    margin: 20px 0;
     white-space: pre;
   }
   &__delete {
