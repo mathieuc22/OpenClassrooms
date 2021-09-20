@@ -2,9 +2,9 @@
   <div class="modal">
     <div class="modal__card">
       <h1 class="modal__title">Voulez-vous supprimer votre compte?</h1>
-      <div class="modal__choice">
-        <button class="button" @click="$emit('close')">Non</button>
+      <div class="modal__button-group">
         <button @click="$emit('confirm')">Oui</button>
+        <button class="button" @click="$emit('close')">Non</button>
       </div>
     </div>
   </div>
@@ -49,6 +49,9 @@ export default {
       text-align: center;
       width: 80%;
       max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     &__title {
       margin-bottom: 10px;
@@ -59,7 +62,6 @@ export default {
     &__choice {
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: space-around;
       height: 70px;
     }
@@ -67,9 +69,15 @@ export default {
       font-weight: 700;
     }
     &__button-group {
+      font-size: 1.2em;
+      align-items: center;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-gap: 8px;
+      grid-gap: 15px;
+      &> * {
+        cursor: pointer;
+        width: 100%;
+      }
       @media (max-width: 599px) {
           grid-template-columns: 1fr;
       }
