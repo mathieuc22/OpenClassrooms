@@ -57,6 +57,7 @@ export default {
       } else {
         this.errorMessage = error;
       }
+      this.$store.dispatch("logOut");
     })
   },
 }
