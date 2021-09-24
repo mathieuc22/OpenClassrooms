@@ -50,7 +50,11 @@ exports.login = (req, res, next) => {
 // Retrieve all users from the database.
 exports.findAll = (req, res) => {
   User.findAll()
-    .then(users => res.status(200).json({ users: users }))
+    .then(users => {
+      usersList = [];
+      users.forEach(user => usersList.push({'username': user['username'], 'moderator': user['moderator']}));
+      res.status(200).json({ users: usersList });
+    })
     .catch(error => res.status(400).json({ error }));
 };
 
