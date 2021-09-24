@@ -1,4 +1,4 @@
-import { postAxios } from '../functions/axios'
+import { postAxios, authAxios } from '../functions/axios'
 var Functions = {
   methods: {
     // fonction de formattage de la date récupérée de l'API
@@ -33,6 +33,24 @@ var Functions = {
             // si on supprime depuis la page d'accueil on renvoie l'index du post à supprimer, sinon on renvoie sur Home
             if (typeof index !== 'undefined') {
               this.$emit('deleteThisPost', index)
+            } else {
+              this.$router.push('/');
+            }
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    // fonction de suppression d'un post
+    deleteUser(id, index) {
+      try {
+        authAxios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.getters.user.token;
+        authAxios.delete("/users/" + id)
+          .then((result) => {
+            console.log(result);
+            // si on supprime depuis la page d'accueil on renvoie l'index du post à supprimer, sinon on renvoie sur Home
+            if (typeof index !== 'undefined') {
+              this.$emit('deleteThisUser', index)
             } else {
               this.$router.push('/');
             }

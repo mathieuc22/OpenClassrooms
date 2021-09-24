@@ -4,6 +4,7 @@ import Submit from '../views/Submit.vue'
 import Post from '../views/Post.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+import Admin from '../views/Admin.vue'
 import store from '../store'
 
 const ifAuthenticated = (to, from, next) => {
@@ -42,6 +43,11 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Admin
   }
 ]
 

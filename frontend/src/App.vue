@@ -9,6 +9,9 @@
       <router-link v-if="isAuthenticated" to="/submit"
         >Créer un post</router-link
       >
+      <router-link v-if="isModerator" to="/admin"
+        >Admin</router-link
+      >
       <div v-if="isAuthenticated" class="menu__summary" @click="openClose">
         <i class="fa fa-user"></i> {{ userName }}
         <ul class="menu__detail" v-if="isOpen">
@@ -51,6 +54,9 @@ export default {
   computed: {
     isAuthenticated() {
       return this.$store.getters.isAuthenticated;
+    },
+    isModerator() {
+      return this.$store.getters.user.moderator;
     },
     userName() {
       return this.$store.getters.user.name;
