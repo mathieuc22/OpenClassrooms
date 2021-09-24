@@ -1,4 +1,5 @@
 <template>
+  <h2>Administration des utilisateurs</h2>
   <div class="admin">
     <Error v-if="errorMessage" :message="errorMessage" :status="errorStatus"></Error>
     <div v-else-if="!loaded">
@@ -71,7 +72,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 .admin {
     display: flex;
@@ -86,6 +87,11 @@ export default {
     gap: 10px;
     max-width: 800px;
     width: 100%;
+}
+
+h2 {
+  text-align: center;
+  margin: 20px;
 }
 
 </style>
