@@ -1,19 +1,21 @@
 <template>
-  <h2>Administration des utilisateurs</h2>
-  <div class="admin">
+  <div class="section">
     <Error v-if="errorMessage" :message="errorMessage" :status="errorStatus"></Error>
     <div v-else-if="!loaded">
       <p>Page is loading...</p>
     </div>
-    <ul v-else class="users">
-      <UserItem
-        v-for="(user, index) in users"
-        v-bind:key="user.id"
-        v-bind:user="user"
-        v-bind:index="index"
-        v-on:deleteThisUser="removeUserItem"
-      ></UserItem>
-    </ul>
+    <div v-else class="admin">
+    <h2>Administration des utilisateurs</h2>
+      <ul class="users">
+        <UserItem
+          v-for="(user, index) in users"
+          v-bind:key="user.id"
+          v-bind:user="user"
+          v-bind:index="index"
+          v-on:deleteThisUser="removeUserItem"
+        ></UserItem>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -91,7 +93,7 @@ export default {
 
 h2 {
   text-align: center;
-  margin: 20px;
+  margin-bottom: 20px;
 }
 
 </style>

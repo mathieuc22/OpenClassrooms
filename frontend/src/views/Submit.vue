@@ -1,7 +1,7 @@
 <template>
   <div class="section">
     <form class="formulaire" @submit.prevent="submitPost">
-      <h1>Créer une publication</h1>
+      <h2>Créer une publication</h2>
       <div class="formulaire__fieldline">
         <p>
           <label for="title">Titre</label>

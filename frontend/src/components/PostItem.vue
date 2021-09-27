@@ -83,7 +83,7 @@ export default {
   &:hover {
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.50);
   }
-  @media (max-width: 599px) {
+  @media (max-width: 730px) {
     border-radius: unset;
     border: unset;
   }

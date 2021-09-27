@@ -210,6 +210,10 @@ export default {
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     overflow: hidden;
     padding: 20px;
+    @media (max-width: 730px) {
+        width: 100%;
+        border-radius: 0px;
+    }
   }
   &__post {
     padding-left: 50px;

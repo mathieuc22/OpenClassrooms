@@ -1,7 +1,7 @@
 <template>
   <div class="section">
     <form class="formulaire" @submit.prevent="registerUser">
-      <h1>Créer un compte</h1>
+      <h2>Créer un compte</h2>
       <div class="formulaire__fieldline">
         <p>
           <label for="username"><i class="fas fa-user"></i> Nom d'utilisateur</label>

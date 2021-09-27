@@ -46,12 +46,12 @@ export default {
 @import "../assets/variables.scss";
 
 .user {
-  background: white;
+  background: $bg-color;
   border-radius: 5px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   display: flex;
   overflow: hidden;
-  @media (max-width: 599px) {
+  @media (max-width: 730px) {
     border-radius: unset;
     border: unset;
   }

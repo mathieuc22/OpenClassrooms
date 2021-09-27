@@ -78,7 +78,7 @@ export default {
         cursor: pointer;
         width: 100%;
       }
-      @media (max-width: 599px) {
+      @media (max-width: 730px) {
           grid-template-columns: 1fr;
       }
     }

@@ -4,7 +4,7 @@
       class="formulaire"
       @submit.prevent="loginUser"
     >
-      <h1>Connexion</h1>
+      <h2>Connexion</h2>
       <div class="formulaire__fieldline">
         <p>
           <label for="email"><i class="fas fa-envelope"></i> Email</label>
@@ -102,8 +102,7 @@ export default {
     border-radius: 15px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     background-color: white;
-    margin-top: 20px;
-    @media (max-width: 599px) {
+    @media (max-width: 730px) {
         width: unset;
         border-radius: 0px;
     }
@@ -132,7 +131,7 @@ export default {
     padding: 2px;
     border: 1px solid darken($color: $primary-color, $amount: 10%);
     border-radius: 2px;
-    @media (max-width: 599px) {
+    @media (max-width: 730px) {
       width: 100%;
     }
     &--multiple {

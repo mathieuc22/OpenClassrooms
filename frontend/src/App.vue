@@ -138,6 +138,10 @@ textarea {
 .main {
   position: relative;
   padding: 20px 0;
+  padding-top: 80px;
+  @media (max-width: 730px) {
+    padding-top: 130px;
+  }
 }
 
 button,
@@ -181,10 +185,6 @@ h3 {
   }
 }
 
-#top {
-  padding-top: 80px;
-}
-
 #nav {
   // overflow: hidden;
   position: fixed;
@@ -207,7 +207,7 @@ h3 {
       width: 40px;
       margin-right: 10px;
     }
-    @media (max-width: 599px) {
+    @media (max-width: 730px) {
       padding: 5px 0;
     }
   }
@@ -218,7 +218,7 @@ h3 {
       color: $secondary-color;
     }
   }
-  @media (max-width: 599px) {
+  @media (max-width: 730px) {
     flex-direction: column;
     padding: 0;
     a {
@@ -235,7 +235,7 @@ h3 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  @media (max-width: 599px) {
+  @media (max-width: 730px) {
     background: $secondary-color;
     width: 100%;
     padding: 5px 0;
