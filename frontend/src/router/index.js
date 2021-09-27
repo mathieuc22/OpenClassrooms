@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Submit from '../views/Submit.vue'
 import Post from '../views/Post.vue'
+import Edit from '../views/Edit.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Admin from '../views/Admin.vue'
@@ -32,6 +33,12 @@ const routes = [
     path: '/posts/:id',
     name: 'Post',
     component: Post,
+    beforeEnter: ifAuthenticated
+  },
+  {
+    path: '/posts/:id/edit',
+    name: 'Edit',
+    component: Edit,
     beforeEnter: ifAuthenticated
   },
   {

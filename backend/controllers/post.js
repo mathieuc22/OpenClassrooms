@@ -78,7 +78,7 @@ exports.update = async (req, res) => {
   const post = await Post.findByPk(id)
   // test si l'élément avec l'id est présent en base 
   if (post) {
-    if (req.user.id != post.author && !req.user.moderator) {
+    if (req.user.id != post.authorId && !req.user.moderator) {
       res.status(403).json({ message: 'Modification non autorisée pour cet utilisateur'});
     } else {
       Post.update(req.body, { where: { id: id }

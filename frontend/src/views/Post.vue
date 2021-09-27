@@ -28,14 +28,22 @@
         <div class="postDetail__text">
           {{ post.text }}
         </div>
-        <div
-          class="postDetail__delete"
-          v-if="isAuthor || isModerator"
-          @click="deletePost(post.id)"
-           aria-label="Supprimer une publication"
-        >
-          <i class="fas fa-trash"></i>
-          Supprimer le post ?
+        <div v-if="isAuthor || isModerator" class="postDetail__admin">
+          <router-link
+            class="postDetail__update"
+            :to="'/posts/' + post.id + '/edit'"
+          >
+            <i class="fas fa-pen"></i>
+            Modifer la publication
+          </router-link>
+          <div
+            class="postDetail__delete"
+            @click="deletePost(post.id)"
+            aria-label="Supprimer une publication"
+          >
+            <i class="fas fa-trash"></i>
+            Supprimer le post ?
+          </div>
         </div>
       </div>
 
@@ -223,18 +231,28 @@ export default {
     margin: 20px 0;
     white-space: pre;
   }
+  &__admin {
+    display: flex;
+    & > * {
+      cursor: pointer;
+      & i {
+        transition: transform 0.2s;
+      }
+      &:hover i {
+        transform: scale(150%);
+      }
+      &:active i {
+        transform: scale(50%);
+      }
+    }
+  }
+  &__update {
+    text-decoration: none;
+    margin-right: 20px;
+    color: $primary-color;
+  }
   &__delete {
     color: $secondary-color;
-    cursor: pointer;
-    & i {
-      transition: transform 0.2s;
-    }
-    &:hover i {
-      transform: scale(150%);
-    }
-    &:active i {
-      transform: scale(50%);
-    }
   }
 }
 </style>
