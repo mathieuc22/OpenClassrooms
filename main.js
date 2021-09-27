@@ -1,4 +1,4 @@
-// file
+// file reference
 const requestURL = 'FishEyeData.json';
 
 document.addEventListener("DOMContentLoaded", async function () {
@@ -10,7 +10,15 @@ document.addEventListener("DOMContentLoaded", async function () {
   let html = ''
   for (const photographer of DB) {
     console.log(typeof(photographer))
-    html = html + `<li>${photographer.name}\n</li>`;
+    html = html + `
+    <li>
+      <img
+        src="img/${photographer.portrait}"
+        alt="Photo of ${photographer.name}"
+        height="200" >
+      ${photographer.name} - ${photographer.country}/${photographer.city}\n
+    </li>
+    `;
   }
   section.innerHTML = '<h1>Photographers</h1>\n<ul>' + html + '</ul>'
 
@@ -37,6 +45,13 @@ async function getPhotographers() {
  */
 function createPhotographer(objectFromJSON) {
   return {
-    name: object.name || ''
+    name: object.name || '',
+    id: object.id || 0,
+    city: object.city || '',
+    country: object.country || '',
+    tags: object.tags || [],
+    tagline: object.tagline || '',
+    price: object.price || 0,
+    portrait: object.portrait || '',
   };
 }
