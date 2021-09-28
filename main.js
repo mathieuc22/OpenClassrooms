@@ -1,15 +1,27 @@
 // file reference
 const requestURL = 'FishEyeData.json';
 
+/**
+ * DOM Loader
+ */
 document.addEventListener("DOMContentLoaded", function () {
+
+  document.querySelector("header").addEventListener("click", () => {
+    Home()
+  })
 
   // By default, load Home
   Home()
 
 });
 
+/**
+ * Page builder for Home page
+ */
 async function Home() {
-  // Show compose view and hide other views
+
+  // Show Home view and hide other views
+  document.querySelector('#Home').innerHTML = '';
   document.querySelector('#Home').style.display = 'block';
   document.querySelector('#Photographer').style.display = 'none';
 
@@ -49,37 +61,35 @@ async function Home() {
 
 }
 
-function Photographer(photographer) {
-  // Show compose view and hide other views
+/**
+ * Page builder for Photographer page
+ */
+async function Photographer(photographer) {
+
+  // Display the photographer view
   document.querySelector('#Home').style.display = 'none';
+  document.querySelector('#Photographer').innerHTML = '';
   document.querySelector('#Photographer').style.display = 'block';
 
+  // Init the media database
+  const medias = await initMediasDB(photographer.id);
+
+  // Build the photographer HTML section
   const photographerSection = document.createElement('div')
   photographerSection.innerHTML = photographer.name
 
+  // Inject the media HTML section with the list of photographers media
+  const mediaSection = document.createElement('div')
+  mediaSection.innerHTML = createMediaListHTML(medias.get())
+
   const Section = document.querySelector("#Photographer")
   Section.appendChild(photographerSection)
-
+  Section.appendChild(mediaSection)
 
 }
 
 /**
- * Photographers DB creation
- */
-async function initPhotographersDB() {
-  // Get objects from the JSON
-  const response = await fetch(requestURL)
-  const json = await response.json();
-  // Build the photographers DB
-  const db = Database()
-  json.photographers.forEach(element => {
-    db.add(element);
-  });
-  return db
-}
-
-/**
- * Build the html list and inject it in the section
+ * HTML Builder for photographers list and inject it in the section
  * @param {list} photographersList - list of photographers
  * @return {string} - the html block
  */
@@ -104,7 +114,7 @@ async function initPhotographersDB() {
 }
 
 /**
- * Build the html TAGS list and inject it in the section
+ * HTML Builder for tags list and inject it in the section
  * @param {list} tagsList - list of tags
  * @return {string} - the html block
  */
@@ -117,9 +127,54 @@ function createTagsListHTML(tagsList) {
 }
 
 /**
+ * HTML Builder for media list and inject it in the section
+ * @param {list} mediaList - list of tags
+ * @return {string} - the html block
+ */
+function createMediaListHTML(mediaList) {
+  let mediaListHTML = ''
+  mediaList.forEach(media => {
+    mediaListHTML = mediaListHTML + '<li>' + media.title + '</li>'
+  })
+  return '<ul>' + mediaListHTML + `</ul>\n`
+}
+
+/**
+ * Media DB creation
+ */
+async function initMediasDB(photographerId) {
+  // Get objects from the JSON
+  const response = await fetch(requestURL)
+  const json = await response.json();
+  // Build the photographers DB
+  const db = MediaDatabase()
+  json.media.forEach(element => {
+    if (element.photographerId === photographerId) {
+      db.add(element);
+    }
+  });
+  return db
+}
+
+/**
+ * Photographers DB creation
+ */
+async function initPhotographersDB() {
+  // Get objects from the JSON
+  const response = await fetch(requestURL)
+  const json = await response.json();
+  // Build the photographers DB
+  const db = PhotographerDatabase()
+  json.photographers.forEach(element => {
+    db.add(element);
+  });
+  return db
+}
+
+/**
  * Factory creator for photographers database
  */
-function Database() {
+function PhotographerDatabase() {
   let list = []
   function add(objectFromJSON) {
     list.push({
@@ -159,6 +214,50 @@ function Database() {
     get,
     getById,
     getByName,
+    getByTag,
+    getTags
+  }
+}
+
+/**
+ * Factory creator for photographers database
+ */
+ function MediaDatabase() {
+  let list = []
+  function add(objectFromJSON) {
+    list.push({
+      id: objectFromJSON.id || 0,
+      photographerId: objectFromJSON.photographerId || 0,
+      title: objectFromJSON.title || '',
+      image: objectFromJSON.image || '',
+      tags: objectFromJSON.tags || '',
+      likes: objectFromJSON.likes || 0,
+      date: objectFromJSON.date || '',
+      price: objectFromJSON.price || 0,
+    });
+  }
+  function get(){
+    return [...list];
+  }
+  function getById(mediaId) {
+    return list.find( media => media.id === parseInt(mediaId));
+  }
+  function getByTag(tag) {
+    return list.filter( media => media.tags.includes(tag));
+  }
+  function getTags() {
+    let tags = []
+    list.forEach(media => tags = [...tags, ...media.tags])
+    return [...new Set([...tags])];
+  }
+  function clear(){
+    list = [];
+  }
+  return {
+    add,
+    clear,
+    get,
+    getById,
     getByTag,
     getTags
   }
