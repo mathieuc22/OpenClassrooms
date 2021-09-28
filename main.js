@@ -1,20 +1,37 @@
 // file reference
 const requestURL = 'FishEyeData.json';
 
-document.addEventListener("DOMContentLoaded", async function () {
+document.addEventListener("DOMContentLoaded", function () {
+
+  // By default, load Home
+  Home()
+
+});
+
+async function Home() {
+  // Show compose view and hide other views
+  document.querySelector('#Home').style.display = 'block';
+  document.querySelector('#Photographer').style.display = 'none';
 
   // Init the photographers database
   const photographers = await initPhotographersDB();
 
   // Build the html element for tags
-  const tagsSection = document.querySelector('#tags');
+  const tagsSection = document.createElement("div");
+  tagsSection.setAttribute("id", "tags");
   tagsSection.innerHTML = createTagsListHTML(photographers.getTags())
 
   // Build the html element for photographers
-  const photographersSection = document.querySelector('#photographers');
+  const photographersSection = document.createElement("div");
+  photographersSection.setAttribute("id", "photographers");
   photographersSection.innerHTML = createPhotographersListHTML(photographers.get());
 
-  // Filter the photographers by selecting a tag
+  // Build the page
+  const home = document.querySelector("#Home")
+  home.appendChild(tagsSection)
+  home.appendChild(photographersSection)
+
+  // Add link to the photographer page
   document.querySelectorAll("#tags li").forEach(tag => {
     tag.addEventListener("click", (event) => {
       // Build the section
@@ -22,7 +39,29 @@ document.addEventListener("DOMContentLoaded", async function () {
     })
   })
 
-});
+  // Filter the photographers by selecting a tag
+  document.querySelectorAll("#photographers li").forEach(tag => {
+    tag.addEventListener("click", (event) => {
+      // Build the section
+      Photographer(photographers.getById(event.currentTarget.id))
+    })
+  })
+
+}
+
+function Photographer(photographer) {
+  // Show compose view and hide other views
+  document.querySelector('#Home').style.display = 'none';
+  document.querySelector('#Photographer').style.display = 'block';
+
+  const photographerSection = document.createElement('div')
+  photographerSection.innerHTML = photographer.name
+
+  const Section = document.querySelector("#Photographer")
+  Section.appendChild(photographerSection)
+
+
+}
 
 /**
  * Photographers DB creation
@@ -48,7 +87,7 @@ async function initPhotographersDB() {
   let PhotographersListHTML = ''
   for (const photographer of photographersList) {
     PhotographersListHTML = PhotographersListHTML + `
-    <li>
+    <li id=${photographer.id}>
       <img
         src="img/${photographer.portrait}"
         alt="Photo of ${photographer.name}"
@@ -97,6 +136,9 @@ function Database() {
   function get(){
     return [...list];
   }
+  function getById(photographerId) {
+    return list.find( photographer => photographer.id === parseInt(photographerId));
+  }
   function getByName(photographerName) {
     return list.find( photographer => photographer.name === photographerName);
   }
@@ -115,6 +157,7 @@ function Database() {
     add,
     clear,
     get,
+    getById,
     getByName,
     getByTag,
     getTags
