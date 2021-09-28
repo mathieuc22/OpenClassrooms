@@ -3,21 +3,51 @@ const requestURL = 'FishEyeData.json';
 
 document.addEventListener("DOMContentLoaded", async function () {
 
-  const section = document.querySelector('section');
-  const photographers = await getPhotographers();
+  // Init the photographers database
+  const photographers = await initPhotographersDB();
 
   // Build the html element for tags
-  const tags = photographers.getTags()
-  let htmlTAGS = ''
-  tags.forEach(tag => {
-    htmlTAGS = htmlTAGS + '<li>#' + tag + '</li>'
-  })
-  htmlTAGS = '<ul>' + htmlTAGS + `</ul>\n`
+  const tagsSection = document.querySelector('#tags');
+  tagsSection.innerHTML = createTagsListHTML(photographers.getTags())
 
-  // Build the html list and inject it in the section
-  let htmlLIST = ''
-  for (const photographer of photographers.get()) {
-    htmlLIST = htmlLIST + `
+  // Build the html element for photographers
+  const photographersSection = document.querySelector('#photographers');
+  photographersSection.innerHTML = createPhotographersListHTML(photographers.get());
+
+  // Filter the photographers by selecting a tag
+  document.querySelectorAll("#tags li").forEach(tag => {
+    tag.addEventListener("click", (event) => {
+      // Build the section
+      photographersSection.innerHTML = createPhotographersListHTML(photographers.getByTag(event.currentTarget.innerHTML));
+    })
+  })
+
+});
+
+/**
+ * Photographers DB creation
+ */
+async function initPhotographersDB() {
+  // Get objects from the JSON
+  const response = await fetch(requestURL)
+  const json = await response.json();
+  // Build the photographers DB
+  const db = Database()
+  json.photographers.forEach(element => {
+    db.add(element);
+  });
+  return db
+}
+
+/**
+ * Build the html list and inject it in the section
+ * @param {list} photographersList - list of photographers
+ * @return {string} - the html block
+ */
+ function createPhotographersListHTML(photographersList) {
+  let PhotographersListHTML = ''
+  for (const photographer of photographersList) {
+    PhotographersListHTML = PhotographersListHTML + `
     <li>
       <img
         src="img/${photographer.portrait}"
@@ -31,25 +61,20 @@ document.addEventListener("DOMContentLoaded", async function () {
     </li>
     `;
   }
-  htmlLIST = '<ul>' + htmlLIST + `</ul>\n`
-
-  section.innerHTML = htmlTAGS + htmlLIST
-
-});
+  return '<ul>' + PhotographersListHTML + `</ul>\n`
+}
 
 /**
- * Photographers DB creation
+ * Build the html TAGS list and inject it in the section
+ * @param {list} tagsList - list of tags
+ * @return {string} - the html block
  */
-async function getPhotographers() {
-  // Get objects from the JSON
-  const response = await fetch(requestURL)
-  const json = await response.json();
-  // Build the photographers DB
-  const db = Database()
-  json.photographers.forEach(element => {
-    db.add(element);
-  });
-  return db
+function createTagsListHTML(tagsList) {
+  let tagsListHTML = ''
+  tagsList.forEach(tag => {
+    tagsListHTML = tagsListHTML + '<li>' + tag + '</li>'
+  })
+  return '<ul>' + tagsListHTML + `</ul>\n`
 }
 
 /**
