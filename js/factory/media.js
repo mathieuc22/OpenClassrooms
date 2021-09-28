@@ -1,19 +1,34 @@
 /**
+ * Media method
+ */
+const Media = function (attributes) {
+
+  if (attributes.image) {
+    this.type = 'image'
+    this.url = attributes.image
+  } else {
+    this.type = 'video'
+    this.url = attributes.video
+  }
+
+  this.id = attributes.id || 0;
+  this.photographerId = attributes.photographerId || 0;
+  this.title = attributes.title || '';
+  this.tags = attributes.tags || '';
+  this.likes = attributes.likes || 0;
+  this.date = attributes.date || '';
+  this.price = attributes.price || 0;
+
+}
+
+/**
  * Factory creator for media database
  */
- export function MediaDatabase() {
+export function MediaDatabase() {
   let list = []
   function add(objectFromJSON) {
-    list.push({
-      id: objectFromJSON.id || 0,
-      photographerId: objectFromJSON.photographerId || 0,
-      title: objectFromJSON.title || '',
-      image: objectFromJSON.image || '',
-      tags: objectFromJSON.tags || '',
-      likes: objectFromJSON.likes || 0,
-      date: objectFromJSON.date || '',
-      price: objectFromJSON.price || 0,
-    });
+    const element = new Media(objectFromJSON);
+    list.push(element);
   }
   function get(){
     return [...list];
