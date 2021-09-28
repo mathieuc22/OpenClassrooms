@@ -34,6 +34,7 @@ export function createPhotographerCard(photographerObject) {
     <div>${photographerObject.country}, ${photographerObject.city}</div>\n
     <div>${photographerObject.tagline}</div>\n
     <div>${photographerObject.tags}</div>\n
+    <button class="button">Contactez-moi</button>
     `;
   return '<div>' + cardHTML + `</div>\n`
 

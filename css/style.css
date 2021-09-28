@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap");
+/* Couleurs primaires */
+/* Couleurs secondaires */
+/* Couleurs claires */
+body {
+  font-family: 'DM Sans', sans-serif;
+}
+
+.button {
+  display: inline-block;
+  border: none;
+  padding: 1rem 2rem;
+  margin: 0;
+  text-decoration: none;
+  background: #901C1C;
+  color: white;
+  font-family: sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 23px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background: #D3573C;
+  color: black;
+}
+/*# sourceMappingURL=style.css.map */
