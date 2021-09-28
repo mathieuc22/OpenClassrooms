@@ -1,8 +1,10 @@
-import { createMediaListHTML } from '../components/media.js'
+import { createMediaListHTML, createPhotographerCard } from '../components/media.js'
 import { initMediasDB } from '../factory/factory.js'
 
 /**
  * Page builder for Photographer page
+ * @param {object} photographer - photographer object
+ * @return {string} - the html block
  */
  export async function Photographer(photographer) {
 
@@ -16,7 +18,7 @@ import { initMediasDB } from '../factory/factory.js'
 
   // Build the photographer HTML section
   const photographerSection = document.createElement('div')
-  photographerSection.innerHTML = photographer.name
+  photographerSection.innerHTML = createPhotographerCard(photographer)
 
   // Inject the media HTML section with the list of photographers media
   const mediaSection = document.createElement('div')
