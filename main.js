@@ -4,23 +4,36 @@ const requestURL = 'FishEyeData.json';
 document.addEventListener("DOMContentLoaded", async function () {
 
   const section = document.querySelector('section');
-  const DB = await getPhotographers();
+  const photographers = await getPhotographers();
+
+  // Build the html element for tags
+  const tags = photographers.getTags()
+  let htmlTAGS = ''
+  tags.forEach(tag => {
+    htmlTAGS = htmlTAGS + '<li>#' + tag + '</li>'
+  })
+  htmlTAGS = '<ul>' + htmlTAGS + `</ul>\n`
 
   // Build the html list and inject it in the section
-  let html = ''
-  for (const photographer of DB) {
-    console.log(typeof(photographer))
-    html = html + `
+  let htmlLIST = ''
+  for (const photographer of photographers.get()) {
+    htmlLIST = htmlLIST + `
     <li>
       <img
         src="img/${photographer.portrait}"
         alt="Photo of ${photographer.name}"
         height="200" >
-      ${photographer.name} - ${photographer.country}/${photographer.city}\n
+      <div>${photographer.name}</div>\n
+      <div>${photographer.country}, ${photographer.city}</div>\n
+      <div>${photographer.tagline}</div>\n
+      <div>${photographer.price}€/jour</div>\n
+      <div>${photographer.tags}</div>\n
     </li>
     `;
   }
-  section.innerHTML = '<h1>Photographers</h1>\n<ul>' + html + '</ul>'
+  htmlLIST = '<ul>' + htmlLIST + `</ul>\n`
+
+  section.innerHTML = htmlTAGS + htmlLIST
 
 });
 
@@ -32,26 +45,53 @@ async function getPhotographers() {
   const response = await fetch(requestURL)
   const json = await response.json();
   // Build the photographers DB
-  let DB = []
+  const db = Database()
   json.photographers.forEach(element => {
-    DB.push(element)
+    db.add(element);
   });
-  return DB
+  return db
 }
 
 /**
- * Factory creator for photographers
- * @param {object} objectFromJSON - un objet du fichier JSON.
+ * Factory creator for photographers database
  */
-function createPhotographer(objectFromJSON) {
+function Database() {
+  let list = []
+  function add(objectFromJSON) {
+    list.push({
+      name: objectFromJSON.name || '',
+      id: objectFromJSON.id || 0,
+      city: objectFromJSON.city || '',
+      country: objectFromJSON.country || '',
+      tags: objectFromJSON.tags || [],
+      tagline: objectFromJSON.tagline || '',
+      price: objectFromJSON.price || 0,
+      portrait: objectFromJSON.portrait || '',
+    });
+  }
+  function get(){
+    return [...list];
+  }
+  function getByName(photographerName) {
+    return list.find( photographer => photographer.name === photographerName);
+  }
+  function getByTag(tag) {
+    return list.filter( photographer => photographer.tags.includes(tag));
+  }
+  function getTags() {
+    let tags = []
+    list.forEach(photographer => tags = [...tags, ...photographer.tags])
+    return [...new Set([...tags])];
+  }
+  function clear(){
+    list = [];
+  }
   return {
-    name: object.name || '',
-    id: object.id || 0,
-    city: object.city || '',
-    country: object.country || '',
-    tags: object.tags || [],
-    tagline: object.tagline || '',
-    price: object.price || 0,
-    portrait: object.portrait || '',
-  };
+    add,
+    clear,
+    get,
+    getByName,
+    getByTag,
+    getTags
+  }
 }
