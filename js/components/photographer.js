@@ -7,20 +7,20 @@
   let PhotographersListHTML = ''
   for (const photographer of photographersList) {
     PhotographersListHTML = PhotographersListHTML + `
-    <li id=${photographer.id}>
-      <img
+    <li class="photographer" id=${photographer.id}>
+      <div class="photographer__image"><img
         src="img/${photographer.portrait}"
-        alt="Photo of ${photographer.name}"
-        height="200" >
-      <div>${photographer.name}</div>\n
-      <div>${photographer.country}, ${photographer.city}</div>\n
-      <div>${photographer.tagline}</div>\n
-      <div>${photographer.price}€/jour</div>\n
+        alt="Photo of ${photographer.name}">
+      </div>\n
+      <div class="photographer__name">${photographer.name}</div>\n
+      <div class="photographer__city">${photographer.country}, ${photographer.city}</div>\n
+      <div class="photographer__tagline">${photographer.tagline}</div>\n
+      <div class="photographer__price">${photographer.price}€/jour</div>\n
       <div>${photographer.tags}</div>\n
     </li>
     `;
   }
-  return '<ul>' + PhotographersListHTML + `</ul>\n`
+  return '<ul class="photographers">' + PhotographersListHTML + `</ul>\n`
 }
 
 /**
@@ -33,7 +33,7 @@ export function createTagsListHTML(tagsList) {
   tagsList.forEach(tag => {
     tagsListHTML = tagsListHTML + '<li>' + tag + '</li>'
   })
-  return '<ul>' + tagsListHTML + `</ul>\n`
+  return '<ul class="tags">' + tagsListHTML + `</ul>\n`
 }
 
 

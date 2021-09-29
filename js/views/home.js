@@ -16,7 +16,7 @@ import { Photographer } from './photographer.js'
   const photographers = await initPhotographersDB();
 
   // Build the html element for tags
-  const tagsSection = document.createElement("div");
+  const tagsSection = document.createElement("nav");
   tagsSection.setAttribute("id", "tags");
   tagsSection.innerHTML = createTagsListHTML(photographers.getTags())
 
