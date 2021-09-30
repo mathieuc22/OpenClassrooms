@@ -31,7 +31,7 @@
 export function createTagsListHTML(tagsList) {
   let tagsListHTML = ''
   tagsList.forEach(tag => {
-    tagsListHTML = tagsListHTML + '<li>' + tag + '</li>'
+    tagsListHTML = tagsListHTML + '<li class="tag">' + tag + '</li>'
   })
   return '<ul class="tags">' + tagsListHTML + `</ul>\n`
 }
