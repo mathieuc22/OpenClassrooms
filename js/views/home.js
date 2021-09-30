@@ -1,6 +1,6 @@
 import { createPhotographersListHTML, createTagsListHTML } from '../components/photographer.js'
 import { initPhotographersDB } from '../factory/factory.js'
-import { Photographer } from './photographer.js'
+import { Photographer } from './media.js'
 
 /**
  * Page builder for Home page
@@ -19,6 +19,8 @@ import { Photographer } from './photographer.js'
   const tagsSection = document.createElement("nav");
   tagsSection.setAttribute("id", "tags");
   tagsSection.innerHTML = createTagsListHTML(photographers.getTags())
+  // Nav goes in the header
+  document.querySelector('header').appendChild(tagsSection)
 
   // Build the html element for photographers
   const photographersSection = document.createElement("div");
@@ -27,7 +29,7 @@ import { Photographer } from './photographer.js'
 
   // Build the page
   const home = document.querySelector("#Home")
-  home.appendChild(tagsSection)
+  home.innerHTML = "<h2 class='title'>Nos photographes</h2>"
   home.appendChild(photographersSection)
 
   // Add link to the photographer page

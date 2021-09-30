@@ -65,6 +65,25 @@ body {
   font-family: 'DM Sans', sans-serif;
 }
 
+header {
+  height: 157px;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  max-width: 1000px;
+}
+
+.logo {
+  margin-left: 100px;
+}
+
 .button {
   display: inline-block;
   border: none;
@@ -85,6 +104,43 @@ body {
 .button:hover {
   background: #D3573C;
   color: black;
+}
+
+.tags {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 5px;
+}
+
+.tag {
+  border: 0.5px solid #C4C4C4;
+  color: #901C1C;
+  font-size: 12px;
+  text-transform: capitalize;
+  padding: 0px 6px;
+  border-radius: 11px;
+  list-style-type: '#';
+  list-style-position: inside;
+  cursor: pointer;
+}
+
+.tag:hover {
+  color: white;
+  background: #901C1C;
+}
+
+.title {
+  font-size: 36px;
+  color: #901C1C;
+  position: absolute;
+  top: 44px;
+  right: 117px;
 }
 
 .tags {
