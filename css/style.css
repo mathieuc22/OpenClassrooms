@@ -81,7 +81,7 @@ header {
 }
 
 .logo {
-  margin-left: 100px;
+  margin-left: 7%;
 }
 
 .button {
@@ -139,8 +139,9 @@ header {
   font-size: 36px;
   color: #901C1C;
   position: absolute;
+  font-size: 2.25em;
   top: 44px;
-  right: 117px;
+  right: 8%;
 }
 
 .tags {

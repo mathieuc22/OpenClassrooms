@@ -18,9 +18,13 @@ import { Photographer } from './media.js'
   // Build the html element for tags
   const tagsSection = document.createElement("nav");
   tagsSection.setAttribute("id", "tags");
-  tagsSection.innerHTML = createTagsListHTML(photographers.getTags())
+  tagsSection.setAttribute("aria-label", "photographer categories");
+  tagsSection.innerHTML = createTagsListHTML(photographers.getTags());
   // Nav goes in the header
-  document.querySelector('header').appendChild(tagsSection)
+  if (!document.querySelector('#tags')) {
+    document.querySelector('header').appendChild(tagsSection);
+  }
+  
 
   // Build the html element for photographers
   const photographersSection = document.createElement("div");
@@ -29,7 +33,7 @@ import { Photographer } from './media.js'
 
   // Build the page
   const home = document.querySelector("#Home")
-  home.innerHTML = "<h2 class='title'>Nos photographes</h2>"
+  home.innerHTML = "<h1 class='title'>Nos photographes</h2>"
   home.appendChild(photographersSection)
 
   // Add link to the photographer page

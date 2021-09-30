@@ -5,7 +5,7 @@ import { Home } from "./views/home.js"
  */
 document.addEventListener("DOMContentLoaded", function () {
 
-  document.querySelector("header").addEventListener("click", () => {
+  document.querySelector(".logo").addEventListener("click", () => {
     Home()
   })
 
