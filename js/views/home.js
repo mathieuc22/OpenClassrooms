@@ -24,7 +24,6 @@ import { Photographer } from './media.js'
   if (!document.querySelector('#tags')) {
     document.querySelector('header').appendChild(tagsSection);
   }
-  
 
   // Build the html element for photographers
   const photographersSection = document.createElement("div");
@@ -37,26 +36,36 @@ import { Photographer } from './media.js'
   home.appendChild(photographersSection)
 
   // Add link to the photographer page
-  document.querySelectorAll("#tags li").forEach(tag => {
-    tag.addEventListener("click", (event) => {
-      // Build the section
-      photographersSection.innerHTML = createPhotographersListHTML(photographers.getByTag(event.currentTarget.innerHTML));
-      // Filter the photographers by selecting a tag
-      document.querySelectorAll("#photographers li").forEach(tag => {
-        tag.addEventListener("click", (event) => {
-          // Call the photographer view
-          Photographer(photographers.getById(event.currentTarget.id))
-        })
-      })
-    })
-  })
-
-  // Filter the photographers by selecting a tag
-  document.querySelectorAll("#photographers li").forEach(tag => {
-    tag.addEventListener("click", (event) => {
+  document.querySelectorAll(".photographer__image").forEach(photographer => {
+    photographer.addEventListener("click", (event) => {
       // Call the photographer view
       Photographer(photographers.getById(event.currentTarget.id))
     })
   })
 
+  // Build the filtered photographers list and loop to add links
+  photographersList(photographers);
+
+}
+
+/**
+ * Build the filtered photographers list and loop to add links
+ * @param {object} photographers 
+ */
+function photographersList(photographers) {
+  // Filter the photographers by selecting a tag
+  document.querySelectorAll(".tag").forEach(tag => {
+    tag.addEventListener("click", (event) => {
+      // Build the section
+      document.querySelector("#photographers").innerHTML = createPhotographersListHTML(photographers.getByTag(event.currentTarget.innerHTML));
+      // Add link to the photographer page
+      document.querySelectorAll(".photographer__image").forEach(photographer => {
+        photographer.addEventListener("click", (event) => {
+          // Call the photographer view
+          Photographer(photographers.getById(event.currentTarget.id))
+        })
+      })
+      photographersList(photographers);
+    })
+  })
 }

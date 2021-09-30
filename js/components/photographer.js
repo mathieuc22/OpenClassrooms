@@ -5,11 +5,16 @@
  */
  export function createPhotographersListHTML(photographersList) {
   let PhotographersListHTML = ''
-  console.log(photographersList)
   for (const photographer of photographersList) {
+    let tagsList = ''
+    photographer.tags.forEach( tag => {
+      tagsList = tagsList + `
+      <li class="tag">${tag}</li>
+      `
+    })
     PhotographersListHTML = PhotographersListHTML + `
-    <li class="photographer" id=${photographer.id}>
-      <div class="photographer__image"><img
+    <li class="photographer">
+      <div class="photographer__image" id=${photographer.id}><img
         src="img/${photographer.portrait}"
         alt="Photo of ${photographer.name}">
       </div>\n
@@ -17,7 +22,7 @@
       <div class="photographer__city">${photographer.country}, ${photographer.city}</div>\n
       <div class="photographer__tagline">${photographer.tagline}</div>\n
       <div class="photographer__price">${photographer.price}€/jour</div>\n
-      <div>${photographer.tags}</div>\n
+      <ul class="tags">${tagsList}</ul>\n
     </li>
     `;
   }
