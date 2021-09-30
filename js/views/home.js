@@ -55,6 +55,7 @@ import { Photographer } from './media.js'
 function photographersList(photographers) {
   // Filter the photographers by selecting a tag
   document.querySelectorAll(".tag").forEach(tag => {
+    tag.setAttribute("class", "tag");
     tag.addEventListener("click", (event) => {
       // Build the section
       document.querySelector("#photographers").innerHTML = createPhotographersListHTML(photographers.getByTag(event.currentTarget.innerHTML));
@@ -66,6 +67,7 @@ function photographersList(photographers) {
         })
       })
       photographersList(photographers);
+      document.querySelectorAll(".tag").forEach(tag => { if (event.currentTarget.innerHTML === tag.innerHTML) tag.setAttribute("class", "tag tag--active");});
     })
   })
 }

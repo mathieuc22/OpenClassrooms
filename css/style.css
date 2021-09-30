@@ -77,12 +77,35 @@ header {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  max-width: 1000px;
+  width: 70%;
+}
+
+@media screen and (max-width: 768px) {
+  header {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    width: 100%;
+  }
 }
 
 .logo {
   margin-left: 7%;
   cursor: pointer;
+  width: 13.9vw;
+  max-width: 250px;
+  min-width: 150px;
+  margin-top: 40px;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
+
+@media screen and (max-width: 320px) {
+  .logo {
+    min-width: unset;
+    width: 130px;
+  }
 }
 
 .button {
@@ -136,19 +159,40 @@ header {
   background: #901C1C;
 }
 
+.tag--active {
+  color: white;
+  background: #901C1C;
+}
+
 .title {
-  font-size: 36px;
   color: #901C1C;
   position: absolute;
-  font-size: 2.25em;
+  font-size: 2.5vw;
   top: 44px;
+  text-align: right;
+  width: 22%;
   right: 8%;
+}
+
+@media screen and (min-width: 1440px) {
+  .title {
+    font-size: 36px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: 14px;
+    width: unset;
+    right: 22px;
+  }
 }
 
 .tags {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  margin: 10px;
 }
 
 .photographers {
