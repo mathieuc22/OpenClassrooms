@@ -8,6 +8,10 @@ import { initMediasDB } from '../factory/factory.js'
  */
  export async function Photographer(photographer) {
 
+  // Suppression de la nav
+  const nav = document.querySelector('nav');
+  nav.parentNode.removeChild(nav);
+
   // Display the photographer view
   document.querySelector('#Home').style.display = 'none';
   document.querySelector('#Photographer').innerHTML = '';
