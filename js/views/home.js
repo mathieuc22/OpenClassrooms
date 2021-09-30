@@ -44,7 +44,7 @@ import { Photographer } from './media.js'
   })
 
   // Build the filtered photographers list and loop to add links
-  photographersList(photographers);
+  photographersList(photographers, true);
 
 }
 
@@ -52,13 +52,24 @@ import { Photographer } from './media.js'
  * Build the filtered photographers list and loop to add links
  * @param {object} photographers 
  */
-function photographersList(photographers) {
+function photographersList(photographers, creation) {
   // Filter the photographers by selecting a tag
-  document.querySelectorAll(".tag").forEach(tag => {
-    tag.setAttribute("class", "tag");
+  let tags = []
+  if (creation) {
+    tags = document.querySelectorAll(".tag")
+  } else {
+    tags = document.querySelectorAll("main .tag")
+  }
+  tags.forEach(tag => {
     tag.addEventListener("click", (event) => {
-      // Build the section
-      document.querySelector("#photographers").innerHTML = createPhotographersListHTML(photographers.getByTag(event.currentTarget.innerHTML));
+      let activeTag = ''
+      if (event.currentTarget.classList.contains("tag--active")) {
+        document.querySelector("#photographers").innerHTML = createPhotographersListHTML(photographers.get());
+      } else {
+        // Build the section
+        activeTag = event.currentTarget.innerHTML
+        document.querySelector("#photographers").innerHTML = createPhotographersListHTML(photographers.getByTag(event.currentTarget.innerHTML));
+      }
       // Add link to the photographer page
       document.querySelectorAll(".photographer__image").forEach(photographer => {
         photographer.addEventListener("click", (event) => {
@@ -66,8 +77,14 @@ function photographersList(photographers) {
           Photographer(photographers.getById(event.currentTarget.id))
         })
       })
-      photographersList(photographers);
-      document.querySelectorAll(".tag").forEach(tag => { if (event.currentTarget.innerHTML === tag.innerHTML) tag.setAttribute("class", "tag tag--active");});
+      photographersList(photographers, false);
+      document.querySelectorAll(".tag").forEach(elt => {
+        if (activeTag === elt.innerHTML) {
+          elt.setAttribute("class", "tag tag--active");
+        } else {
+          elt.setAttribute("class", "tag");
+        }
+      });
     })
   })
 }

@@ -19,7 +19,7 @@
         alt="Photo of ${photographer.name}">
       </div>\n
       <h2 class="photographer__name">${photographer.name}</h2>\n
-      <div class="photographer__city">${photographer.country}, ${photographer.city}</div>\n
+      <div class="photographer__city">${photographer.city}, ${photographer.country}</div>\n
       <div class="photographer__tagline">${photographer.tagline}</div>\n
       <div class="photographer__price">${photographer.price}€/jour</div>\n
       <ul class="tags">${tagsList}</ul>\n
