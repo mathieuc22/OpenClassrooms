@@ -201,6 +201,9 @@ header {
 
 .photographer {
   text-align: center;
+}
+
+.photographer__image {
   cursor: pointer;
 }
 

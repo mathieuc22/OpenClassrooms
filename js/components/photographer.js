@@ -9,11 +9,13 @@
     const tagsList = createTagsListHTML(photographer.tags)
     PhotographersListHTML = PhotographersListHTML + `
     <li class="photographer">
-      <div class="photographer__image" id=${photographer.id}><img
-        src="img/${photographer.portrait}"
-        alt="Photo of ${photographer.name}">
+      <div role="link" onclick="PhotographerLink(${photographer.id})" onkeydown="PhotographerLink(${photographer.id})" tabindex="0" class="photographer__image" id=${photographer.id}>
+        <img
+          src="img/${photographer.portrait}"
+          alt="Photo of ${photographer.name}"
+          >
+        <h2 class="photographer__name">${photographer.name}</h2>\n
       </div>\n
-      <h2 tabindex="0" class="photographer__name">${photographer.name}</h2>\n
       <div class="photographer__city">${photographer.city}, ${photographer.country}</div>\n
       <div class="photographer__tagline">${photographer.tagline}</div>\n
       <div class="photographer__price">${photographer.price}€/jour</div>\n

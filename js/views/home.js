@@ -36,12 +36,17 @@ import { Photographer } from './media.js'
   home.appendChild(photographersSection)
 
   // Add link to the photographer page
-  document.querySelectorAll(".photographer__image").forEach(photographer => {
-    photographer.addEventListener("click", (event) => {
-      // Call the photographer view
-      Photographer(photographers.getById(event.currentTarget.id))
-    })
-  })
+  // document.querySelectorAll(".photographer__image").forEach(photographer => {
+  //   photographer.addEventListener("click", (event) => {
+  //     // Call the photographer view
+  //     Photographer(photographers.getById(event.currentTarget.id))
+  //   })
+  // })
+
+  // Add function for the link to the photographer page
+  window.PhotographerLink = (id) => {
+    Photographer(photographers.getById(id));
+  }
 
   // Build the filtered photographers list and loop to add links
   photographersList(photographers, true);
