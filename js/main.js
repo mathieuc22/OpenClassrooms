@@ -5,14 +5,11 @@ import { Home } from "./views/home.js"
  */
 document.addEventListener("DOMContentLoaded", function () {
 
-  document.querySelector(".logo").addEventListener("click", () => {
-    Home()
-  })
-
   // By default, load Home
   Home()
 
 });
 
-
-
+window.Home = () => {
+  Home();
+}
