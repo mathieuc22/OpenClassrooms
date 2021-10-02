@@ -237,3 +237,55 @@ header {
   color: #757575;
 }
 /*# sourceMappingURL=style.css.map */
+
+.user {
+  margin: 0 100px;
+  display: flex;
+  background: #FAFAFA;
+  border-radius: 5px;
+  padding: 50px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user__image img {
+  width: 200px;
+  height: 200px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+  background: #C4C4C4;
+  -webkit-box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.user__name {
+  font-size: 64px;
+}
+
+.user__city {
+  font-size: 24px;
+}
+
+.user__tagline {
+  font-size: 18px;
+}
+
+.gallery {
+  margin: 0 100px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 95px;
+}
+
+.gallery__media img {
+  width: 300px;
+  height: 300px;
+  border-radius: 5px;
+}
+
+.gallery__caption {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24px;
+}

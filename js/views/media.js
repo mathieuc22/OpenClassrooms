@@ -10,7 +10,7 @@ import { initMediasDB } from '../factory/factory.js'
 
   // Suppression de la nav
   const nav = document.querySelector('nav');
-  nav.parentNode.removeChild(nav);
+  if (nav) {nav.parentNode.removeChild(nav);}
 
   // Display the photographer view
   document.querySelector('#Home').style.display = 'none';
@@ -22,10 +22,12 @@ import { initMediasDB } from '../factory/factory.js'
 
   // Build the photographer HTML section
   const photographerSection = document.createElement('div')
+  photographerSection.setAttribute("class", "user");
   photographerSection.innerHTML = createPhotographerCard(photographer)
 
   // Inject the media HTML section with the list of photographers media
   const mediaSection = document.createElement('div')
+  mediaSection.setAttribute("class", "gallery");
   mediaSection.innerHTML = createMediaListHTML(medias.get())
 
   const Section = document.querySelector("#Photographer")

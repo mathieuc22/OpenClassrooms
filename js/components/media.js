@@ -1,3 +1,5 @@
+import {createTagsListHTML} from "../components/photographer.js"
+
 /**
  * HTML Builder for media list and inject it in the section
  * @param {list} mediaList - list of tags
@@ -19,23 +21,34 @@
       type="video/mp4"></video>`
     }
     mediaListHTML = mediaListHTML + `
-    <li id=${media.id}>
+    <figure class="gallery__media" id=${media.id}>
       ${mediaHTML}
-      <div>${media.title}</div>\n
-      <div>${media.likes}</div>\n
-    </li>
+      <figcaption class="gallery__caption">
+        <div>${media.title}</div>\n
+        <div>${media.likes}</div>\n
+      </figcaption>
+    </figure>\n
     `});
-  return '<ul>' + mediaListHTML + `</ul>\n`
+  return mediaListHTML
 }
 
 export function createPhotographerCard(photographerObject) {
+  const tagsList = createTagsListHTML(photographerObject.tags)
   let cardHTML = `
-    <div>${photographerObject.name}</div>\n
-    <div>${photographerObject.country}, ${photographerObject.city}</div>\n
-    <div>${photographerObject.tagline}</div>\n
-    <div>${photographerObject.tags}</div>\n
-    <button class="button">Contactez-moi</button>
+    <div class=user__info">
+      <h1 class="user__name">${photographerObject.name}</h1>\n
+      <div class="user__city">${photographerObject.country}, ${photographerObject.city}</div>\n
+      <div class="user__tagline">${photographerObject.tagline}</div>\n
+      ${tagsList}
+      <button class="user__contact button">Contactez-moi</button>
+    </div>
+    <div class="user__image">
+      <img
+        src="img/${photographerObject.portrait}"
+        alt="Photo of ${photographerObject.name}"
+      >
+    </div>
     `;
-  return '<div>' + cardHTML + `</div>\n`
+  return cardHTML
 
 }
