@@ -1,5 +1,5 @@
 <template>
-  <div id="nav">
+  <div id="nav" class="nav">
     <div class="logo">
       <img class="logo__img" src="./assets/logo.png" alt="logo Groupomania" />
       <h1 class="logo__title">Groupomania</h1>
@@ -87,7 +87,6 @@ export default {
     openClose() {
       // Toggle between open or closed ( true || false )
       this.isOpen = !this.isOpen
-      console.log(this.isOpen)
     }
   },
 };
@@ -185,7 +184,7 @@ h3 {
   }
 }
 
-#nav {
+.nav {
   // overflow: hidden;
   position: fixed;
   top: 0;
@@ -199,7 +198,11 @@ h3 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  .logo {
+  @media (max-width: 730px) {
+    flex-direction: column;
+    padding: 0;
+  }
+  & .logo {
     display: flex;
     user-select: none;
     &__img {
@@ -211,19 +214,32 @@ h3 {
       padding: 5px 0;
     }
   }
-  a {
-    font-weight: bold;
-    color: white;
-    &.router-link-exact-active {
-      color: $secondary-color;
-    }
-  }
-  @media (max-width: 730px) {
-    flex-direction: column;
-    padding: 0;
-    a {
-      font-weight: bold;
+  &__links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    & > * {
+      text-decoration: none;
       color: white;
+      width: 110px;
+      padding: 5px 0;
+      text-align: center;
+    }
+    & .router-link-exact-active {
+      font-weight: bold;
+      color: $primary-color;
+      background: white;
+      border-radius: 5px;
+    }
+    @media (max-width: 730px) {
+      background: white;
+      color: $primary-color;
+      width: 100%;
+      padding: 5px 0;
+      & > * {
+        font-weight: bold;
+        color: $primary-color;
+      }
       &.router-link-exact-active {
         color: $primary-color;
       }
@@ -231,35 +247,20 @@ h3 {
   }
 }
 
-.nav__links {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  @media (max-width: 730px) {
-    background: $secondary-color;
-    width: 100%;
-    padding: 5px 0;
-  }
-}
-
-.nav__links > * {
-  width: 110px;
-  padding: 5px 0;
-  text-align: center;
-}
-
 .menu__summary {
   position: relative;
   user-select: none;
   border-radius: 5px;
   transition: all 0.3s ease-out;
+  cursor: pointer;
 }
 
 .menu__detail {
   position: absolute;
   right: 0;
   padding: 5px;
-  background: $secondary-color;
+  background: white;
+  color: $primary-color;
   cursor: pointer;
   text-align: center;
   font-weight: 300;
@@ -273,12 +274,14 @@ h3 {
 }
 
 .menu__summary:hover {
-  background: $secondary-color;
+  background: white;
+  color: $primary-color;
 }
 
 .menu__summary:hover .menu__detail {
   visibility: visible;
   opacity: 1;
+  color: $primary-color;
 }
 
 .menu__detail > *:hover {
@@ -286,12 +289,14 @@ h3 {
 }
 
 .menu__summary:focus {
-  background: $secondary-color;
+  background: white;
+  color: $primary-color;
 }
 
 .menu__summary:focus .menu__detail {
   visibility: visible;
   opacity: 1;
+  color: $primary-color;
 }
 
 .menu__detail > *:focus {

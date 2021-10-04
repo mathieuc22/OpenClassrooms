@@ -75,7 +75,7 @@ export default {
   }
   &__moderator {
     font-weight: 700;
-    color: $secondary-color;
+    color: darken($secondary-color, 14%);
   }
   &__delete {
     background: $secondary-color;

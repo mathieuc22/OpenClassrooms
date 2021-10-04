@@ -76,6 +76,13 @@ export default {
 
 <style lang="scss" scoped>
 
+.section {
+  width: 80%;
+  @media (max-width: 730px) {
+    width: 100%;
+  }
+}
+
 .admin {
     display: flex;
     flex-direction: column;

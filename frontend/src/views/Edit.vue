@@ -94,7 +94,7 @@ export default {
         .put("/" + this.post.id, this.post)
         .then((response) => {
           console.log(response);
-          this.$router.push("/");
+          this.$router.push("/posts/"+this.post.id);
         })
         // si une erreur est retournée, elle est restituée sur la page et on force la déconnexion
         .catch((error) => {
