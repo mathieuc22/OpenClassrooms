@@ -13,10 +13,11 @@ import {createTagsListHTML} from "../components/photographer.js"
       mediaHTML = `<img
         src="media/${media.url}"
         alt="Photo ${media.title}"
-        height="200" ></img>`
+        loading="lazy"
+        ></img>`
     } else {
       mediaHTML = `
-      <video controls height="200">
+      <video controls>
       <source src="/media/${media.url}"
       type="video/mp4"></video>`
     }

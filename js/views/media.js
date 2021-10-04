@@ -8,6 +8,11 @@ import { initMediasDB } from '../factory/factory.js'
  */
  export async function Photographer(photographer) {
 
+  // Redefine the window location
+  const url = new URL(window.location);
+  url.searchParams.set('photographer', photographer.id);
+  window.history.pushState({}, '', url);
+
   // Suppression de la nav
   const nav = document.querySelector('nav');
   if (nav) {nav.parentNode.removeChild(nav);}

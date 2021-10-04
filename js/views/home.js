@@ -1,19 +1,19 @@
 import { createPhotographersListHTML, createTagsListHTML } from '../components/photographer.js'
-import { initPhotographersDB } from '../factory/factory.js'
 import { Photographer } from './media.js'
 
 /**
  * Page builder for Home page
  */
- export async function Home() {
+ export async function Home(photographers) {
 
   // Show Home view and hide other views
   document.querySelector('#Home').innerHTML = '';
   document.querySelector('#Home').style.display = 'block';
   document.querySelector('#Photographer').style.display = 'none';
 
-  // Init the photographers database
-  const photographers = await initPhotographersDB();
+  // Redefine the window location
+  const url = new URL(window.location.protocol + window.location.hostname + ":" + window.location.port)
+  window.history.pushState({}, '', url);
 
   // Build the html element for tags
   const tagsSection = document.createElement("nav");
@@ -34,14 +34,6 @@ import { Photographer } from './media.js'
   const home = document.querySelector("#Home")
   home.innerHTML = "<h1 class='title'>Nos photographes</h2>"
   home.appendChild(photographersSection)
-
-  // Add link to the photographer page
-  // document.querySelectorAll(".photographer__image").forEach(photographer => {
-  //   photographer.addEventListener("click", (event) => {
-  //     // Call the photographer view
-  //     Photographer(photographers.getById(event.currentTarget.id))
-  //   })
-  // })
 
   // Add function for the link to the photographer page
   window.PhotographerLink = (id) => {
