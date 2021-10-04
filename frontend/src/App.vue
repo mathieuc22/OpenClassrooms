@@ -176,6 +176,8 @@ h3 {
   border-radius: 5px;
   cursor: pointer;
   transition: transform 0.2s;
+  font-weight: 700;
+  font-size: 1.2em;
   &--secondary {
     background-color: $secondary-color;
   }
