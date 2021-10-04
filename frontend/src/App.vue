@@ -7,12 +7,17 @@
     <div class="nav__links">
       <router-link v-if="isAuthenticated" to="/">Accueil</router-link>
       <router-link v-if="isAuthenticated" to="/submit"
-        >Créer un post</router-link
+        >Publier</router-link
       >
       <router-link v-if="isModerator" to="/admin"
         >Admin</router-link
       >
-      <div v-if="isAuthenticated" class="menu__summary" @click="openClose">
+      <div 
+        v-if="isAuthenticated"
+        v-bind:class="['menu__summary', {
+          'menu__summary--active': isOpen,
+        }]"
+        @click="openClose">
         <i class="fa fa-user"></i> {{ userName }}
         <ul class="menu__detail" v-if="isOpen">
           <li @click="showModal = true">Supprimer le compte</li>
@@ -184,8 +189,17 @@ h3 {
   }
 }
 
+// Mixin pour la gestion des couleurs texte et fond pour le menu et les liens de la nav
+@mixin color-menu {
+  background: white;
+  color: $primary-color;
+  @media (max-width: 730px) {
+    background: $primary-color;
+    color: white;
+  }
+}
+
 .nav {
-  // overflow: hidden;
   position: fixed;
   top: 0;
   width: 100%;
@@ -224,11 +238,15 @@ h3 {
       width: 110px;
       padding: 5px 0;
       text-align: center;
+      &:hover {
+        border-radius: 5px;
+        font-weight: bold;
+        @include color-menu;
+      }
     }
     & .router-link-exact-active {
       font-weight: bold;
-      color: $primary-color;
-      background: white;
+      @include color-menu;
       border-radius: 5px;
     }
     @media (max-width: 730px) {
@@ -237,7 +255,6 @@ h3 {
       width: 100%;
       padding: 5px 0;
       & > * {
-        font-weight: bold;
         color: $primary-color;
       }
       &.router-link-exact-active {
@@ -247,59 +264,46 @@ h3 {
   }
 }
 
-.menu__summary {
-  position: relative;
-  user-select: none;
-  border-radius: 5px;
-  transition: all 0.3s ease-out;
-  cursor: pointer;
+.menu {
+  &__summary {
+    position: relative;
+    user-select: none;
+    border-radius: 5px;
+    transition: all 0.3s ease-out;
+    cursor: pointer;
+    &--active {
+      @include color-menu;
+    }
+    &:hover {
+      @include color-menu;
+    }
+    &:focus {
+      @include color-menu;
+    }
+  }
+  &__detail {
+    position: absolute;
+    top: 29px;
+    right: 0;
+    padding: 6px;
+    @include color-menu;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 300;
+    font-size: 0.9em;
+    border-radius: 5px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease-out;
+    & > * {
+      margin: 10px 0;
+    }
+    & > *:hover {
+      font-weight: 700;
+    }
+    & > *:focus {
+      font-weight: 700;
+    }
+  }
 }
 
-.menu__detail {
-  position: absolute;
-  right: 0;
-  padding: 5px;
-  background: white;
-  color: $primary-color;
-  cursor: pointer;
-  text-align: center;
-  font-weight: 300;
-  font-size: 0.9em;
-  border-radius: 0 0 5px 5px;
-  transition: all 0.3s ease-out;
-}
-
-.menu__detail > * {
-  margin: 10px 0;
-}
-
-.menu__summary:hover {
-  background: white;
-  color: $primary-color;
-}
-
-.menu__summary:hover .menu__detail {
-  visibility: visible;
-  opacity: 1;
-  color: $primary-color;
-}
-
-.menu__detail > *:hover {
-  font-weight: 700;
-}
-
-.menu__summary:focus {
-  background: white;
-  color: $primary-color;
-}
-
-.menu__summary:focus .menu__detail {
-  visibility: visible;
-  opacity: 1;
-  color: $primary-color;
-}
-
-.menu__detail > *:focus {
-  font-weight: 700;
-}
 </style>
