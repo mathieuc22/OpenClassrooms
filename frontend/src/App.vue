@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
 import { authAxios } from "./functions/axios";
 import Modal from "@/components/Modal.vue";
 export default {
@@ -57,14 +58,13 @@ export default {
     document.title = "Groupomania - Accueil";
   },
   computed: {
-    isAuthenticated() {
-      return this.$store.getters.isAuthenticated;
-    },
+    ...mapState(['user']),
+    ...mapGetters(['isAuthenticated']),
     isModerator() {
-      return this.$store.getters.user.moderator;
+      return this.user.moderator;
     },
     userName() {
-      return this.$store.getters.user.name;
+      return this.user.name;
     },
   },
   methods: {
@@ -75,9 +75,9 @@ export default {
     deleteUser() {
       // récupéation du token depuis le store vuex
       authAxios.defaults.headers.common["Authorization"] =
-        "Bearer " + this.$store.getters.user.token;
+        "Bearer " + this.user.token;
       authAxios
-        .delete("users/" + this.$store.getters.user.id)
+        .delete("users/" + this.user.id)
         .then((response) => {
           console.log(response);
         })

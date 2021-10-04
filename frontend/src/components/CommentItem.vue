@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { postAxios } from '../functions/axios'
 import Functions from '../functions/functions';
 export default {
@@ -23,11 +24,12 @@ export default {
     };
   },
   computed: {
+    ...mapState(['user']),
     isAuthor() {
-      return this.comment.authorId === this.$store.getters.user.id;
+      return this.comment.authorId === this.user.id;
     },
     isModerator() {
-      return this.$store.getters.user.moderator;
+      return this.user.moderator;
     },
   },
   methods: {

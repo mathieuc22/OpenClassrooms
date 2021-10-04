@@ -1,6 +1,8 @@
 <template>
   <div class="postView">
+    <!-- composant pour restituer les messages d'erreurs -->
     <Error v-if="errorMessage" :message="errorMessage" :status="errorStatus"></Error>
+    <!-- gestion du chargement du contenu du post -->
     <div v-else-if="!loaded">
       <p>Post is loading...</p>
     </div>
@@ -73,6 +75,7 @@
           </form>
         </div>
         <ul>
+          <!-- composant dédié des commentaires avec boucle sur les commentaires -->
           <CommentItem
             v-for="(comment, index) in comments"
             v-bind:key="comment.id"
@@ -87,10 +90,13 @@
 </template>
 
 <script>
+
+import { mapState } from 'vuex'
 import { postAxios } from "../functions/axios";
 import Functions from "../functions/functions";
 import Error from '../components/Error.vue';
 import CommentItem from "@/components/CommentItem.vue";
+
 export default {
   name: "Post",
   mixins: [Functions],
@@ -114,14 +120,9 @@ export default {
     Error,
   },
   computed: {
-    user() {
-      return this.$store.getters.user;
-    },
+    ...mapState(['user']),
     isAuthor() {
-      return this.post.authorId === this.$store.getters.user.id;
-    },
-    isModerator() {
-      return this.$store.getters.user.moderator;
+      return this.post.authorId === this.user.id;
     },
   },
   methods: {
@@ -129,14 +130,14 @@ export default {
     submitComment() {
       // récupère du store le token d'authentification pour la requête
       postAxios.defaults.headers.common["Authorization"] =
-        "Bearer " + this.$store.getters.user.token;
+        "Bearer " + this.user.token;
       // envoie les données du formulaire à l'API
       postAxios
         .post("/" + this.$route.params.id, this.commentForm)
         .then((response) => {
           // ajoute le nouvel élément à la liste des commentaires
           let newComment = response.data.comment;
-          newComment.author = { username: this.$store.getters.user.name };
+          newComment.author = { username: this.user.name };
           this.comments.unshift(newComment);
           this.commentForm.text = "";
         })
@@ -157,7 +158,7 @@ export default {
   mounted() {
     // récupéation du token depuis le store vuex
     postAxios.defaults.headers.common["Authorization"] =
-      "Bearer " + this.$store.getters.user.token;
+      "Bearer " + this.user.token;
     postAxios
       .get("/" + this.$route.params.id)
       .then((response) => {
@@ -257,6 +258,14 @@ export default {
   }
   &__delete {
     color: $secondary-color;
+    cursor: pointer;
+    transition: transform 0.2s;
+    &:hover {
+      transform: scale(150%);
+    }
+    &:active {
+      transform: scale(50%);
+    }
   }
 }
 </style>

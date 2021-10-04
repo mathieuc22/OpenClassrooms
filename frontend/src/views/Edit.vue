@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Error from '../components/Error.vue';
 import { postAxios } from "../functions/axios";
 export default {
@@ -53,20 +54,18 @@ export default {
     };
   },
   computed: {
-    user() {
-      return this.$store.getters.user;
-    },
+    ...mapState(['user']),
     isAuthor() {
-      return this.post.authorId === this.$store.getters.user.id;
+      return this.post.authorId === this.user.id;
     },
     isModerator() {
-      return this.$store.getters.user.moderator;
+      return this.user.moderator;
     },
   },
   mounted() {
     // récupéation du token depuis le store vuex
     postAxios.defaults.headers.common["Authorization"] =
-      "Bearer " + this.$store.getters.user.token;
+      "Bearer " + this.user.token;
     postAxios
       .get("/" + this.$route.params.id)
       .then((response) => {
@@ -88,7 +87,7 @@ export default {
     updatePost() {
       // récupère du store le token d'authentification pour la requête
       postAxios.defaults.headers.common["Authorization"] =
-        "Bearer " + this.$store.getters.user.token;
+        "Bearer " + this.user.token;
       // envoie les données du formulaire à l'API
       postAxios
         .put("/" + this.post.id, this.post)

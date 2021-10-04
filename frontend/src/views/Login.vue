@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Error from '../components/Error.vue';
 export default {
   name: 'Login',
@@ -65,13 +66,8 @@ export default {
     };
   },
   computed: {
-    // si une erreur survient lors de l'authentification elle est restituée
-    errorMessage() {
-      return this.$store.getters.errorMessage;
-    },
-    errorStatus() {
-      return this.$store.getters.errorStatus;
-    },
+    // si une erreur survient lors de l'authentification elle est restituée depuis le store
+    ...mapState(['errorMessage','errorStatus']),
   },
   methods: {
     loginUser() {
@@ -82,9 +78,9 @@ export default {
         })
         .catch((error) => {
           console.log(error)
-          console.log(this.$store.getters.errorMessage)
-          this.error.message = this.$store.getters.errorMessage;
-          this.error.status = this.$store.getters.errorStatus;
+          console.log(this.errorMessage)
+          this.error.message = this.errorMessage;
+          this.error.status = this.errorStatus;
         })
       }
   },

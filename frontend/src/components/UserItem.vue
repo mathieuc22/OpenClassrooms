@@ -5,9 +5,9 @@
         {{index+1}}
       </div>
       <div class="user__name">
-        {{ user.username }}
+        {{ userObject.username }}
       </div>
-      <div v-if="user.moderator" class="user__moderator">
+      <div v-if="userObject.moderator" class="user__moderator">
         Moderator
       </div>
     </div>
@@ -15,7 +15,7 @@
       role="button" 
       class="post__delete"
       v-if="isModerator"
-      @click="deleteUser(user.id, index)"
+      @click="deleteUser(userObject.id, index)"
       aria-label="Supprimer l'utilisateur"
     >
       <i class="fas fa-trash"></i>
@@ -24,10 +24,11 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Functions from "../functions/functions";
 export default {
   name: "UserItem",
-  props: ["user", "index"],
+  props: ["userObject", "index"],
   mixins: [Functions],
   data: function () {
     return {
@@ -35,8 +36,9 @@ export default {
     };
   },
   computed: {
+    ...mapState(['user']),
     isModerator() {
-      return this.$store.getters.user.moderator;
+      return this.user.moderator;
     },
   },
 };

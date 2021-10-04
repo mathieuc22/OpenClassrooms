@@ -10,7 +10,7 @@
         <UserItem
           v-for="(user, index) in users"
           v-bind:key="user.id"
-          v-bind:user="user"
+          v-bind:userObject="user"
           v-bind:index="index"
           v-on:deleteThisUser="removeUserItem"
         ></UserItem>
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { authAxios } from "../functions/axios";
 import UserItem from '@/components/UserItem.vue'
 import Error from '../components/Error.vue';
@@ -38,11 +39,9 @@ export default {
     Error,
   },
   computed: {
-    user() {
-      return this.$store.getters.user;
-    },
+    ...mapState(['user']),
     isModerator() {
-      return this.$store.getters.user.moderator;
+      return this.user.moderator;
     },
   },
   methods: {
@@ -54,7 +53,8 @@ export default {
   mounted() {
     // récupéation du token depuis le store vuex
     authAxios.defaults.headers.common["Authorization"] =
-      "Bearer " + this.$store.getters.user.token;
+      "Bearer " + this.user.token;
+    // fetch de la liste des users
     authAxios
       .get("/users")
       .then((response) => {

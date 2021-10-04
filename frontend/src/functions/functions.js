@@ -7,7 +7,7 @@ var Functions = {
     },
     likePost(id) {
       try {
-        postAxios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.getters.user.token;
+        postAxios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.user.token;
         postAxios.post("/" + id + "/like")
           .then((result) => {
             this.isActive = !this.isActive;
@@ -26,7 +26,7 @@ var Functions = {
     // fonction de suppression d'un post
     deletePost(id, index) {
       try {
-        postAxios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.getters.user.token;
+        postAxios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.user.token;
         postAxios.delete("/" + id)
           .then((result) => {
             console.log(result);
@@ -44,7 +44,7 @@ var Functions = {
     // fonction de suppression d'un post
     deleteUser(id, index) {
       try {
-        authAxios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.getters.user.token;
+        authAxios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.user.token;
         authAxios.delete("/users/" + id)
           .then((result) => {
             console.log(result);

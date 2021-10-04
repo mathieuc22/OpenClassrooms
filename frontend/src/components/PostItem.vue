@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Functions from "../functions/functions";
 export default {
   name: "PostItem",
@@ -50,14 +51,12 @@ export default {
     };
   },
   computed: {
-    user() {
-      return this.$store.getters.user;
-    },
+    ...mapState(['user']),
     isAuthor() {
-      return this.post.authorId === this.$store.getters.user.id;
+      return this.post.authorId === this.user.id;
     },
     isModerator() {
-      return this.$store.getters.user.moderator;
+      return this.user.moderator;
     },
   },
   mounted() {

@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Error from '../components/Error.vue';
 import { postAxios } from "../functions/axios";
 export default {
@@ -49,12 +50,15 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapState(['user']),
+  },
   methods: {
     // création d'un nouveau post avec l'API
     submitPost() {
       // récupère du store le token d'authentification pour la requête
       postAxios.defaults.headers.common["Authorization"] =
-        "Bearer " + this.$store.getters.user.token;
+        "Bearer " + this.user.token;
       // envoie les données du formulaire à l'API
       postAxios
         .post("", this.post)
