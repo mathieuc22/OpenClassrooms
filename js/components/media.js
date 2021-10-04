@@ -1,27 +1,29 @@
-import {createTagsListHTML} from "../components/photographer.js"
+import { createTagsListHTML } from '../components/photographer.js';
 
 /**
  * HTML Builder for media list and inject it in the section
  * @param {list} mediaList - list of tags
  * @return {string} - the html block
  */
- export function createMediaListHTML(mediaList) {
-  let mediaListHTML = ''
-  mediaList.forEach(media => {
-    let mediaHTML
+export function createMediaListHTML(mediaList) {
+  let mediaListHTML = '';
+  mediaList.forEach((media) => {
+    let mediaHTML;
     if (media.type === 'image') {
       mediaHTML = `<img
-        src="media/${media.url}"
+        src="img/photos/resized_${media.url}"
         alt="Photo ${media.title}"
         loading="lazy"
-        ></img>`
+        ></img>`;
     } else {
       mediaHTML = `
       <video controls>
-      <source src="/media/${media.url}"
-      type="video/mp4"></video>`
+      <source src="img/photos/${media.url}"
+      type="video/mp4"></video>`;
     }
-    mediaListHTML = mediaListHTML + `
+    mediaListHTML =
+      mediaListHTML +
+      `
     <figure class="gallery__media" id=${media.id}>
       ${mediaHTML}
       <figcaption class="gallery__caption">
@@ -29,12 +31,13 @@ import {createTagsListHTML} from "../components/photographer.js"
         <div>${media.likes}</div>\n
       </figcaption>
     </figure>\n
-    `});
-  return mediaListHTML
+    `;
+  });
+  return mediaListHTML;
 }
 
 export function createPhotographerCard(photographerObject) {
-  const tagsList = createTagsListHTML(photographerObject.tags)
+  const tagsList = createTagsListHTML(photographerObject.tags);
   let cardHTML = `
     <div class=user__info">
       <h1 class="user__name">${photographerObject.name}</h1>\n
@@ -45,11 +48,10 @@ export function createPhotographerCard(photographerObject) {
     </div>
     <div class="user__image">
       <img
-        src="img/${photographerObject.portrait}"
+        src="img/resized_${photographerObject.portrait}"
         alt="Photo of ${photographerObject.name}"
       >
     </div>
     `;
-  return cardHTML
-
+  return cardHTML;
 }

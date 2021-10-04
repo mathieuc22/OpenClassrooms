@@ -3,15 +3,17 @@
  * @param {list} photographersList - list of photographers
  * @return {string} - the html block
  */
- export function createPhotographersListHTML(photographersList) {
-  let PhotographersListHTML = ''
+export function createPhotographersListHTML(photographersList) {
+  let PhotographersListHTML = '';
   for (const photographer of photographersList) {
-    const tagsList = createTagsListHTML(photographer.tags)
-    PhotographersListHTML = PhotographersListHTML + `
+    const tagsList = createTagsListHTML(photographer.tags);
+    PhotographersListHTML =
+      PhotographersListHTML +
+      `
     <li class="photographer">
       <div role="link" onclick="PhotographerLink(${photographer.id})" onkeydown="PhotographerLink(${photographer.id})" tabindex="0" class="photographer__image" id=${photographer.id}>
         <img
-          src="img/${photographer.portrait}"
+          src="img/resized_${photographer.portrait}"
           alt="Photo of ${photographer.name}"
           >
         <h2 class="photographer__name">${photographer.name}</h2>\n
@@ -23,7 +25,7 @@
     </li>
     `;
   }
-  return '<ul class="photographers">' + PhotographersListHTML + `</ul>\n`
+  return '<ul class="photographers">' + PhotographersListHTML + `</ul>\n`;
 }
 
 /**
@@ -32,13 +34,13 @@
  * @return {string} - the html block
  */
 export function createTagsListHTML(tagsList) {
-  let tagsListHTML = ''
-  tagsList.forEach(tag => {
-    tagsListHTML = tagsListHTML + `
+  let tagsListHTML = '';
+  tagsList.forEach((tag) => {
+    tagsListHTML =
+      tagsListHTML +
+      `
     <span class="tag" role="link" aria-label="${tag}">${tag}</span>
-    `
-  })
-  return '<div tabindex="0" class="tags">' + tagsListHTML + `</div>\n`
+    `;
+  });
+  return '<div tabindex="0" class="tags">' + tagsListHTML + `</div>\n`;
 }
-
-
