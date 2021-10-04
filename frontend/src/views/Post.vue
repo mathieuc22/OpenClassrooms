@@ -9,8 +9,8 @@
     <div v-else class="postDetail">
       <div class="postDetail__post">
         <div class="postDetail__author">
-          <small
-            >Publié par {{ post.author.username }} le
+          <small>
+            <span>Publié par </span>{{ post.author.username }}<span> le</span>
             {{ formatDate(post.createdAt) }}
           </small>
         </div>
@@ -36,7 +36,7 @@
             :to="'/posts/' + post.id + '/edit'"
           >
             <i class="fas fa-pen"></i>
-            Modifer la publication
+             Modifer<span> la publication</span>
           </router-link>
           <div
             class="postDetail__delete"
@@ -44,7 +44,7 @@
             aria-label="Supprimer une publication"
           >
             <i class="fas fa-trash"></i>
-            Supprimer le post ?
+             Supprimer<span> le post ?</span>
           </div>
         </div>
       </div>
@@ -216,6 +216,13 @@ export default {
         border-radius: 0px;
     }
   }
+  &__author {
+    & span {
+      @media (max-width: 730px) {
+        display: none;
+      }
+    }
+  }
   &__post {
     padding-left: 50px;
     position: relative;
@@ -255,15 +262,26 @@ export default {
     text-decoration: none;
     margin-right: 20px;
     color: $primary-color;
+    & span {
+      @media (max-width: 730px) {
+        display: none;
+      }
+    }
   }
   &__delete {
-    color: $secondary-color;
+    color: darken($secondary-color,10%);
     cursor: pointer;
     transition: transform 0.2s;
-    &:hover {
+    font-weight: 700;
+    & span {
+      @media (max-width: 730px) {
+        display: none;
+      }
+    }
+    &:hover i {
       transform: scale(150%);
     }
-    &:active {
+    &:active i {
       transform: scale(50%);
     }
   }

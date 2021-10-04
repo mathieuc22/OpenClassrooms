@@ -14,7 +14,7 @@
     </div>
     <div class="post__link">
       <div class="post__author">
-        Publié par {{ post.author.username }} le
+        <span>Publié par </span>{{ post.author.username }}<span> le</span>
         {{ formatDate(post.createdAt) }}
       </div>
       <router-link :to="'/posts/' + post.id">
@@ -132,6 +132,11 @@ export default {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    & span {
+      @media (max-width: 730px) {
+        display: none;
+      }
+    }
   }
   &__title {
     overflow: hidden;
