@@ -4,3 +4,7 @@ media/
 sass/
 *.map
 *.scss
+.DS_Store
+dist
+dist-ssr
+*.local

@@ -1,6 +1,8 @@
-import { Home } from "./views/home.js"
-import { Photographer } from './views/media.js'
-import { initPhotographersDB } from './factory/factory.js'
+import './style.css'
+
+import { Home } from "./js/views/home.js"
+import { Photographer } from './js/views/media.js'
+import { initPhotographersDB } from './js/factory/factory.js'
 
 /**
  * DOM Loader
