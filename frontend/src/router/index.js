@@ -16,6 +16,14 @@ const ifAuthenticated = (to, from, next) => {
   next('/login')
 }
 
+const ifModerator = (to, from, next) => {
+  if (store.state.user.moderator) {
+    next()
+    return
+  }
+  next('/')
+}
+
 const routes = [
   {
     path: '/',
@@ -54,7 +62,8 @@ const routes = [
   {
     path: '/admin',
     name: 'Admin',
-    component: Admin
+    component: Admin,
+    beforeEnter: ifModerator
   }
 ]
 
