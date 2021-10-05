@@ -7,12 +7,12 @@ import { initPhotographersDB } from './js/factory/factory.js'
 /**
  * DOM Loader
  */
-document.addEventListener("DOMContentLoaded", async function () {
+document.addEventListener("DOMContentLoaded", function () {
 
   const searchParams = new URLSearchParams(window.location.search);
   const photographer = searchParams.get('photographer');
   // Init the photographers database
-  const photographers = await initPhotographersDB();
+  const photographers = initPhotographersDB();
 
   if (photographer) {
     // If there is a query on the photgrapher display the photographer

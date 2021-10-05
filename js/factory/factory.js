@@ -1,16 +1,15 @@
 import { PhotographerDatabase } from "./photographer.js"
 import { MediaDatabase } from "./media.js"
 
+import json from "../../assets/FishEyeData.json"
+
 // file reference
 const requestURL = 'FishEyeData.json';
 
 /**
  * Media DB creation
  */
- export async function initMediasDB(photographerId) {
-  // Get objects from the JSON
-  const response = await fetch(requestURL)
-  const json = await response.json();
+ export function initMediasDB(photographerId) {
   // Build the photographers DB
   const db = MediaDatabase()
   json.media.forEach(element => {
@@ -24,10 +23,7 @@ const requestURL = 'FishEyeData.json';
 /**
  * Photographers DB creation
  */
- export async function initPhotographersDB() {
-  // Get objects from the JSON
-  const response = await fetch(requestURL)
-  const json = await response.json();
+ export function initPhotographersDB() {
   // Build the photographers DB
   const db = PhotographerDatabase()
   json.photographers.forEach(element => {

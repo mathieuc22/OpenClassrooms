@@ -6,7 +6,7 @@ import { initMediasDB } from '../factory/factory.js'
  * @param {object} photographer - photographer object
  * @return {string} - the html block
  */
- export async function Photographer(photographer) {
+ export function Photographer(photographer) {
 
   // Redefine the window location
   const url = new URL(window.location);
@@ -23,7 +23,7 @@ import { initMediasDB } from '../factory/factory.js'
   document.querySelector('#Photographer').style.display = 'block';
 
   // Init the media database
-  const medias = await initMediasDB(photographer.id);
+  const medias = initMediasDB(photographer.id);
 
   // Build the photographer HTML section
   const photographerSection = document.createElement('div')
