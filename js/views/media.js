@@ -13,6 +13,14 @@ import { initMediasDB } from '../factory/factory.js'
   url.searchParams.set('photographer', photographer.id);
   window.history.pushState({}, '', url);
 
+  // Check the sort query param
+  const searchParams = new URLSearchParams(window.location.search);
+  let sort = searchParams.get('sort');
+  if (!['title', 'date', 'like'].includes(sort)) {
+    console.log(`${sort} is not a sort parameter`)
+    sort = '';
+  }
+
   // Suppression de la nav
   const nav = document.querySelector('nav');
   if (nav) {nav.parentNode.removeChild(nav);}
@@ -33,7 +41,7 @@ import { initMediasDB } from '../factory/factory.js'
   // Inject the media HTML section with the list of photographers media
   const mediaSection = document.createElement('div')
   mediaSection.setAttribute("class", "gallery");
-  mediaSection.innerHTML = createMediaListHTML(medias.get())
+  mediaSection.innerHTML = createMediaListHTML(medias.get(sort))
 
   const Section = document.querySelector("#Photographer")
   Section.appendChild(photographerSection)

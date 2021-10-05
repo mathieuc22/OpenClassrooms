@@ -9,6 +9,7 @@ import { initPhotographersDB } from './js/factory/factory.js'
  */
 document.addEventListener("DOMContentLoaded", function () {
 
+  // If photographer queryparam exists load the photographer page
   const searchParams = new URLSearchParams(window.location.search);
   const photographer = searchParams.get('photographer');
   // Init the photographers database

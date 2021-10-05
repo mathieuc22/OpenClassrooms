@@ -30,8 +30,20 @@ export function MediaDatabase() {
     const element = new Media(objectFromJSON);
     list.push(element);
   }
-  function get(){
-    return [...list];
+  function get(sortParam){
+    switch (sortParam) {
+      case 'title':
+        return [...list].sort((a,b) =>  (a.title > b.title ? 1 : -1));
+        break;
+      case 'likes':
+        return [...list].sort((a,b) =>  (b.likes - a.likes));
+        break;
+      case 'date':
+        return [...list].sort((a,b) =>  (a.date > b.date ? -1 : 1));
+        break;
+      default:
+        return [...list];
+    }
   }
   function getById(mediaId) {
     return list.find( media => media.id === parseInt(mediaId));

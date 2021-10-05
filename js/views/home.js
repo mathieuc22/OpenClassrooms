@@ -4,7 +4,7 @@ import { Photographer } from './media.js'
 /**
  * Page builder for Home page
  */
- export async function Home(photographers) {
+ export function Home(photographers) {
 
   // Show Home view and hide other views
   document.querySelector('#Home').innerHTML = '';
