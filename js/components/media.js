@@ -28,7 +28,7 @@ export function createMediaListHTML(mediaList) {
       ${mediaHTML}
       <figcaption class="gallery__caption">
         <div>${media.title}</div>\n
-        <div>${media.likes}</div>\n
+        <div>${media.likes} <img src="assets/like.svg"></div>\n
       </figcaption>
     </figure>\n
     `;
@@ -36,7 +36,7 @@ export function createMediaListHTML(mediaList) {
   return mediaListHTML;
 }
 
-export function createPhotographerCard(photographerObject) {
+export function createPhotographerCard(photographerObject, photographerLikes) {
   const tagsList = createTagsListHTML(photographerObject.tags);
   let cardHTML = `
     <div class=user__info">
@@ -51,6 +51,14 @@ export function createPhotographerCard(photographerObject) {
         src="img/resized_${photographerObject.portrait}"
         alt="Photo of ${photographerObject.name}"
       >
+    </div>
+    <div class="user__box">
+      <div class="user__likes">
+        ${photographerLikes} <img src="assets/like.svg">
+      </div>
+      <div class="user__price">
+        ${photographerObject.price}€ / jour
+      </div>
     </div>
     `;
   return cardHTML;

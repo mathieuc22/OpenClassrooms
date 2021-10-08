@@ -36,7 +36,7 @@ import { initMediasDB } from '../factory/factory.js'
   // Build the photographer HTML section
   const photographerSection = document.createElement('div')
   photographerSection.setAttribute("class", "user");
-  photographerSection.innerHTML = createPhotographerCard(photographer)
+  photographerSection.innerHTML = createPhotographerCard(photographer, medias.getLikes())
 
   // Inject the media HTML section with the list of photographers media
   const mediaSection = document.createElement('div')

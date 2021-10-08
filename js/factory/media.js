@@ -34,13 +34,10 @@ export function MediaDatabase() {
     switch (sortParam) {
       case 'title':
         return [...list].sort((a,b) =>  (a.title > b.title ? 1 : -1));
-        break;
       case 'likes':
         return [...list].sort((a,b) =>  (b.likes - a.likes));
-        break;
       case 'date':
         return [...list].sort((a,b) =>  (a.date > b.date ? -1 : 1));
-        break;
       default:
         return [...list];
     }
@@ -56,6 +53,10 @@ export function MediaDatabase() {
     list.forEach(media => tags = [...tags, ...media.tags])
     return [...new Set([...tags])];
   }
+  function getLikes() {
+    let mappedList = list.map(({likes}) => likes)
+    return mappedList.reduce((a, b) => a + b)
+  }
   function clear(){
     list = [];
   }
@@ -65,6 +66,7 @@ export function MediaDatabase() {
     get,
     getById,
     getByTag,
-    getTags
+    getTags,
+    getLikes
   }
 }
