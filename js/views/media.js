@@ -16,6 +16,7 @@ import { initMediasDB } from '../factory/factory.js'
   // Check the sort query param
   const searchParams = new URLSearchParams(window.location.search);
   let sort = searchParams.get('sort');
+  if (!sort) {sort = 'like'}
   if (!['title', 'date', 'like'].includes(sort)) {
     console.log(`${sort} is not a sort parameter`)
     sort = '';
@@ -40,11 +41,29 @@ import { initMediasDB } from '../factory/factory.js'
 
   // Inject the media HTML section with the list of photographers media
   const mediaSection = document.createElement('div')
-  mediaSection.setAttribute("class", "gallery");
-  mediaSection.innerHTML = createMediaListHTML(medias.get(sort))
+  mediaSection.innerHTML = `<label for="sort">Trier par</label>
+  <select id="sort" name="sort">
+    <option value="like">Popularité</option>
+    <option value="date">Date</option>
+    <option value="title">Titre</option>
+  </select>`
+
+  const gallerySection = document.createElement('div')
+  gallerySection.setAttribute("class", "gallery");
+  gallerySection.setAttribute("id", "Gallery");
+  gallerySection.innerHTML = createMediaListHTML(medias.get(sort))
+  mediaSection.appendChild(gallerySection)
 
   const Section = document.querySelector("#Photographer")
   Section.appendChild(photographerSection)
   Section.appendChild(mediaSection)
+
+  document.querySelector("#sort").addEventListener('change', (event) => {
+    document.querySelector('#Gallery').innerHTML = createMediaListHTML(medias.get(event.currentTarget.value));
+    // Redefine the window location
+    const url = new URL(window.location);
+    url.searchParams.set('sort', event.currentTarget.value);
+    window.history.pushState({}, '', url);
+  });
 
 }
