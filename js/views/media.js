@@ -41,12 +41,14 @@ import { initMediasDB } from '../factory/factory.js'
 
   // Inject the media HTML section with the list of photographers media
   const mediaSection = document.createElement('div')
-  mediaSection.innerHTML = `<label for="sort">Trier par</label>
+  mediaSection.innerHTML = `<div class="filter">
+  <label for="sort">Trier par</label>
   <select id="sort" name="sort">
     <option value="like">Popularité</option>
     <option value="date">Date</option>
     <option value="title">Titre</option>
-  </select>`
+  </select>
+  </div>`
 
   const gallerySection = document.createElement('div')
   gallerySection.setAttribute("class", "gallery");
