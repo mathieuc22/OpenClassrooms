@@ -16,8 +16,8 @@ import { initMediasDB } from '../factory/factory.js'
   // Check the sort query param
   const searchParams = new URLSearchParams(window.location.search);
   let sort = searchParams.get('sort');
-  if (!sort) {sort = 'like'}
-  if (!['title', 'date', 'like'].includes(sort)) {
+  if (!sort) {sort = 'likes'}
+  if (!['title', 'date', 'likes'].includes(sort)) {
     console.log(`${sort} is not a sort parameter`)
     sort = '';
   }
@@ -44,7 +44,7 @@ import { initMediasDB } from '../factory/factory.js'
   mediaSection.innerHTML = `<div class="filter">
   <label for="sort">Trier par</label>
   <select id="sort" name="sort">
-    <option value="like">Popularité</option>
+    <option value="likes">Popularité</option>
     <option value="date">Date</option>
     <option value="title">Titre</option>
   </select>
