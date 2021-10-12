@@ -39,7 +39,7 @@ export function createMediaListHTML(mediaList) {
 export function createPhotographerCard(photographerObject, photographerLikes) {
   const tagsList = createTagsListHTML(photographerObject.tags);
   let cardHTML = `
-    <div class=user__info">
+    <div class="user__info">
       <h1 class="user__name">${photographerObject.name}</h1>\n
       <div class="user__city">${photographerObject.country}, ${photographerObject.city}</div>\n
       <div class="user__tagline">${photographerObject.tagline}</div>\n

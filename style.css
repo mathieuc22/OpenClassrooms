@@ -293,6 +293,10 @@ header {
   }
 }
 
+.user__info {
+  position: relative;
+}
+
 .user__image img {
   width: 200px;
   min-width: 200px;
@@ -342,12 +346,23 @@ header {
           justify-content: flex-start;
 }
 
-@media screen and (max-width: 768px) {
+.user__contact {
+  position: absolute;
+  top: 10px;
+  left: 400px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 20px 10px;
+}
+
+@media screen and (max-width: 1024px) {
   .user__contact {
     position: fixed;
     padding: 0;
     width: 170px;
     height: 35px;
+    top: unset;
     left: calc(50% - 85px);
     bottom: 5%;
     z-index: 1;
@@ -377,6 +392,17 @@ header {
 
 .user__likes {
   margin-right: 70px;
+}
+
+.filter {
+  margin: 10px 100px;
+  font-weight: 700;
+}
+
+@media screen and (max-width: 768px) {
+  .filter {
+    margin: 10px 20px;
+  }
 }
 
 .gallery {
