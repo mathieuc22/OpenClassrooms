@@ -1,4 +1,5 @@
 import { createMediaListHTML, createPhotographerCard } from '../components/media.js'
+import { createLightBox, displayLightBox } from '../components/lightbox.js'
 import { initMediasDB } from '../factory/factory.js'
 
 /**
@@ -56,10 +57,28 @@ import { initMediasDB } from '../factory/factory.js'
   gallerySection.innerHTML = createMediaListHTML(medias.get(sort))
   mediaSection.appendChild(gallerySection)
 
+  const lightboxSection = document.createElement('div')
+  lightboxSection.setAttribute("class", "lightbox");
+  lightboxSection.setAttribute("id", "LightBox");
+
   const Section = document.querySelector("#Photographer")
   Section.appendChild(photographerSection)
   Section.appendChild(mediaSection)
+  Section.appendChild(lightboxSection)
 
+  // Add lightbox modal on each photo
+  document.querySelectorAll(".gallery__media").forEach(media => {
+    media.addEventListener('click', (event) => {
+      lightboxSection.innerHTML = createLightBox(medias.getById(media.id));
+      // Hide action on the lightbox
+      document.querySelector(".lightbox__close").addEventListener('click', (event) => {
+        displayLightBox(true);
+      })
+      displayLightBox();
+    })
+  })
+
+  // Change the sort order
   document.querySelector("#sort").addEventListener('change', (event) => {
     document.querySelector('#Gallery').innerHTML = createMediaListHTML(medias.get(event.currentTarget.value));
     // Redefine the window location
