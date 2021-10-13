@@ -25,8 +25,14 @@
   function getByName(photographerName) {
     return list.find( photographer => photographer.name === photographerName);
   }
-  function getByTag(tag) {
-    return list.filter( photographer => photographer.tags.includes(tag));
+  function getByTags(selectedTags) {
+    if (selectedTags.length) {
+      let photographers = []
+      selectedTags.forEach(tag => photographers = [...photographers, ...list.filter( photographer => photographer.tags.includes(tag))])
+      return [...new Set([...photographers])];
+    } else {
+      return [...list];
+    }
   }
   function getTags() {
     let tags = []
@@ -42,7 +48,7 @@
     get,
     getById,
     getByName,
-    getByTag,
+    getByTags,
     getTags
   }
 }

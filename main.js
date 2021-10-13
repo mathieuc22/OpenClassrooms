@@ -26,6 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // Add Home to DOM for the button
   window.Home = () => {
     // Call the Home
+    let url = new URL(window.location.protocol + window.location.hostname + ":" + window.location.port)
+    window.history.pushState({}, '', url);
     Home(photographers);
   }
 
