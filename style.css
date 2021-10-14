@@ -203,8 +203,7 @@ header {
 
 .lightbox {
   display: none;
-  background-color: white;
-  opacity: 0.7;
+  background: white;
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -215,8 +214,31 @@ header {
 }
 
 .lightbox__card {
-  background: hotpink;
-  margin: 62px 195px;
+  position: relative;
+  color: #901C1C;
+  font-size: 24px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: auto;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.lightbox__card img {
+  max-height: calc(100vh - 100px);
+  height: auto;
+}
+
+.lightbox__card > * {
+  margin: 10px;
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .title {

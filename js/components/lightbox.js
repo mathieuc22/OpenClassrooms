@@ -2,15 +2,17 @@ export function createLightBox(photoObject) {
   let lightboxHTML = '';
   lightboxHTML = `
   <div class="lightbox__card">
-    <img
-      src="img/photos/${photoObject.url}"
-      alt="Photo ${photoObject.title}"
-      loading="lazy"
-      ></img>
-    <div class="lightbox__title">${photoObject.title}</div>
-    <div class="lightbox__close">Close</div>
-    <div class="lightbox__previous">Previous</div>
-    <div class="lightbox__next">Next</div>
+    <div class="lightbox__previous"><span class="fas fa-chevron-left" aria-hidden="true"></span></div>
+    <figure class="lightbox__fig">
+      <img
+        src="img/photos/${photoObject.url}"
+        alt="Photo ${photoObject.title}"
+        loading="lazy"
+        ></img>
+      <figcaption class="lightbox__title">${photoObject.title}</caption>
+    </figure>
+    <div class="lightbox__next"><span class="fas fa-chevron-right" aria-hidden="true"></span></div>
+    <div class="lightbox__close"><span class="fas fa-times" aria-hidden="true"></span></div>
   </div>
   `;
   return lightboxHTML;
@@ -25,7 +27,7 @@ export function displayLightBox(hide) {
   } else {
     // display the modal
     document.querySelector('body').classList.add('noscroll')
-    document.querySelector('#LightBox').style.display = 'block';
+    document.querySelector('#LightBox').style.display = 'flex';
   }
 }
 
