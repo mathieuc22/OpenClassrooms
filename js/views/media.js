@@ -1,5 +1,5 @@
 import { createMediaListHTML, createPhotographerCard } from '../components/media.js'
-import { createLightBox, displayLightBox } from '../components/lightbox.js'
+import { createLightBox, createLightBoxFig, displayLightBox } from '../components/lightbox.js'
 import { initMediasDB } from '../factory/factory.js'
 
 /**
@@ -69,31 +69,28 @@ import { initMediasDB } from '../factory/factory.js'
   // Add lightbox modal on each photo
   document.querySelectorAll(".gallery__media").forEach(media => {
     media.addEventListener('click', (event) => {
-      lightboxSection.innerHTML = createLightBox(medias.getById(media.id.split('_')[1]));
+      lightboxSection.innerHTML = createLightBox();
+      let figure = document.querySelector(".lightbox__fig")
+      figure.innerHTML = createLightBoxFig(medias.getById(media.id.split('_')[1]));
       // Hide action on the lightbox
       document.querySelector(".lightbox__close").addEventListener('click', (event) => {
         displayLightBox(true);
       })
       // Next and previous click event to replace img src, id and title
-      const imgElt = document.querySelector(".lightbox__img")
-      const titleElt = document.querySelector(".lightbox__title")
       document.querySelector(".lightbox__next").addEventListener('click', (event) => {
+        const imgElt = document.querySelector(".lightbox__img")
         let nextSibling = document.querySelector(`#media_${imgElt.id.split('_')[1]}`).nextElementSibling
         if (nextSibling) {
           let nextId = nextSibling.id.split('_')[1]
-          titleElt.innerHTML = medias.getById(nextId).title
-          imgElt.src=`img/photos/${medias.getById(nextId).url}`
-          imgElt.id=`lightbox_${nextId}`
+          figure.innerHTML = createLightBoxFig(medias.getById(nextId));
         }
       })
       document.querySelector(".lightbox__previous").addEventListener('click', (event) => {
+        const imgElt = document.querySelector(".lightbox__img")
         let previousSibling = document.querySelector(`#media_${imgElt.id.split('_')[1]}`).previousElementSibling
         if (previousSibling) {
-          let prevId = document.querySelector(`#media_${imgElt.id.split('_')[1]}`).previousElementSibling.id.split('_')[1]
-          titleElt.innerHTML = medias.getById(prevId).title
-          imgElt.src=`img/photos/${medias.getById(prevId).url}`
-          imgElt.id=`lightbox_${prevId}`
-        }
+          let prevId = previousSibling.id.split('_')[1]
+          figure.innerHTML = createLightBoxFig(medias.getById(prevId));        }
       })
       displayLightBox();
     })
