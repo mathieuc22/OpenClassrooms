@@ -24,7 +24,7 @@ export function createMediaListHTML(mediaList) {
     mediaListHTML =
       mediaListHTML +
       `
-    <figure class="gallery__media" id=${media.id}>
+    <figure class="gallery__media" id="media_${media.id}">
       ${mediaHTML}
       <figcaption class="gallery__caption">
         <div>${media.title}</div>\n

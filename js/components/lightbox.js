@@ -5,6 +5,8 @@ export function createLightBox(photoObject) {
     <div class="lightbox__previous"><span class="fas fa-chevron-left" aria-hidden="true"></span></div>
     <figure class="lightbox__fig">
       <img
+        class="lightbox__img"
+        id="lightbox_${photoObject.id}"
         src="img/photos/${photoObject.url}"
         alt="Photo ${photoObject.title}"
         loading="lazy"

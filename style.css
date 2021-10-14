@@ -236,9 +236,18 @@ header {
 }
 
 .lightbox__close {
+  cursor: pointer;
   position: absolute;
   top: 0;
   right: 0;
+}
+
+.lightbox__previous {
+  cursor: pointer;
+}
+
+.lightbox__next {
+  cursor: pointer;
 }
 
 .title {
