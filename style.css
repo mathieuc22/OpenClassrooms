@@ -132,6 +132,8 @@ header {
   font-size: 18px;
   font-weight: 700;
   line-height: 23px;
+  max-height: 60px;
+  white-space: nowrap;
   cursor: pointer;
   text-align: center;
   border-radius: 5px;
@@ -346,10 +348,6 @@ header {
   }
 }
 
-.user__info {
-  position: relative;
-}
-
 .user__image img {
   width: 200px;
   min-width: 200px;
@@ -380,7 +378,7 @@ header {
 
 .user__name {
   color: #D3573C;
-  font-size: 5.3em;
+  font-size: 5.5vw;
 }
 
 .user__city {
@@ -399,10 +397,20 @@ header {
           justify-content: flex-start;
 }
 
+.user__title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .user__contact {
-  position: absolute;
-  top: 10px;
-  left: 400px;
+  margin: 0 50px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -431,7 +439,7 @@ header {
   font-weight: 500;
   background: #DB8876;
   border-radius: 5px 5px 0 0;
-  padding: 20px;
+  padding: 15px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

@@ -39,8 +39,8 @@ export function createTagsListHTML(tagsList) {
     tagsListHTML =
       tagsListHTML +
       `
-    <span class="tag" role="link" aria-label="${tag}">${tag}</span>
+    <span tabindex="0" class="tag" role="link" aria-label="${tag}">${tag}</span>
     `;
   });
-  return '<div tabindex="0" class="tags">' + tagsListHTML + `</div>\n`;
+  return '<div class="tags">' + tagsListHTML + `</div>\n`;
 }
