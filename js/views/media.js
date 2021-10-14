@@ -12,6 +12,7 @@ import { initMediasDB } from '../factory/factory.js'
   // Redefine the window location
   const url = new URL(window.location);
   url.searchParams.set('photographer', photographer.id);
+  url.searchParams.delete('tags');
   window.history.pushState({}, '', url);
 
   // Check the sort query param
@@ -66,11 +67,32 @@ import { initMediasDB } from '../factory/factory.js'
   Section.appendChild(mediaSection)
   Section.appendChild(lightboxSection)
 
+  // Call lightbox function for creation and display of the lightbox modal
+  lightbox(medias);
+
+  // Change the sort order
+  document.querySelector("#sort").addEventListener('change', (event) => {
+    document.querySelector('#Gallery').innerHTML = createMediaListHTML(medias.get(event.currentTarget.value));
+    lightbox(medias);
+    // Redefine the window location
+    const url = new URL(window.location);
+    url.searchParams.set('sort', event.currentTarget.value);
+    window.history.pushState({}, '', url);
+  });
+
+}
+
+/**
+ * Creation and display of the lightbox modal
+ * @param {object} medias - media database
+ */
+function lightbox(medias) {
   // Add lightbox modal on each photo
+  const lightboxSection = document.querySelector('#LightBox')
   document.querySelectorAll(".gallery__media").forEach(media => {
     media.addEventListener('click', (event) => {
       lightboxSection.innerHTML = createLightBox();
-      let figure = document.querySelector(".lightbox__fig")
+      const figure = document.querySelector(".lightbox__fig")
       figure.innerHTML = createLightBoxFig(medias.getById(media.id.split('_')[1]));
       // Hide action on the lightbox
       document.querySelector(".lightbox__close").addEventListener('click', (event) => {
@@ -95,14 +117,4 @@ import { initMediasDB } from '../factory/factory.js'
       displayLightBox();
     })
   })
-
-  // Change the sort order
-  document.querySelector("#sort").addEventListener('change', (event) => {
-    document.querySelector('#Gallery').innerHTML = createMediaListHTML(medias.get(event.currentTarget.value));
-    // Redefine the window location
-    const url = new URL(window.location);
-    url.searchParams.set('sort', event.currentTarget.value);
-    window.history.pushState({}, '', url);
-  });
-
 }
