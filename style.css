@@ -249,13 +249,13 @@ header {
   background: #DB8876;
   display: flex;
   flex-direction: column;
-  font-size: 36px;
+  font-size: 2.5vw;
   filter: drop-shadow(-5px 10px 30px rgba(0, 0, 0, 0.25));
   border-radius: 5px;
 }
 
 .contact__title {
-  font-size: 64px;
+  font-size: 4.5vw;
 }
 
 .contact__field {
@@ -264,8 +264,17 @@ header {
 }
 
 .contact__field input {
-  height: 68px;
-  font-size: 64px;
+  height: 5.7vh;
+  font-size: 2.5vw;
+}
+
+.contact__field textarea {
+  font-size: 2.5vw;
+  padding: 0;
+}
+
+.contact__submit {
+  margin-top: 26px;
 }
 
 .contact__close {

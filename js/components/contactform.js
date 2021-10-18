@@ -19,8 +19,7 @@ export function createContactForm(photographer) {
       </div>
       <div class="contact__field">
         <label for="message">Votre message</label>
-        <textarea name="message" id="message" rows="3" required>
-        </textarea>
+        <textarea name="message" id="message" rows="3" required></textarea>
       </div>
       <div class="contact__submit">
         <input type="submit" value="Envoyer" class="button">
