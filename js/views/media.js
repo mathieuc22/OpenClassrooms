@@ -1,5 +1,6 @@
 import { createMediaListHTML, createPhotographerCard } from '../components/media.js'
 import { createLightBox, createLightBoxFig, displayLightBox } from '../components/lightbox.js'
+import { createContactForm, displayContactForm } from '../components/contactform.js'
 import { initMediasDB } from '../factory/factory.js'
 
 /**
@@ -62,13 +63,21 @@ import { initMediasDB } from '../factory/factory.js'
   lightboxSection.setAttribute("class", "lightbox");
   lightboxSection.setAttribute("id", "LightBox");
 
+  const contactSection = document.createElement('div')
+  contactSection.setAttribute("class", "contact");
+  contactSection.setAttribute("id", "Contact");
+
   const Section = document.querySelector("#Photographer")
   Section.appendChild(photographerSection)
   Section.appendChild(mediaSection)
   Section.appendChild(lightboxSection)
+  Section.appendChild(contactSection)
 
   // Call lightbox function for creation and display of the lightbox modal
   lightbox(medias);
+
+  // Call contact form;
+  contact(photographer.name);
 
   // Change the sort order
   document.querySelector("#sort").addEventListener('change', (event) => {
@@ -116,5 +125,23 @@ function lightbox(medias) {
       })
       displayLightBox();
     })
+  })
+}
+
+/**
+ * Creation and display of the contact form modal
+ * @param {string} photographer - media database
+ */
+function contact(photographer) {
+  const contactSection = document.querySelector('#Contact')
+  // Add contact modal to contact button
+  const contactButton = document.querySelector('.user__contact')
+  contactButton.addEventListener('click', (event) => {
+    contactSection.innerHTML = createContactForm(photographer);
+    // Hide action on the modal
+    document.querySelector(".contact__close").addEventListener('click', (event) => {
+      displayContactForm(true);
+    })
+    displayContactForm();
   })
 }
