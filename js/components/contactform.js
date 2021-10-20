@@ -30,7 +30,7 @@ export function createContactForm(photographer) {
   return contactFormHTML;
 }
 
-export function displayContactForm(hide) {
+export function displayContactForm(hide=false) {
 
   if (hide) {
     // display the modal

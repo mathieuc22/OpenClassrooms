@@ -30,11 +30,13 @@ button, input, select {
 }
 
 html {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 *, *::before, *::after {
-  box-sizing: inherit;
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
 }
 
 img, video {
@@ -62,7 +64,8 @@ a {
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 body {
@@ -76,16 +79,25 @@ body {
 header {
   height: 157px;
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   width: 70%;
   margin-bottom: 20px;
 }
 
 @media screen and (max-width: 768px) {
   header {
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     width: 100%;
     height: unset;
   }
@@ -98,7 +110,8 @@ header {
   max-width: 250px;
   min-width: 150px;
   margin-top: 40px;
-  align-self: flex-start;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
 }
 
 @media screen and (max-width: 320px) {
@@ -154,9 +167,14 @@ header {
 }
 
 .tags {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   gap: 5px;
 }
 
@@ -201,9 +219,13 @@ header {
   position: relative;
   color: #901C1C;
   font-size: 24px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   margin: auto;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .lightbox__card img {
@@ -247,10 +269,16 @@ header {
   margin: auto;
   padding: 35px;
   background: #DB8876;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   font-size: 2.5vw;
-  filter: drop-shadow(-5px 10px 30px rgba(0, 0, 0, 0.25));
+  -webkit-filter: drop-shadow(-5px 10px 30px rgba(0, 0, 0, 0.25));
+          filter: drop-shadow(-5px 10px 30px rgba(0, 0, 0, 0.25));
   border-radius: 5px;
 }
 
@@ -259,8 +287,13 @@ header {
 }
 
 .contact__field {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .contact__field input {
@@ -311,8 +344,10 @@ header {
 }
 
 .photographers {
+  display: -ms-grid;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  -ms-grid-columns: (minmax(20rem, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   gap: 60px;
 }
 
@@ -327,10 +362,12 @@ header {
 .photographer__image img {
   width: 200px;
   height: 200px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 50%;
   background: #C4C4C4;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .photographer__name {
@@ -354,12 +391,18 @@ header {
 
 .user {
   margin: 0 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   background: #FAFAFA;
   border-radius: 5px;
   padding: 50px;
-  justify-content: space-between;
-  align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   font-size: 12px;
 }
 
@@ -376,10 +419,12 @@ header {
   width: 200px;
   min-width: 200px;
   height: 200px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 50%;
   background: #C4C4C4;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 @media screen and (max-width: 768px) {
@@ -414,17 +459,27 @@ header {
 }
 
 .user .tags {
-  justify-content: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .user__title {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .user__contact {
   margin: 0 50px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
   width: fit-content;
   padding: 20px 10px;
 }
@@ -452,6 +507,8 @@ header {
   background: #DB8876;
   border-radius: 5px 5px 0 0;
   padding: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -478,8 +535,10 @@ header {
 
 .gallery {
   margin: 0 100px;
+  display: -ms-grid;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  -ms-grid-columns: (minmax(15rem, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   gap: 95px;
   justify-items: center;
 }
@@ -493,20 +552,26 @@ header {
 .gallery__media img {
   width: 350px;
   height: 300px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 5px;
 }
 
 .gallery__media video {
   width: 350px;
   height: 300px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 5px;
 }
 
 .gallery__caption {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   font-size: 24px;
   color: #901C1C;
 }
