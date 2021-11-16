@@ -6,25 +6,30 @@ const bcrypt = require('bcrypt');
 const SHA256 = require("crypto-js/sha256");
 
 exports.signup = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10)
-      .then(hash => {
-        User.create({
-          email: SHA256(req.body.email).toString(),
-          password: hash,
-          username: req.body.username,
-          moderator: req.body.moderator
+    const usernameRegex = /^(?=[a-zA-Z._-]{4,20}$)(?!.*[_.-]{2})[^_.-].*[^_.]$/;
+    if(req.body.username.match(usernameRegex) == null){
+      return res.status(401).json({ message: 'Le nom utilisateur (4 à 20 caractères) ne doit contenir que des caractères alphabétiques, majuscules ou minuscules, séparés par un tiret ou un point' });
+    } else {
+      bcrypt.hash(req.body.password, 10)
+        .then(hash => {
+          User.create({
+            email: SHA256(req.body.email).toString(),
+            password: hash,
+            username: req.body.username,
+            moderator: req.body.moderator
+          })
+            .then(user => res.status(201).json({ message: 'Utilisateur créé !', uuid: user.id }))
+            .catch(error => res.status(400).json({ error }));
         })
-          .then(user => res.status(201).json({ message: 'Utilisateur créé !', uuid: user.id }))
-          .catch(error => res.status(400).json({ error }));
-      })
-      .catch(error => res.status(500).json({ error }));
+        .catch(error => res.status(500).json({ error }));
+    }
   };
 
 exports.login = (req, res, next) => {
   User.findOne({ where: { email: SHA256(req.body.email).toString() } })
     .then(user => {
       if (!user) {
-          return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+        return res.status(401).json({ error: 'Utilisateur non trouvé !' });
       }
       bcrypt.compare(req.body.password, user.password)
         .then(valid => {

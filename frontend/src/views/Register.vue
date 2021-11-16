@@ -85,7 +85,7 @@ export default {
         this.$router.push("/");
       } catch (error) {
         if (error.response) {
-          this.errorMessage = error.response.data.error.errors[0].message;
+          this.errorMessage = error.response.data.message;
         } else {
           this.errorMessage = error;
         }
