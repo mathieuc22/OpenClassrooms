@@ -1,0 +1,54 @@
+footer {
+    background-color: $primaryColorViolet;
+    color: white;
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding: 12px;
+    position: relative;
+    flex-wrap: wrap;
+    .wave {
+        position: absolute;
+        bottom: 50px;
+        width: 100%;
+        height: 80px;
+        z-index: -2;
+        @media (max-width: 599px) {
+            bottom: 60px;
+        }
+    }
+    .teddybear {
+        position: absolute;
+        bottom: 60px;
+        left: 100px;
+        height: 80px;
+        z-index: -1;
+        @media (max-width: 599px) {
+            bottom: 70px;
+        }
+    }
+    .social {
+        display: flex;
+        font-size: 1.7em;
+        align-self: center;
+        &__item {
+            display: flex;
+            align-items: center;
+            margin: 0 8px 0 8px;
+        }
+    }
+    .trademark {
+        position: absolute;
+        right: 10px;
+        bottom: 50%;
+        font-size: 0.8em;
+        line-height: 0px;
+        @media (max-width: 599px) {
+            position: unset;
+            width: 100%;
+            margin-top: 10px;
+            text-align: center;
+        }
+    }
+}

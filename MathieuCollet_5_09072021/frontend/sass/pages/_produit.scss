@@ -1,0 +1,72 @@
+.product {
+    display: flex;
+    margin: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    &__image {
+        border: 1px solid $backgroundColorPalePink;
+        border-radius: 5px;
+        width: 50%;
+        min-width: 400px;
+        max-width: 500px;
+        flex: auto;
+        margin: 10px;
+        @media (max-width: 599px) {
+            min-width: unset;
+        }
+    }
+    &__info {
+        padding: 10px;
+        width: 50%;
+        flex: auto;
+        margin: 10px;
+        max-width: 400px;
+        & > * {
+            margin-bottom: 10px;
+        }
+    }
+    &__title {
+        font-size: 2em;
+    }
+    &__color-title {
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+    &__colors {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
+        border-radius: 5px;
+        background-color: $backgroundColorPalePink;
+        border: 1px solid darken($color: $backgroundColorPalePink, $amount: 30%);
+        margin-bottom: 10px;
+        label {
+            display: flex;
+            text-align: center;
+            align-items: stretch;
+            cursor: pointer;
+            height: 40px;
+        }
+        span {
+            flex: 1;
+            line-height: 40px;
+            transition: background-color 0.1s ease-in-out;
+            &:hover {
+                background-color: darken($color: $backgroundColorPalePink, $amount: 10%);
+            }
+        }
+        input {
+            border-radius:inherit;
+            position:absolute;
+            opacity: 0;
+            height: 0;
+            width: 0;
+            &:checked ~ span {
+                color: white;
+                background-color: darken($color: $backgroundColorPalePink, $amount: 30%)
+            }
+        }
+    }
+    &__button-cart {
+        display: flex;
+    }
+}
